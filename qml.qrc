@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>VentanaDeLogin.qml</file>
+        <file>VentanaDeManipulacionSQL.qml</file>
+        <file>Fotos/Agendar_Nuevo.png</file>
+        <file>Fotos/Buscar_Cancelar_Cita.png</file>
+        <file>Fotos/Agendar_Existente.png</file>
+        <file>Fotos/Logo.png</file>
+        <file>Fotos/Paciente_Pendiente.png</file>
+        <file>BuscarOCancelarCita.qml</file>
+        <file>PacientePendiente.qml</file>
+        <file>BuscarExistente.qml</file>
+        <file>AgendarCliente.qml</file>
+        <file>BuscarOEditarPaciente.qml</file>
+        <file>EditarPaciente.qml</file>
+        <file>Fotos/Fondo.png</file>
+        <file>Fotos/Buscar_O_Editar_Paciente.png</file>
+    </qresource>
+</RCC>
