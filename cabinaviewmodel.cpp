@@ -37,7 +37,7 @@ void CabinaViewModel::updateQuery(const QString tabla)
     else if(ConexionABaseDeDatos::Instance().ubicacion().compare("Global", Qt::CaseInsensitive) == 0)
     {
         nombreDeTabla.clear();
-        nombreDeTabla.append("template_cabina");
+        nombreDeTabla.append("template_cabina_test");
     }
     m_nombreDeTabla = nombreDeTabla;
     //setup general cabina query (sorted)
