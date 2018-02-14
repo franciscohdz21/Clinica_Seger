@@ -33,6 +33,10 @@ Window {
         id: pacientePendiente
         visible: false
     }
+    SeleccionarCabina {
+        id : seleccionarCabina
+        visible: true
+    }
 
     Rectangle {
         anchors.fill: parent

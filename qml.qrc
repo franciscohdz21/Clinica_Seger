@@ -16,5 +16,6 @@
         <file>EditarPaciente.qml</file>
         <file>Fotos/Fondo.png</file>
         <file>Fotos/Buscar_O_Editar_Paciente.png</file>
+        <file>SeleccionarCabina.qml</file>
     </qresource>
 </RCC>
