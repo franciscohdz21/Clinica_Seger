@@ -1,9 +1,10 @@
 import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.1
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls 1.4
+import QtQuick.Controls 2.1
+
 
 Window {
     id: buscarOCancelarCita
@@ -53,6 +54,7 @@ Window {
             TextField {
                 id: buscarCitaCelularTextField
                 implicitWidth: 200
+                implicitHeight: 25
                 onTextChanged: {
                     buscarCitaTableView.selection.clear()
                     if (buscarCitaCelularTextField.text === "")
@@ -74,6 +76,7 @@ Window {
             TextField {
                 id: buscarCitaApellidosTextField
                 implicitWidth: 200
+                implicitHeight: 25
                 onTextChanged: {
                     buscarCitaTableView.selection.clear()
                     if (buscarCitaApellidosTextField.text === "")
@@ -193,7 +196,7 @@ Window {
             anchors.top: buscarCitaTableView.bottom
             anchors.left: parent.right
             anchors.topMargin: 30
-            anchors.leftMargin: -180
+            anchors.leftMargin: -230
             Button {
                 text: "Cerrar"
                 anchors.leftMargin: 20

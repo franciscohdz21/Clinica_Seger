@@ -1,9 +1,9 @@
 import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
+import QtQuick.Controls 1.4
 import QtQuick.Controls 2.1
 import QtQuick.Dialogs 1.2
-import QtQuick.Controls 1.4
 
 Window {
     id: buscarOEditarPaciente
@@ -56,6 +56,7 @@ Window {
             TextField {
                 id: buscarExistenteCelularTextInput
                 implicitWidth: 200
+                implicitHeight: 25
                 onTextChanged: {
                     buscarPacienteTableView.selection.clear()
                     clientesviewmodel.filterQueryByCellphone(buscarExistenteCelularTextInput.text)
@@ -72,6 +73,7 @@ Window {
             TextField {
                 id: buscarExistenteApellidosTextInput
                 implicitWidth: 200
+                implicitHeight: 25
                 onTextChanged: {
                     buscarPacienteTableView.selection.clear()
                     clientesviewmodel.filterQueryByLastName(buscarExistenteApellidosTextInput.text)
@@ -180,7 +182,7 @@ Window {
             anchors.top: buscarPacienteTableView.bottom
             anchors.left: parent.right
             anchors.topMargin: 20
-            anchors.leftMargin: -180
+            anchors.leftMargin: -230
             Button {
                 text: "Cancelar"
                 anchors.leftMargin: 20

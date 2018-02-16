@@ -179,7 +179,6 @@ Window {
                     buscarClienteTableView.selection.clear()
                     buscarExistente.hide()
                     cabinaviewmodel.updateQuery("");
-                    conexionabasededatos.refreshAll()
                     agendarCliente.show()
                 }
             }

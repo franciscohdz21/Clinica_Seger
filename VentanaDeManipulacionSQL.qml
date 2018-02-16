@@ -82,19 +82,9 @@ Window {
                 width: 100
             }
             //2
-            ColumnLayout {
-                spacing: 2
-                Text {
-                    text: " Cabina actual:"
-                    font.bold: true
-                    font.pixelSize: 16
-                }
-                ComboBox {
-                    id: cabinasComboBox
-                    anchors.topMargin: 20
-                    implicitWidth: 200
-                    model: conexionabasededatos.cabinas
-                }
+            Rectangle{
+                color: "transparent"
+                width: 100
             }
             Image {
                 id: agendarNuevoBoton
@@ -103,12 +93,9 @@ Window {
                     anchors.fill: parent
                     onClicked: {
                         cabinaviewmodel.clienteEsNuevo = true
-                        cabinaviewmodel.clearNombreApellidosCelular()
-                        cabinaviewmodel.updateQuery("");
                         conexionabasededatos.refreshAll()
-                        agendarCliente.show()
                         conexionabasededatos.buildCurrentServicios(0)
-                        ventanaDeManipulacionSQL.hide()
+                        seleccionarCabina.show()
                     }
                 }
             }
@@ -119,9 +106,9 @@ Window {
                     anchors.fill: parent
                     onClicked: {
                         cabinaviewmodel.clienteEsNuevo = false
-                        clientesviewmodel.updateQuery()
-                        buscarExistente.show()
-                        ventanaDeManipulacionSQL.hide()
+                        conexionabasededatos.refreshAll()
+                        conexionabasededatos.buildCurrentServicios(0)
+                        seleccionarCabina.show()
                     }
                 }
             }

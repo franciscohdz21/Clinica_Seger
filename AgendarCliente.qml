@@ -1,9 +1,9 @@
 import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.1
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls 1.4
+import QtQuick.Controls 2.3
 
 Window {
     id: agendarCliente
@@ -15,6 +15,13 @@ Window {
     maximumHeight: 728
     title: "Agendar Nuevo"
     color: "lightyellow"
+    Component.onCompleted: {
+        agendarClienteTratamientoComboBox.currentIndex = -1
+        agendarClienteServicioComboBox.currentIndex = -1
+        agendarClienteDuracionComboBox.currentIndex = -1
+        agendarClienteEstatusComboBox.currentIndex = -1
+    }
+
     onClosing: {
         close.accepted = false
         agendarCliente.hide()
@@ -96,6 +103,7 @@ Window {
                     enabled: cabinaviewmodel.clienteEsNuevo
                     visible: cabinaviewmodel.clienteEsNuevo
                     implicitWidth: 150
+                    implicitHeight: 25
                 }
                 TextField {
                     id: agendarClienteExistenteNombreTextField
@@ -103,6 +111,7 @@ Window {
                     visible: !cabinaviewmodel.clienteEsNuevo
                     text: cabinaviewmodel.nombre
                     implicitWidth: 150
+                    implicitHeight: 25
                 }
             }
             Rectangle {
@@ -122,6 +131,7 @@ Window {
                     enabled: cabinaviewmodel.clienteEsNuevo
                     visible: cabinaviewmodel.clienteEsNuevo
                     implicitWidth: 150
+                    implicitHeight: 25
                 }
                 TextField {
                     id: agendarClienteExistenteApellidosTextField
@@ -129,6 +139,7 @@ Window {
                     visible: !cabinaviewmodel.clienteEsNuevo
                     text: cabinaviewmodel.apellidos
                     implicitWidth: 150
+                    implicitHeight: 25
                 }
             }
             Rectangle {
@@ -148,6 +159,7 @@ Window {
                     enabled: cabinaviewmodel.clienteEsNuevo
                     visible: cabinaviewmodel.clienteEsNuevo
                     implicitWidth: 150
+                    implicitHeight: 25
                 }
                 TextField {
                     id: agendarClienteExistenteCelularTextField
@@ -155,6 +167,7 @@ Window {
                     visible: !cabinaviewmodel.clienteEsNuevo
                     text: cabinaviewmodel.celular
                     implicitWidth: 150
+                    implicitHeight: 25
                 }
             }
             //2
@@ -166,6 +179,7 @@ Window {
                 model: conexionabasededatos.tratamientos
                 implicitWidth: 150
                 onCurrentIndexChanged: conexionabasededatos.buildCurrentServicios(agendarClienteTratamientoComboBox.currentIndex)
+                implicitHeight: 25
             }
             Rectangle {
                 color: "grey"
@@ -179,6 +193,7 @@ Window {
                 id: agendarClienteServicioComboBox
                 model: conexionabasededatos.currentServicios
                 implicitWidth: 150
+                implicitHeight: 25
             }
             Rectangle {
                 color: "grey"
@@ -191,6 +206,7 @@ Window {
             TextField {
                 id: agendarClienteZonasTextField
                 implicitWidth: 150
+                implicitHeight: 25
             }
             //3
             Text {
@@ -198,8 +214,9 @@ Window {
             }
             ComboBox {
                 id: agendarClienteDuracionComboBox
-                model:[ "Seleccionar...", "30 min", "1 hora", "1.5 horas", "2 horas", "2.5 horas", "3 horas", "3.5 horas"]
+                model:[ "30 min", "1 hora", "1.5 horas", "2 horas", "2.5 horas", "3 horas", "3.5 horas"]
                 implicitWidth: 150
+                implicitHeight: 25
             }
             Rectangle {
                 color: "grey"
@@ -212,6 +229,7 @@ Window {
             TextField {
                 id: agendarClientePrecioTextField
                 implicitWidth: 150
+                implicitHeight: 25
             }
             Rectangle {
                 color: "grey"
@@ -224,6 +242,7 @@ Window {
             TextField {
                 id: agendarClienteImporteCobradoTextField
                 implicitWidth: 150
+                implicitHeight: 25
             }
             //4
             Text {
@@ -232,6 +251,7 @@ Window {
             TextField {
                 id: agendarClienteSesionTextField
                 implicitWidth: 150
+                implicitHeight: 25
             }
             Rectangle {
                 color: "grey"
@@ -244,6 +264,7 @@ Window {
             TextField {
                 id: agendarClienteSesionesPagadasTextField
                 implicitWidth: 150
+                implicitHeight: 25
             }
             Rectangle {
                 color: "grey"
@@ -256,6 +277,7 @@ Window {
             TextField {
                 id: agendarClienteTotalPagadoTextField
                 implicitWidth: 150
+                implicitHeight: 25
             }
             //6
             Text {
@@ -263,9 +285,10 @@ Window {
             }
             ComboBox {
                 id: agendarClienteEstatusComboBox
-                model: ["Seleccionar...", "1 - Agendado", "2 - 1 Llamada", "3 - 2 Llamadas", "4 - Whatsapp Enviado",
+                model: ["1 - Agendado", "2 - 1 Llamada", "3 - 2 Llamadas", "4 - Whatsapp Enviado",
                 "5 - Sms enviado", "6 - Cita Cambiada", "7 - Cita Cancelada", "8 - Cita Confirmada"]
                 implicitWidth: 150
+                implicitHeight: 25
             }
             Rectangle {
                 color: "grey"
@@ -305,7 +328,7 @@ Window {
             anchors.top: agendarClienteGrid.bottom
             anchors.topMargin: 10
             columns: 4
-            columnSpacing: 20
+            columnSpacing: 50
 
             //1
             Text {
@@ -314,6 +337,7 @@ Window {
             TextField {
                 id: agendarClienteObservacionesTextField
                 implicitWidth: 900
+                implicitHeight: 25
             }
             Rectangle {
                 color: "transparent"
@@ -326,6 +350,7 @@ Window {
             }
         }
         Calendar {
+            id: calendar
             weekNumbersVisible: true
             anchors.left: agendarClienteGrid.right
             anchors.top: agendarClienteGrid.top
@@ -344,6 +369,16 @@ Window {
                 agendarClienteTableView.selection.select(calendarfunctions.daysToSelection(date)*22)
                 agendarClienteTableView.forceActiveFocus()
             }
+        }
+
+        Rectangle {
+            id: separadorDatosTabla
+            anchors.top: observacionesGrid.bottom
+            anchors.left: observacionesGrid.left
+            anchors.topMargin: 25
+            height: 2
+            width: 1025
+            color: "grey"
         }
 
         RowLayout {
@@ -415,19 +450,10 @@ Window {
             }
         }
 
-        Rectangle {
-            id: separadorDatosTabla
-            anchors.top: observacionesGrid.bottom
-            anchors.topMargin: 95
-            height: 2
-            width: parent.width
-            color: "grey"
-        }
-
         TableView {
             id: agendarClienteTableView
-            anchors.top: separadorDatosTabla.bottom
-            anchors.topMargin: 25
+            anchors.top: botonesLayout.bottom
+            anchors.topMargin: 20
             width: parent.width
             height: (parent.height/5)*2.5
             model: cabinaviewmodel
@@ -549,8 +575,8 @@ Window {
         RowLayout {
             anchors.top: agendarClienteTableView.bottom
             anchors.left: parent.right
-            anchors.topMargin: 15
-            anchors.leftMargin: -200
+            anchors.topMargin: 10
+            anchors.leftMargin: -230
             Button {
                 text: "Cancelar"
                 onClicked: {
@@ -558,14 +584,15 @@ Window {
                     agendarClienteNombreTextField.text = ""
                     agendarClienteApellidosTextField.text = ""
                     agendarClienteCelularTextField.text = ""
-                    agendarClienteTratamientoComboBox.currentIndex = 0
-                    agendarClienteServicioComboBox.currentIndex = 0
+                    agendarClienteTratamientoComboBox.currentIndex = -1
+                    agendarClienteServicioComboBox.currentIndex = -1
+                    agendarClienteDuracionComboBox.currentIndex = -1
                     agendarClienteZonasTextField.text = ""
                     agendarClientePrecioTextField.text = ""
                     agendarClienteSesionTextField.text = ""
                     agendarClienteSesionesPagadasTextField.text = ""
                     agendarClienteTotalPagadoTextField.text = ""
-                    agendarClienteEstatusComboBox.currentIndex = 0
+                    agendarClienteEstatusComboBox.currentIndex = -1
                     agendarClienteObservacionesTextField.text = ""
                     agendarClienteImporteCobradoTextField.text = ""
 
@@ -671,14 +698,15 @@ Window {
                     agendarClienteNombreTextField.text = ""
                     agendarClienteApellidosTextField.text = ""
                     agendarClienteCelularTextField.text = ""
-                    agendarClienteTratamientoComboBox.currentIndex = 0
-                    agendarClienteServicioComboBox.currentIndex = 0
+                    agendarClienteTratamientoComboBox.currentIndex = -1
+                    agendarClienteServicioComboBox.currentIndex = -1
+                    agendarClienteDuracionComboBox.currentIndex = -1
                     agendarClienteZonasTextField.text = ""
                     agendarClientePrecioTextField.text = ""
                     agendarClienteSesionTextField.text = ""
                     agendarClienteSesionesPagadasTextField.text = ""
                     agendarClienteTotalPagadoTextField.text = ""
-                    agendarClienteEstatusComboBox.currentIndex = 0
+                    agendarClienteEstatusComboBox.currentIndex = -1
                     agendarClienteObservacionesTextField.text = ""
                     agendarClienteImporteCobradoTextField.text = ""
 
