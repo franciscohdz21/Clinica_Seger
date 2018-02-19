@@ -69,7 +69,8 @@ void ClinicaCore::setTratamientos(QStringList tratamientos)
     while (sqlQuery.next())
     {
         tratamientos.push_back(sqlQuery.value(0).toString());
-        //qDebug () << "Tratamientos: " << sqlQuery.value(0).toString();
+        if (ClinicaCore::Instance().developerMode() == true)
+            qDebug () << "Tratamientos: " << sqlQuery.value(0).toString();
     }
 
     if (tratamientos != m_tratamientos)
@@ -150,7 +151,8 @@ void ClinicaCore::setServicios()
         QSqlQuery sqlQuery(query);
         while (sqlQuery.next())
         {
-            //qDebug () << sqlQuery.value(0).toString();
+            if (ClinicaCore::Instance().developerMode() == true)
+                qDebug () << sqlQuery.value(0).toString();
             serviciosPorTratamiento.push_back(sqlQuery.value(0).toString());
         }
         m_servicios.push_back(serviciosPorTratamiento);
@@ -164,7 +166,8 @@ void ClinicaCore::buildCurrentServicios(int tratamientoIndex)
     for (int i = 0; i < m_servicios.at(tratamientoIndex).size(); ++i)
     {
         currentServicios.push_back(m_servicios.at(tratamientoIndex).at(i));
-        //qDebug () << m_servicios.at(tratamientoIndex).at(i);
+        if (ClinicaCore::Instance().developerMode() == true)
+            qDebug () << m_servicios.at(tratamientoIndex).at(i);
     }
     setCurrentServicios(currentServicios);
 }

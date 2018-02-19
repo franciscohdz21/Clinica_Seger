@@ -5,6 +5,7 @@
 #include <QSqlError>
 #include <QSqlRecord>
 #include "datemanipulation.h"
+#include "clinicacore.h"
 
 DateManipulation &DateManipulation::Instance()
 {
@@ -15,8 +16,11 @@ void DateManipulation::init()
 {
     setTodaysDate();
     setUpperBoundDate();
-    qDebug () << "Current date: " << m_todaysDate.toString("yyyy-MM-dd");
-    qDebug () << "Upper bound date: " << m_upperBoundDate.toString("yyyy-MM-dd");
+    if (ClinicaCore::Instance().developerMode() == true)
+    {
+        qDebug () << "Current date: " << m_todaysDate.toString("yyyy-MM-dd");
+        qDebug () << "Upper bound date: " << m_upperBoundDate.toString("yyyy-MM-dd");
+    }
 }
 QDate DateManipulation::getTodaysDate() const
 {
@@ -30,7 +34,8 @@ void DateManipulation::setTodaysDate()
     // convert now to string form
     char* dt = ctime(&now);
     QString currentDateAndTime = dt;
-    qDebug () << "The local date and time is: " << currentDateAndTime;
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << "The local date and time is: " << currentDateAndTime;
     QStringList currentDateAndTimeSplit = currentDateAndTime.split(" ");
     QString day = currentDateAndTimeSplit.at(2);
     QString month = currentDateAndTimeSplit.at(1);
@@ -68,7 +73,8 @@ void DateManipulation::setTodaysDate()
 
     QDate date(yearInt, monthInt, dayInt);
     m_todaysDate = date;
-//    qDebug () << "Current date is: " << m_todaysDate;
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << "Current date is: " << m_todaysDate;
 }
 QDate DateManipulation::getUpperBoundDate() const
 {
@@ -116,7 +122,8 @@ void DateManipulation::setUpperBoundDate()
 
     int tmpMonth = month.toInt();
     tmpMonth = tmpMonth + MAX_MESES_CITA;
-    qDebug () << tmpMonth;
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << tmpMonth;
     if (tmpMonth > 12)
     {
         tmpMonth = tmpMonth - 12;
@@ -133,7 +140,8 @@ void DateManipulation::setUpperBoundDate()
 
     QDate date(yearInt, monthInt, dayInt);
     m_upperBoundDate = date;
-    //    qDebug () << "Upper bound date is: " << m_todaysDate;
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << "Upper bound date is: " << m_todaysDate;
 }
 int DateManipulation::daysToSelection(QDate date)
 {
@@ -158,7 +166,8 @@ void DateManipulation::generateID(QDate date, QString horaInicio)
     setCurrentID(ID.toLongLong());
     setCurrentDate(date);;
     setCurrentInitialTime(horaInicio);
-    qDebug () << "Final ID: " << ID.toLongLong();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << "Final ID: " << ID.toLongLong();
 }
 long long int DateManipulation::getCurrentID() const
 {

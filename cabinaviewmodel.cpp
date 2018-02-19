@@ -5,6 +5,7 @@
 #include <QDate>
 #include <QSqlQueryModel>
 #include "cabinaviewmodel.h"
+#include "clinicacore.h"
 
 CabinaViewModel &CabinaViewModel::Instance()
 {
@@ -40,7 +41,8 @@ QVariant CabinaViewModel::data(const QModelIndex &index, int role) const
     //not generated
     if (!this->record().isGenerated(fieldName))
     {
-        qDebug () << "Record not generated";
+        if (ClinicaCore::Instance().developerMode() == true)
+            qDebug() << "CabinaViewModel::data - Record not generated";
         return QVariant();
     }
     //generated

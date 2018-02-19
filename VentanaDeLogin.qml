@@ -62,7 +62,7 @@ Window {
                                                             contrasena2TextField.text) !== -1)
                         {
                             ventanaDeLogin.close()
-                            clinicacore.init(true)
+                            clinicacore.init(false)
                             ventanaDeManipulacionSQL.show()
                         }
                         else {

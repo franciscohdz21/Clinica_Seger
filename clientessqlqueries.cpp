@@ -5,6 +5,7 @@
 #include <QModelIndex>
 #include "clientessqlqueries.h"
 #include "clientesviewmodel.h"
+#include "clinicacore.h"
 
 ClientesSQLQueries &ClientesSQLQueries::Instance()
 {
@@ -15,7 +16,8 @@ void ClientesSQLQueries::updateQuery()
 {
     QString query = "SELECT * FROM clientes";
     ClientesViewModel::Instance().setQuery(query);
-    qDebug () << "Last error: " << ClientesViewModel::Instance().lastError().text();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << "Last error: " << ClientesViewModel::Instance().lastError().text();
 
 }
 void ClientesSQLQueries::filterQueryByCellphone(QString celular)
@@ -24,8 +26,8 @@ void ClientesSQLQueries::filterQueryByCellphone(QString celular)
     QString query = "SELECT * FROM clientes WHERE celular LIKE ";
     query.append(celularForQuery);
     ClientesViewModel::Instance().setQuery(query);
-
-    qDebug () << "Last error: " << ClientesViewModel::Instance().lastError().text();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << "Last error: " << ClientesViewModel::Instance().lastError().text();
 }
 void ClientesSQLQueries::filterQueryByLastName(const QString apellidos)
 {
@@ -33,8 +35,8 @@ void ClientesSQLQueries::filterQueryByLastName(const QString apellidos)
     QString query = "SELECT * FROM clientes WHERE apellidos LIKE ";
     query.append(lastNameForQuery);
     ClientesViewModel::Instance().setQuery(query);
-
-    qDebug () << "Last error: " << ClientesViewModel::Instance().lastError().text();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << "Last error: " << ClientesViewModel::Instance().lastError().text();
 }
 void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QString celular, QString telefono, QString correo,
                                              int diaFechaDeNacimientoIndex, int mesFechaDeNacimientoIndex, QString anoFechaDeNacimiento,
@@ -54,7 +56,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query.bindValue(":celular", celular);
     query.bindValue(":currentCelular", currentCelular);
     query.exec();
-    qDebug () << query.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query.lastError();
 
     //apellidos
     QSqlQuery query2;
@@ -66,7 +69,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query2.bindValue(":apellidos", apellidos);
     query2.bindValue(":celular", celular);
     query2.exec();
-    qDebug () << query2.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query2.lastError();
 
     //celular
     QSqlQuery query3;
@@ -77,7 +81,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query3.prepare(queryStr);
     query3.bindValue(":celular", celular);
     query3.exec();
-    qDebug () << query3.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query3.lastError();
 
     //telefono
     query.clear();
@@ -88,7 +93,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query.bindValue(":telefono", telefono);
     query.bindValue(":celular", celular);
     query.exec();
-    qDebug () << query.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query.lastError();
 
     //correo
     query.clear();
@@ -99,7 +105,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query.bindValue(":correo", correo);
     query.bindValue(":celular", celular);
     query.exec();
-    qDebug () << query.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query.lastError();
 
     //fecha de nacimiento
     int dia = diaFechaDeNacimientoIndex + 1;
@@ -116,7 +123,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     fecha.append(anoFechaDeNacimiento + "-");
     fecha.append(mesString + "-");
     fecha.append(diaString);
-    qDebug () << "Fecha to update: " << fecha;
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << "Fecha to update: " << fecha;
     query.clear();
     query.prepare("UPDATE clientes "
                   "SET Fecha_De_Nacimiento = :fechaDeNacimiento "
@@ -125,7 +133,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query.bindValue(":fechaDeNacimiento", fecha);
     query.bindValue(":celular", celular);
     query.exec();
-    qDebug () << query.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query.lastError();
 
     //calle y numero
     query.clear();
@@ -135,7 +144,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query.bindValue(":calleYNumero", calleYNumero);
     query.bindValue(":celular", celular);
     query.exec();
-    qDebug () << query.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query.lastError();
 
     //colonia
     query.clear();
@@ -145,7 +155,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query.bindValue(":colonia", colonia);
     query.bindValue(":celular", celular);
     query.exec();
-    qDebug () << query.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query.lastError();
 
     //ciudad
     query.clear();
@@ -155,7 +166,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query.bindValue(":ciudad", ciudad);
     query.bindValue(":celular", celular);
     query.exec();
-    qDebug () << query.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query.lastError();
 
     //estado
     query.clear();
@@ -165,7 +177,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query.bindValue(":estado", estado);
     query.bindValue(":celular", celular);
     query.exec();
-    qDebug () << query.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query.lastError();
 
     //sesiones pagadas
     query.clear();
@@ -176,7 +189,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query.bindValue(":sesionesPagadas", sesionesPagadas);
     query.bindValue(":celular", celular);
     query.exec();
-    qDebug () << query.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query.lastError();
 
     //saldo a favor
     query.clear();
@@ -186,7 +200,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query.bindValue(":saldoAFavor", saldoAFavor);
     query.bindValue(":celular", celular);
     query.exec();
-    qDebug () << query.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query.lastError();
 
     //sesiones de garantia
     query.clear();
@@ -196,7 +211,8 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     query.bindValue(":sesionesDeGarantia", sesionesDeGarantia);
     query.bindValue(":celular", celular);
     query.exec();
-    qDebug () << query.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << query.lastError();
 
     updateQuery();
 }
@@ -212,5 +228,6 @@ void ClientesSQLQueries::addPaciente(QString nombre, QString apellidos, QString 
     query.bindValue(":celular", celular);
 
     query.exec();
-    qDebug () << "Last error: " << query.lastError();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << "Last error: " << query.lastError();
 }

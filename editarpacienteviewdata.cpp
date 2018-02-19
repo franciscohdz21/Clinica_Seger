@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QSqlError>
 #include "editarpacienteviewdata.h"
+#include "clinicacore.h"
 
 EditarPacienteViewData &EditarPacienteViewData::Instance()
 {
@@ -14,7 +15,6 @@ QString EditarPacienteViewData::nombre() const
 }
 void EditarPacienteViewData::setNombre(QString nombre)
 {
-    qDebug() << " setNombre called " << nombre;
     if (nombre != m_nombre)
     {
         m_nombre = nombre;
@@ -81,7 +81,8 @@ void EditarPacienteViewData::setFechaDeNacimiento(QString fechaDeNacimiento)
         emit fechaDeNacimientoChanged();
         //process date, format: YYYY-MM-DD
         QString fecha = m_fechaDeNacimiento;
-        qDebug () << "Fecha: " << fecha;
+        if (ClinicaCore::Instance().developerMode() == true)
+            qDebug () << "Fecha: " << fecha;
         splitFecha(fecha);
     }
 }
@@ -223,15 +224,15 @@ void EditarPacienteViewData::splitFecha(QString fecha)
     //ano
     QString tmp = fecha.left(4);
     setAnoFechaDeNacimiento(tmp);
-    qDebug () << "1: " << tmp;
+//    qDebug () << "1: " << tmp;
     fecha.remove(0, 5);
     //mes
     tmp = fecha.left(2);
     setMesFechaDeNacimientoIndex(tmp.toInt()-1);
-    qDebug () << "2: " << tmp.toInt();
+//    qDebug () << "2: " << tmp.toInt();
     fecha.remove(0, 3);
     //dia
     tmp = fecha;
-    qDebug () << "3: " << tmp.toInt();
+//    qDebug () << "3: " << tmp.toInt();
     setDiaFechaDeNacimientoIndex(tmp.toInt()-1);
 }

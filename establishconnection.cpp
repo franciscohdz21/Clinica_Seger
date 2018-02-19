@@ -31,7 +31,8 @@ int EstablishConnection::loginAPrograma(const QString usuario, const QString con
     while (sqlQuery.next()) {
         ClinicaCore::Instance().setPermiso(sqlQuery.value(0).toInt());
     }
-    qDebug () << "Permiso: " << ClinicaCore::Instance().permiso();
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << "Permiso: " << ClinicaCore::Instance().permiso();
     if (ClinicaCore::Instance().permiso() == -1)
         return -1;
     else
@@ -49,7 +50,8 @@ int EstablishConnection::loginAPrograma(const QString usuario, const QString con
         {
             ClinicaCore::Instance().setUbicacion(sqlQuery.value(0).toString());
         }
-        qDebug () << "Ubicacion: " << ClinicaCore::Instance().ubicacion();
+        if (ClinicaCore::Instance().developerMode() == true)
+            qDebug () << "Ubicacion: " << ClinicaCore::Instance().ubicacion();
 
         //query cabinas
         query.clear();
@@ -62,7 +64,8 @@ int EstablishConnection::loginAPrograma(const QString usuario, const QString con
         {
             ClinicaCore::Instance().buildCabinas(sqlQuery2.value(0).toString());
         }
-        qDebug () << "Cabinas: " << ClinicaCore::Instance().cabinas();
+        if (ClinicaCore::Instance().developerMode() == true)
+            qDebug () << "Cabinas: " << ClinicaCore::Instance().cabinas();
 
         //set tratamientos and servicios
         QStringList tmp;

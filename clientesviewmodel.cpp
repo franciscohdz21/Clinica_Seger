@@ -6,6 +6,7 @@
 #include "clientesviewmodel.h"
 #include "datemanipulation.h"
 #include "agendarclienteviewdata.h"
+#include "clinicacore.h"
 
 ClientesViewModel &ClientesViewModel::Instance()
 {
@@ -56,7 +57,8 @@ void ClientesViewModel::setClientesProperties(int row)
     if ( (!this->record().isGenerated("Nombre")) || (!this->record().isGenerated("Apellidos")) ||
          (!this->record().isGenerated("Celular")) )
     {
-        qDebug() << "Error setting nombre, apellidos o celular";
+        if (ClinicaCore::Instance().developerMode() == true)
+            qDebug() << "Error setting nombre, apellidos o celular";
     }
     else
     {
