@@ -1,9 +1,9 @@
 import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
+import QtQuick.Dialogs 1.2
 import QtQuick.Controls 1.4
 import QtQuick.Controls 2.1
-import QtQuick.Dialogs 1.2
 
 Window {
     id: buscarOEditarPaciente
@@ -59,7 +59,7 @@ Window {
                 implicitHeight: 25
                 onTextChanged: {
                     buscarPacienteTableView.selection.clear()
-                    clientesviewmodel.filterQueryByCellphone(buscarExistenteCelularTextInput.text)
+                    clientessqlqueries.filterQueryByCellphone(buscarExistenteCelularTextInput.text)
                 }
             }
             Rectangle {
@@ -76,7 +76,7 @@ Window {
                 implicitHeight: 25
                 onTextChanged: {
                     buscarPacienteTableView.selection.clear()
-                    clientesviewmodel.filterQueryByLastName(buscarExistenteApellidosTextInput.text)
+                    clientessqlqueries.filterQueryByLastName(buscarExistenteApellidosTextInput.text)
                 }
             }
             Rectangle {
@@ -95,8 +95,8 @@ Window {
             selectionMode: SelectionMode.SingleSelection
             model: clientesviewmodel
             onClicked: {
-                editarpacienteviewmodel.currentCelular = clientesviewmodel.retrieveCelular(buscarPacienteTableView.currentRow)
-                console.log("Current Celular " + editarpacienteviewmodel.currentCelular)
+                editarpacienteviewdata.currentCelular = clientesviewmodel.retrieveCelular(buscarPacienteTableView.currentRow)
+                console.log("Current Celular " + editarpacienteviewdata.currentCelular)
             }
             TableViewColumn
             {
@@ -201,8 +201,7 @@ Window {
                     buscarExistenteCelularTextInput.text = ""
                     buscarExistenteApellidosTextInput.text = ""
                     buscarPacienteTableView.selection.clear()
-                    editarpacienteviewmodel.retrieveAllEntries(editarpacienteviewmodel.currentCelular)
-                    editarPaciente.requestUpdate()
+                    editarpacientesqlqueries.retrieveAllEntries(editarpacienteviewdata.currentCelular)
                     editarPaciente.show()
                 }
             }

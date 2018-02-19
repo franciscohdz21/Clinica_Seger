@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.1
 
 Window {
     width: 350
@@ -48,18 +48,25 @@ Window {
                 onClicked: {
                     seleccionarCabina.hide()
                     //set cabina
-
+                    clinicacore.currentCabina = "e_light"
                     //load view
-                    if (cabinaviewmodel.clienteEsNuevo === true)
+                    if (clinicacore.getCancelarCita() === true)
                     {
-                        cabinaviewmodel.clearNombreApellidosCelular()
-                        cabinaviewmodel.updateQuery("")
+                        buscarOCancelarCita.show()
+                        cabinasqlqueries.updateQuery(clinicacore.currentCabina);
+                        ventanaDeManipulacionSQL.hide()
+                        clinicacore.setCancelarCita(false)
+                    }
+                    else if (agendarclienteviewdata.clienteEsNuevo === true)
+                    {
+                        agendarclienteviewdata.clearNombreApellidosCelular()
+                        cabinasqlqueries.updateQuery(clinicacore.currentCabina)
                         agendarCliente.show()
                         ventanaDeManipulacionSQL.hide()
                     }
                     else
                     {
-                        clientesviewmodel.updateQuery()
+                        clientessqlqueries.updateQuery()
                         buscarExistente.show()
                         ventanaDeManipulacionSQL.hide()
                     }
@@ -70,18 +77,25 @@ Window {
                 onClicked: {
                     seleccionarCabina.hide()
                     //set cabina
-
+                    clinicacore.currentCabina = "corporal_y_facial"
                     //load view
-                    if (cabinaviewmodel.clienteEsNuevo === true)
+                    if (clinicacore.getCancelarCita() === true)
                     {
-                        cabinaviewmodel.clearNombreApellidosCelular()
-                        cabinaviewmodel.updateQuery("")
+                        buscarOCancelarCita.show()
+                        cabinasqlqueries.updateQuery(datemanipulation.currentCabina);
+                        ventanaDeManipulacionSQL.hide()
+                        clinicacore.setCancelarCita(false)
+                    }
+                    else if (agendarclienteviewdata.clienteEsNuevo === true)
+                    {
+                        agendarclienteviewdata.clearNombreApellidosCelular()
+                        cabinasqlqueries.updateQuery(clinicacore.currentCabina)
                         agendarCliente.show()
                         ventanaDeManipulacionSQL.hide()
                     }
                     else
                     {
-                        clientesviewmodel.updateQuery()
+                        clientessqlqueries.updateQuery()
                         buscarExistente.show()
                         ventanaDeManipulacionSQL.hide()
                     }

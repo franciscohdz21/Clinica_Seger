@@ -1,16 +1,18 @@
-#ifndef CALENDARFUNCTIONS_H
-#define CALENDARFUNCTIONS_H
+#ifndef DATEMANIPULATION_H
+#define DATEMANIPULATION_H
 
 #include <QObject>
 #include <QDate>
 #include <QVector>
 
-class CalendarFunctions : public QObject
+#define MAX_MESES_CITA 4
+
+class DateManipulation : public QObject
 {
     Q_OBJECT
 public:
-    ~CalendarFunctions()=default;
-    static CalendarFunctions &Instance();
+    ~DateManipulation()=default;
+    static DateManipulation &Instance();
 
     Q_INVOKABLE void init();
     Q_INVOKABLE QDate getTodaysDate()const;
@@ -29,15 +31,10 @@ public:
     Q_INVOKABLE void clearIDsQueued();
     Q_INVOKABLE void addCurrentIDToIDsQueued();
 
-    //SQL
-    Q_INVOKABLE bool rowIsEmpty()const;
-
-signals:
-
 private:
-    CalendarFunctions()=default;
-    CalendarFunctions(CalendarFunctions const&)=delete;
-    void operator = (CalendarFunctions const&)=delete;
+    DateManipulation()=default;
+    DateManipulation(DateManipulation const&)=delete;
+    void operator = (DateManipulation const&)=delete;
 
     QDate m_todaysDate;
     QDate m_upperBoundDate;
@@ -45,7 +42,6 @@ private:
     QDate m_currentDate;
     QString m_currentInitialTime;
     QVector <long long int> m_IDsQueued;
-
 };
 
-#endif // CALENDARFUNCTIONS_H
+#endif // DATEMANIPULATION_H

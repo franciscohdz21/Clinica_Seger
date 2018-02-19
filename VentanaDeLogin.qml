@@ -58,10 +58,11 @@ Window {
                 Button {
                     text: "Aceptar"
                     onClicked: {
-                        if (conexionabasededatos.loginAPrograma(usuarioTextField.text,
+                        if (establishconnection.loginAPrograma(usuarioTextField.text,
                                                             contrasena2TextField.text) !== -1)
                         {
                             ventanaDeLogin.close()
+                            clinicacore.init(true)
                             ventanaDeManipulacionSQL.show()
                         }
                         else {

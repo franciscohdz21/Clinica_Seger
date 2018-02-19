@@ -68,7 +68,7 @@ Window {
                 Button {
                     text: "Aceptar"
                     onClicked: {
-                        if (conexionabasededatos.establecerConexion(ipTextField.text,
+                        if (establishconnection.establecerConexion(ipTextField.text,
                                                                     puertoTextField.text,
                                                                     contrasenaTextField.text) === true)
                         {

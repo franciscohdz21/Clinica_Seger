@@ -58,10 +58,10 @@ Window {
                 onTextChanged: {
                     buscarCitaTableView.selection.clear()
                     if (buscarCitaCelularTextField.text === "")
-                        cabinaviewmodel.updateQuery("")
+                        cabinasqlqueries.updateQuery(clinicacore.currentCabina)
                     else
                     {
-                        cabinaviewmodel.filterQueryByCellphone(buscarCitaCelularTextField.text)
+                        cabinasqlqueries.filterQueryByCellphone(buscarCitaCelularTextField.text)
                     }
                 }
             }
@@ -80,10 +80,10 @@ Window {
                 onTextChanged: {
                     buscarCitaTableView.selection.clear()
                     if (buscarCitaApellidosTextField.text === "")
-                        cabinaviewmodel.updateQuery("")
+                        cabinasqlqueries.updateQuery(clinicacore.currentCabina)
                     else
                     {
-                        cabinaviewmodel.filterQueryByLastName(buscarCitaApellidosTextField.text)
+                        cabinasqlqueries.filterQueryByLastName(buscarCitaApellidosTextField.text)
                     }
                 }
             }
@@ -216,10 +216,10 @@ Window {
                 }
 
                 onClicked: {
-                    cabinaviewmodel.initCitaDeletion(buscarCitaTableView.currentRow)
+                    cabinasqlqueries.initCitaDeletion(buscarCitaTableView.currentRow)
                     buscarCitaCelularTextField.text = ""
                     buscarCitaApellidosTextField.text = ""
-                    cabinaviewmodel.updateQuery("")
+                    cabinasqlqueries.updateQuery(clinicacore.currentCabina)
                 }
             }
         }

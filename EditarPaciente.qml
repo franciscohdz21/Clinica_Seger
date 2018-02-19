@@ -1,9 +1,9 @@
 import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.1
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls 1.4
+import QtQuick.Controls 2.1
 
 Window {
     id: editarPaciente
@@ -41,7 +41,8 @@ Window {
             TextField {
                 id: nombreTextField
                 implicitWidth: 200
-                text: editarpacienteviewmodel.nombre
+                implicitHeight: 25
+                text: editarpacienteviewdata.nombre
             }
             Rectangle {
                 color: "grey"
@@ -54,7 +55,8 @@ Window {
             TextField {
                 id: apellidosTextField
                 implicitWidth: 200
-                text: editarpacienteviewmodel.apellidos
+                implicitHeight: 25
+                text: editarpacienteviewdata.apellidos
             }
             Rectangle {
                 color: "grey"
@@ -67,7 +69,9 @@ Window {
             TextField {
                 id: celularTextField
                 implicitWidth: 200
-                text: editarpacienteviewmodel.celular
+                implicitHeight: 25
+                text: editarpacienteviewdata.celular
+                maximumLength: 10
             }
             //2
             Text {
@@ -76,7 +80,8 @@ Window {
             TextField {
                 id: telefonoTextField
                 implicitWidth: 200
-                text: editarpacienteviewmodel.telefono
+                implicitHeight: 25
+                text: editarpacienteviewdata.telefono
             }
             Rectangle {
                 color: "grey"
@@ -89,7 +94,8 @@ Window {
             TextField {
                 id: correoTextField
                 implicitWidth: 200
-                text: editarpacienteviewmodel.correo
+                implicitHeight: 25
+                text: editarpacienteviewdata.correo
             }
             Rectangle {
                 color: "grey"
@@ -104,23 +110,28 @@ Window {
                 spacing: 1
                 ComboBox {
                     id: diaComboBox
-                    width: 30
+                    width: 50
                     model: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
                     "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
                     "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]
-                    currentIndex: editarpacienteviewmodel.diaFechaDeNacimientoIndex
+                    currentIndex: editarpacienteviewdata.diaFechaDeNacimientoIndex
+                    implicitWidth: 75
+                    implicitHeight: 25
                 }
                 ComboBox {
                     id: mesComboBox
-                    width: 140
+                    width: 120
                     model: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
                     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
-                    currentIndex: editarpacienteviewmodel.mesFechaDeNacimientoIndex
+                    currentIndex: editarpacienteviewdata.mesFechaDeNacimientoIndex
+                    implicitWidth: 85
+                    implicitHeight: 25
                 }
                 TextField {
                     id: anoTextInput
-                    implicitWidth: 50
-                    text: editarpacienteviewmodel.anoFechaDeNacimiento
+                    implicitWidth: 40
+                    implicitHeight: 25
+                    text: editarpacienteviewdata.anoFechaDeNacimiento
                 }
             }
             //3
@@ -130,7 +141,8 @@ Window {
             TextField {
                 id: calleYNumeroTextField
                 implicitWidth: 200
-                text: editarpacienteviewmodel.calleYNumero
+                implicitHeight: 25
+                text: editarpacienteviewdata.calleYNumero
             }
             Rectangle {
                 color: "grey"
@@ -143,7 +155,8 @@ Window {
             TextField {
                 id: coloniaTextField
                 implicitWidth: 200
-                text: editarpacienteviewmodel.colonia
+                implicitHeight: 25
+                text: editarpacienteviewdata.colonia
             }
             Rectangle {
                 color: "grey"
@@ -156,7 +169,8 @@ Window {
             TextField {
                 id: ciudadTextField
                 implicitWidth: 200
-                text: editarpacienteviewmodel.ciudad
+                implicitHeight: 25
+                text: editarpacienteviewdata.ciudad
             }
             //4
             Text {
@@ -165,7 +179,8 @@ Window {
             TextField {
                 id: estadoTextField
                 implicitWidth: 200
-                text: editarpacienteviewmodel.estado
+                implicitHeight: 25
+                text: editarpacienteviewdata.estado
             }
             Rectangle {
                 color: "grey"
@@ -178,7 +193,8 @@ Window {
             TextField {
                 id: sesionesPagadasTextField
                 implicitWidth: 200
-                text: editarpacienteviewmodel.sesionesPagadas
+                implicitHeight: 25
+                text: editarpacienteviewdata.sesionesPagadas
             }
             Rectangle {
                 color: "grey"
@@ -191,7 +207,8 @@ Window {
             TextField {
                 id: saldoAFavorTextField
                 implicitWidth: 200
-                text: editarpacienteviewmodel.saldoAFavor
+                implicitHeight: 25
+                text: editarpacienteviewdata.saldoAFavor
             }
             //5
             Text {
@@ -200,7 +217,8 @@ Window {
             TextField {
                 id: sesionesDeGarantiaTextField
                 implicitWidth: 200
-                text: editarpacienteviewmodel.sesionesDeGarantia
+                implicitHeight: 25
+                text: editarpacienteviewdata.sesionesDeGarantia
             }
             Rectangle {
                 color: "grey"
@@ -236,8 +254,8 @@ Window {
         RowLayout {
             anchors.top: datosPacienteGridLayout.bottom
             anchors.left: parent.right
-            anchors.topMargin: 10
-            anchors.leftMargin: -180
+            anchors.topMargin: -10
+            anchors.leftMargin: -230
             Button {
                 text: "Cancelar"
                 onClicked: {
@@ -250,16 +268,16 @@ Window {
                 text: "Aceptar"
                 anchors.leftMargin: 20
                 onClicked: {
-                    console.log("I am called");
                     //update data
-                    clientesviewmodel.updatePaciente(nombreTextField.text, apellidosTextField.text,
+                    clientessqlqueries.updatePaciente(nombreTextField.text, apellidosTextField.text,
                                                            celularTextField.text, telefonoTextField.text,
                                                            correoTextField.text, diaComboBox.currentIndex,
                                                            mesComboBox.currentIndex, anoTextInput.text,
                                                            calleYNumeroTextField.text, coloniaTextField.text,
                                                            ciudadTextField.text, estadoTextField.text,
                                                            sesionesPagadasTextField.text, saldoAFavorTextField.text,
-                                                           sesionesDeGarantiaTextField.text, editarpacienteviewmodel.currentCelular)
+                                                           sesionesDeGarantiaTextField.text,
+                                                           editarpacienteviewdata.currentCelular)
                     editarPaciente.hide()
                     ventanaDeManipulacionSQL.show()
                 }

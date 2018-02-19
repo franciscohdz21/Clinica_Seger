@@ -29,10 +29,10 @@ Window {
         id: buscarOCancelarCita
         visible: false
     }
-    PacientePendiente {
-        id: pacientePendiente
-        visible: false
-    }
+//    PacientePendiente {
+//        id: pacientePendiente
+//        visible: false
+//    }
     SeleccionarCabina {
         id : seleccionarCabina
         visible: true
@@ -92,9 +92,8 @@ Window {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        cabinaviewmodel.clienteEsNuevo = true
-                        conexionabasededatos.refreshAll()
-                        conexionabasededatos.buildCurrentServicios(0)
+                        agendarclienteviewdata.clienteEsNuevo = true
+                        clinicacore.buildCurrentServicios(0)
                         seleccionarCabina.show()
                     }
                 }
@@ -105,9 +104,8 @@ Window {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        cabinaviewmodel.clienteEsNuevo = false
-                        conexionabasededatos.refreshAll()
-                        conexionabasededatos.buildCurrentServicios(0)
+                        agendarclienteviewdata.clienteEsNuevo = false
+                        clinicacore.buildCurrentServicios(0)
                         seleccionarCabina.show()
                     }
                 }
@@ -118,7 +116,7 @@ Window {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        clientesviewmodel.updateQuery()
+                        clientessqlqueries.updateQuery()
                         buscarOEditarPaciente.show()
                         ventanaDeManipulacionSQL.hide()
                     }
@@ -130,9 +128,8 @@ Window {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        buscarOCancelarCita.show()
-                        cabinaviewmodel.updateQuery("");
-                        ventanaDeManipulacionSQL.hide()
+                        clinicacore.setCancelarCita(true)
+                        seleccionarCabina.show()
                     }
                 }
             }
@@ -162,7 +159,7 @@ Window {
                 font.pixelSize: 14
             }
             Text {
-                text: conexionabasededatos.usuario
+                text: clinicacore.usuario
                 font.bold: true
                 font.pixelSize: 14
             }
@@ -189,7 +186,7 @@ Window {
                 font.pixelSize: 14
             }
             Text {
-                text: conexionabasededatos.ubicacion
+                text: clinicacore.ubicacion
                 font.bold: true
                 font.pixelSize: 14
             }
@@ -216,7 +213,7 @@ Window {
                 font.pixelSize: 14
             }
             Text {
-                text: conexionabasededatos.permiso
+                text: clinicacore.permiso
                 font.bold: true
                 font.pixelSize: 14
             }

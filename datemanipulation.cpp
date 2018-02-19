@@ -1,32 +1,28 @@
-#include <iostream>
 #include <ctime>
 #include <QDebug>
 #include <QDate>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlRecord>
-#include "calendarfunctions.h"
-#include "cabinaviewmodel.h"
+#include "datemanipulation.h"
 
-#define MAX_MESES_CITA 4
-
-CalendarFunctions &CalendarFunctions::Instance()
+DateManipulation &DateManipulation::Instance()
 {
-    static CalendarFunctions instance; //Guaranteed to be destroyed
+    static DateManipulation instance; //Guaranteed to be destroyed
     return instance;
 }
-void CalendarFunctions::init()
+void DateManipulation::init()
 {
     setTodaysDate();
     setUpperBoundDate();
     qDebug () << "Current date: " << m_todaysDate.toString("yyyy-MM-dd");
     qDebug () << "Upper bound date: " << m_upperBoundDate.toString("yyyy-MM-dd");
 }
-QDate CalendarFunctions::getTodaysDate() const
+QDate DateManipulation::getTodaysDate() const
 {
     return m_todaysDate;
 }
-void CalendarFunctions::setTodaysDate()
+void DateManipulation::setTodaysDate()
 {
     // current date/time based on current system
     time_t now = time(0);
@@ -74,11 +70,11 @@ void CalendarFunctions::setTodaysDate()
     m_todaysDate = date;
 //    qDebug () << "Current date is: " << m_todaysDate;
 }
-QDate CalendarFunctions::getUpperBoundDate() const
+QDate DateManipulation::getUpperBoundDate() const
 {
     return m_upperBoundDate;
 }
-void CalendarFunctions::setUpperBoundDate()
+void DateManipulation::setUpperBoundDate()
 {
     // current date/time based on current system
     time_t now = time(0);
@@ -139,11 +135,11 @@ void CalendarFunctions::setUpperBoundDate()
     m_upperBoundDate = date;
     //    qDebug () << "Upper bound date is: " << m_todaysDate;
 }
-int CalendarFunctions::daysToSelection(QDate date)
+int DateManipulation::daysToSelection(QDate date)
 {
     return m_todaysDate.daysTo(date);
 }
-void CalendarFunctions::generateID(QDate date, QString horaInicio)
+void DateManipulation::generateID(QDate date, QString horaInicio)
 {
     QString ID;
     ID.append(QString::number(date.year()));
@@ -164,62 +160,39 @@ void CalendarFunctions::generateID(QDate date, QString horaInicio)
     setCurrentInitialTime(horaInicio);
     qDebug () << "Final ID: " << ID.toLongLong();
 }
-long long int CalendarFunctions::getCurrentID() const
+long long int DateManipulation::getCurrentID() const
 {
     return m_currentID;
 }
-void CalendarFunctions::setCurrentID(long long int ID)
+void DateManipulation::setCurrentID(long long int ID)
 {
     m_currentID = ID;
 }
-QDate CalendarFunctions::getCurrentDate() const
+QDate DateManipulation::getCurrentDate() const
 {
     return m_currentDate;
 }
-void CalendarFunctions::setCurrentDate(QDate date)
+void DateManipulation::setCurrentDate(QDate date)
 {
     m_currentDate = date;
 }
-QString CalendarFunctions::getCurrentInitialTime() const
+QString DateManipulation::getCurrentInitialTime() const
 {
     return m_currentInitialTime;
 }
-void CalendarFunctions::setCurrentInitialTime(QString time)
+void DateManipulation::setCurrentInitialTime(QString time)
 {
     m_currentInitialTime = time;
 }
-QVector<long long> CalendarFunctions::getIDsQueued() const
+QVector<long long> DateManipulation::getIDsQueued() const
 {
     return m_IDsQueued;
 }
-void CalendarFunctions::clearIDsQueued()
+void DateManipulation::clearIDsQueued()
 {
     m_IDsQueued.clear();
 }
-void CalendarFunctions::addCurrentIDToIDsQueued()
+void DateManipulation::addCurrentIDToIDsQueued()
 {
     m_IDsQueued.push_back(m_currentID);
-}
-bool CalendarFunctions::rowIsEmpty() const
-{
-    QSqlQuery query;
-    QString selectString = "SELECT Nombre FROM " + CabinaViewModel::Instance().getNombreDeTabla();
-    query.prepare(selectString +
-                  " WHERE ID = :id;");
-
-    query.bindValue(":id", QString::number(CalendarFunctions::Instance().getCurrentID()));
-    query.exec();
-
-    while (query.next())
-    {
-        bool nombreEsNull = query.value(0).isNull();
-        QString nombre = query.value(0).toString();
-        nombre = nombre.simplified();
-        nombre.replace( " ", "" );
-        if (nombreEsNull == true || nombre.compare("", Qt::CaseInsensitive) == 0)
-            return true;
-        else
-            return false;
-    }
-    return true;
 }

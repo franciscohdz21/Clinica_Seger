@@ -1,9 +1,10 @@
 import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.1
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls 1.4
+import QtQuick.Controls 2.1
+
 
 Window {
     id: buscarExistente
@@ -51,8 +52,9 @@ Window {
             TextField {
                 id: buscarExistenteCelular
                 implicitWidth: 200
+                implicitHeight: 25
                 onTextChanged: {
-                    clientesviewmodel.filterQueryByCellphone(buscarExistenteCelular.text)
+                    clientessqlqueries.filterQueryByCellphone(buscarExistenteCelular.text)
                 }
             }
             Rectangle {
@@ -66,8 +68,9 @@ Window {
             TextField {
                 id: buscarExistenteApellidos
                 implicitWidth: 200
+                implicitHeight: 25
                 onTextChanged: {
-                    clientesviewmodel.filterQueryByLastName(buscarExistenteApellidos.text)
+                    clientessqlqueries.filterQueryByLastName(buscarExistenteApellidos.text)
                 }
             }
             Rectangle {
@@ -152,7 +155,7 @@ Window {
             anchors.top: buscarClienteTableView.bottom
             anchors.left: parent.right
             anchors.topMargin: 20
-            anchors.leftMargin: -180
+            anchors.leftMargin: -230
             Button {
                 text: "Cancelar"
                 onClicked: {
@@ -178,7 +181,7 @@ Window {
                 onClicked: {
                     buscarClienteTableView.selection.clear()
                     buscarExistente.hide()
-                    cabinaviewmodel.updateQuery("");
+                    cabinasqlqueries.updateQuery(clinicacore.currentCabina);
                     agendarCliente.show()
                 }
             }

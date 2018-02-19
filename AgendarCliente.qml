@@ -3,7 +3,7 @@ import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls 1.4
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.1
 
 Window {
     id: agendarCliente
@@ -13,7 +13,13 @@ Window {
     height: 728
     minimumHeight: 728
     maximumHeight: 728
-    title: "Agendar Nuevo"
+    title: {
+        if (clinicacore.currentCabina === "e_light")
+            return "Agendar - E-Light"
+        else
+            return "Agendar - Corporal y Facial"
+    }
+
     color: "lightyellow"
     Component.onCompleted: {
         agendarClienteTratamientoComboBox.currentIndex = -1
@@ -43,18 +49,17 @@ Window {
             columnSpacing: 20
             property bool acceptEnabled: {
                 //cliente nuevo
-                if (cabinaviewmodel.clienteEsNuevo === true)
+                if (agendarclienteviewdata.clienteEsNuevo === true)
                 {
                     if ( agendarClienteNombreTextField.text === "" /*||
                             agendarClienteApellidosTextField.text === "" ||
                             agendarClienteCelularTextField.text === "" ||
                             agendarClienteZonasTextField.text === "" ||
-                            agendarClienteDuracionComboBox.currentIndex === 0 ||
-                            agendarClientePrecioTextField.text === "" ||
-                            agendarClienteSesionField.text === "" ||
+                            agendarClienteDuracionComboBox.currentIndex === -1 ||
+                            agendarClienteSesionTextField.text === "" ||
                             agendarClienteSesionesPagadasTextField.text === "" ||
-                            agendarClienteTotalPagadoField.text === "" ||
-                            agendarClienteEstatusComboBox.currentIndex === 0*/)
+                            agendarClienteTotalPagadoTextField.text === "" ||
+                            agendarClienteEstatusComboBox.currentIndex === -1*/)
                     {
                         console.log("False")
                         return false
@@ -68,16 +73,16 @@ Window {
                 //cliente existente
                 else
                 {
-                    if ( agendarClienteExistenteNombreTextField.text === "" /*||
+                    if ( agendarClienteExistenteNombreTextField.text === "" ||
                             agendarClienteExistenteApellidosTextField.text === "" ||
                             agendarClienteExistenteCelularTextField.text === "" ||
                             agendarClienteZonasTextField.text === "" ||
-                            agendarClienteDuracionComboBox.currentIndex === 0 ||
+                            agendarClienteDuracionComboBox.currentIndex === -1 ||
                             agendarClientePrecioTextField.text === "" ||
-                            agendarClienteSesionField.text === "" ||
+                            agendarClienteSesionTextField.text === "" ||
                             agendarClienteSesionesPagadasTextField.text === "" ||
-                            agendarClienteTotalPagadoField.text === "" ||
-                            agendarClienteEstatusComboBox.currentIndex === 0*/)
+                            agendarClienteTotalPagadoTextField.text === "" ||
+                            agendarClienteEstatusComboBox.currentIndex === -1)
                     {
                         console.log("False")
                         return false
@@ -100,16 +105,16 @@ Window {
                 width: 150
                 TextField {
                     id: agendarClienteNombreTextField
-                    enabled: cabinaviewmodel.clienteEsNuevo
-                    visible: cabinaviewmodel.clienteEsNuevo
+                    enabled: agendarclienteviewdata.clienteEsNuevo
+                    visible: agendarclienteviewdata.clienteEsNuevo
                     implicitWidth: 150
                     implicitHeight: 25
                 }
                 TextField {
                     id: agendarClienteExistenteNombreTextField
-                    enabled: cabinaviewmodel.clienteEsNuevo
-                    visible: !cabinaviewmodel.clienteEsNuevo
-                    text: cabinaviewmodel.nombre
+                    enabled: agendarclienteviewdata.clienteEsNuevo
+                    visible: !agendarclienteviewdata.clienteEsNuevo
+                    text: agendarclienteviewdata.nombre
                     implicitWidth: 150
                     implicitHeight: 25
                 }
@@ -128,16 +133,16 @@ Window {
                 width: 150
                 TextField {
                     id: agendarClienteApellidosTextField
-                    enabled: cabinaviewmodel.clienteEsNuevo
-                    visible: cabinaviewmodel.clienteEsNuevo
+                    enabled: agendarclienteviewdata.clienteEsNuevo
+                    visible: agendarclienteviewdata.clienteEsNuevo
                     implicitWidth: 150
                     implicitHeight: 25
                 }
                 TextField {
                     id: agendarClienteExistenteApellidosTextField
-                    enabled: cabinaviewmodel.clienteEsNuevo
-                    visible: !cabinaviewmodel.clienteEsNuevo
-                    text: cabinaviewmodel.apellidos
+                    enabled: agendarclienteviewdata.clienteEsNuevo
+                    visible: !agendarclienteviewdata.clienteEsNuevo
+                    text: agendarclienteviewdata.apellidos
                     implicitWidth: 150
                     implicitHeight: 25
                 }
@@ -156,18 +161,20 @@ Window {
                 width: 150
                 TextField {
                     id: agendarClienteCelularTextField
-                    enabled: cabinaviewmodel.clienteEsNuevo
-                    visible: cabinaviewmodel.clienteEsNuevo
+                    enabled: agendarclienteviewdata.clienteEsNuevo
+                    visible: agendarclienteviewdata.clienteEsNuevo
                     implicitWidth: 150
                     implicitHeight: 25
+                    maximumLength: 10
                 }
                 TextField {
                     id: agendarClienteExistenteCelularTextField
-                    enabled: cabinaviewmodel.clienteEsNuevo
-                    visible: !cabinaviewmodel.clienteEsNuevo
-                    text: cabinaviewmodel.celular
+                    enabled: agendarclienteviewdata.clienteEsNuevo
+                    visible: !agendarclienteviewdata.clienteEsNuevo
+                    text: agendarclienteviewdata.celular
                     implicitWidth: 150
                     implicitHeight: 25
+                    maximumLength: 10
                 }
             }
             //2
@@ -176,9 +183,9 @@ Window {
             }
             ComboBox {
                 id: agendarClienteTratamientoComboBox
-                model: conexionabasededatos.tratamientos
+                model: clinicacore.tratamientos
                 implicitWidth: 150
-                onCurrentIndexChanged: conexionabasededatos.buildCurrentServicios(agendarClienteTratamientoComboBox.currentIndex)
+                onCurrentIndexChanged: clinicacore.buildCurrentServicios(agendarClienteTratamientoComboBox.currentIndex)
                 implicitHeight: 25
             }
             Rectangle {
@@ -191,7 +198,7 @@ Window {
             }
             ComboBox {
                 id: agendarClienteServicioComboBox
-                model: conexionabasededatos.currentServicios
+                model: clinicacore.currentServicios
                 implicitWidth: 150
                 implicitHeight: 25
             }
@@ -355,18 +362,18 @@ Window {
             anchors.left: agendarClienteGrid.right
             anchors.top: agendarClienteGrid.top
             minimumDate: {
-                calendarfunctions.init()
-                calendarfunctions.getTodaysDate()
+                datemanipulation.init()
+                datemanipulation.getTodaysDate()
             }
             maximumDate: {
-                calendarfunctions.init()
-                calendarfunctions.getUpperBoundDate()
+                datemanipulation.init()
+                datemanipulation.getUpperBoundDate()
             }
             onClicked: {
                 console.log(date)
-                agendarClienteTableView.currentRow = calendarfunctions.daysToSelection(date)*22
+                agendarClienteTableView.currentRow = datemanipulation.daysToSelection(date)*22
                 agendarClienteTableView.selection.clear()
-                agendarClienteTableView.selection.select(calendarfunctions.daysToSelection(date)*22)
+                agendarClienteTableView.selection.select(datemanipulation.daysToSelection(date)*22)
                 agendarClienteTableView.forceActiveFocus()
             }
         }
@@ -472,7 +479,7 @@ Window {
                         agendarClienteTableView.selection.clear()
                         agendarClienteTableView.currentRow = styleData.row
                         agendarClienteTableView.selection.select (styleData.row)
-                        cabinaviewmodel.setID(styleData.row)
+                        agendarclienteviewdata.setID(styleData.row)
                         agendarClienteTableView.forceActiveFocus()
                         console.log(styleData.value)
                     }
@@ -482,7 +489,7 @@ Window {
                 var currentRow =  agendarClienteTableView.currentRow
                 agendarClienteTableView.selection.clear()
                 agendarClienteTableView.selection.select (currentRow)
-                cabinaviewmodel.setID(currentRow)
+                agendarclienteviewdata.setID(currentRow)
                 agendarClienteTableView.forceActiveFocus()
                 console.log("Current Row: " + currentRow)
             }
@@ -613,7 +620,7 @@ Window {
                              return true
                 }
                 onClicked: {
-                    calendarfunctions.clearIDsQueued()
+                    datemanipulation.clearIDsQueued()
                     var i;
                     var lastRowOfDay = false;
                     var nombre;
@@ -621,7 +628,7 @@ Window {
                     var celular;
 
                     //assign nombre, apellidos, celular
-                    if (cabinaviewmodel.clienteEsNuevo === true)
+                    if (agendarclienteviewdata.clienteEsNuevo === true)
                     {
                         nombre = agendarClienteNombreTextField.text
                         apellidos = agendarClienteApellidosTextField.text
@@ -635,13 +642,13 @@ Window {
                     }
 
                     //iterate over cita duration
-                    for (i = 0; i < agendarClienteDuracionComboBox.currentIndex; i++)
+                    for (i = 0; i < agendarClienteDuracionComboBox.currentIndex+1; i++)
                     {
-                        cabinaviewmodel.updateID()
-                        calendarfunctions.addCurrentIDToIDsQueued()
-                        cabinaviewmodel.updateQuery("")
+                        cabinasqlqueries.updateID()
+                        datemanipulation.addCurrentIDToIDsQueued()
+                        cabinasqlqueries.updateQuery(clinicacore.currentCabina)
                         //fila disponible
-                        if (calendarfunctions.rowIsEmpty() === true)
+                        if (cabinasqlqueries.rowIsEmpty() === true)
                         {
                             console.log("Nombre is NULL")
                         }
@@ -649,24 +656,23 @@ Window {
                         else
                         {
                             console.log("Error - fila ocupada")
-                            cabinaviewmodel.clearRowsDueToBusyRow()
+                            cabinasqlqueries.clearRowsDueToBusyRow()
                             errorMessageBusyRow.visible = true
                             break;
                         }
                         if (lastRowOfDay == true)
                         {
-                            cabinaviewmodel.clearRowsDueToBusyRow()
+                            cabinasqlqueries.clearRowsDueToBusyRow()
                             errorMessageExceedingLastRow.visible = true
                             break;
                         }
                         //error - de dia para otro dia
-                        if (cabinaviewmodel.isLastRowOfDay() === true)
+                        if (agendarclienteviewdata.isLastRowOfDay() === true)
                         {
                             console.log("Last Day")
                             lastRowOfDay = true
                         }
-
-                        cabinaviewmodel.updateRowInTable(nombre, apellidos, celular,
+                        cabinasqlqueries.updateRowInTable(nombre, apellidos, celular,
                                                          agendarClienteTratamientoComboBox.currentText,
                                                          agendarClienteServicioComboBox.currentText,
                                                          agendarClienteZonasTextField.text,
@@ -678,18 +684,18 @@ Window {
                                                          agendarClienteObservacionesTextField.text,
                                                          agendarClienteImporteCobradoTextField.text,
                                                          agendarClienteDuracionComboBox.currentIndex)
-                        if (agendarClienteDuracionComboBox.currentIndex > 1)
+                        if (agendarClienteDuracionComboBox.currentIndex > 0)
                         {
                             agendarClienteTableView.currentRow = agendarClienteTableView.currentRow + 1
                         }
                     }
 
-                    cabinaviewmodel.updateQuery("")
+                    cabinasqlqueries.updateQuery(clinicacore.currentCabina)
 
                     //Agregar cliente a base de datos si es nuevo
-                    if (cabinaviewmodel.clienteEsNuevo == true)
+                    if (agendarclienteviewdata.clienteEsNuevo === true)
                     {
-                        clientesviewmodel.addPaciente(agendarClienteNombreTextField.text,
+                        clientessqlqueries.addPaciente(agendarClienteNombreTextField.text,
                                                       agendarClienteApellidosTextField.text,
                                                       agendarClienteCelularTextField.text)
                     }

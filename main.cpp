@@ -1,12 +1,17 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "conexionabasededatos.h"
+#include "cabinasqlqueries.h"
 #include "cabinaviewmodel.h"
+#include "clientessqlqueries.h"
 #include "clientesviewmodel.h"
-#include "pacientependienteviewmodel.h"
-#include "editarpacienteviewmodel.h"
-#include "calendarfunctions.h"
+#include "clinicacore.h"
+#include "datemanipulation.h"
+#include "editarpacientesqlqueries.h"
+#include "editarpacienteviewdata.h"
+#include "establishconnection.h"
+#include "agendarclienteviewdata.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -14,26 +19,40 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    //Set context properties
-    QQmlContext* conexionABaseDeDatosCtx = engine.rootContext();
-    conexionABaseDeDatosCtx->setContextProperty("conexionabasededatos", &ConexionABaseDeDatos::Instance());
+    //Context Properties
+    QQmlContext* agendarClienteViewDataCtx = engine.rootContext();
+    agendarClienteViewDataCtx->setContextProperty("agendarclienteviewdata", &AgendarClienteViewData::Instance());
+
+    QQmlContext* cabinaSQLQueriesCtx = engine.rootContext();
+    cabinaSQLQueriesCtx->setContextProperty("cabinasqlqueries", &CabinaSQLQueries::Instance());
 
     QQmlContext* cabinaViewModelCtx = engine.rootContext();
     cabinaViewModelCtx->setContextProperty("cabinaviewmodel", &CabinaViewModel::Instance());
 
+    QQmlContext* clientesSQLQueriesCtx = engine.rootContext();
+    clientesSQLQueriesCtx->setContextProperty("clientessqlqueries", &ClientesSQLQueries::Instance());
+
     QQmlContext* clientesViewModelCtx = engine.rootContext();
     clientesViewModelCtx->setContextProperty("clientesviewmodel", &ClientesViewModel::Instance());
 
-    QQmlContext* pacientePendienteViewModelCtx = engine.rootContext();
-    pacientePendienteViewModelCtx->setContextProperty("pacientependienteviewmodel", &PacientePendienteViewModel::Instance());
+    QQmlContext* clinicaCoreCtx = engine.rootContext();
+    clinicaCoreCtx->setContextProperty("clinicacore", &ClinicaCore::Instance());
 
-    QQmlContext* editarPacienteViewModelCtx = engine.rootContext();
-    editarPacienteViewModelCtx->setContextProperty("editarpacienteviewmodel", &EditarPacienteViewModel::Instance());
+    QQmlContext* dateManipulationCtx = engine.rootContext();
+    dateManipulationCtx->setContextProperty("datemanipulation", &DateManipulation::Instance());
 
-    QQmlContext* calendarFunctionsCtx = engine.rootContext();
-    calendarFunctionsCtx->setContextProperty("calendarfunctions", &CalendarFunctions::Instance());
+    QQmlContext* editarPacienteSQLQueriesCtx = engine.rootContext();
+    editarPacienteSQLQueriesCtx->setContextProperty("editarpacientesqlqueries", &EditarPacienteSQLQueries::Instance());
 
-    //Load engine
+    QQmlContext* editarPacienteViewDataCtx = engine.rootContext();
+    editarPacienteViewDataCtx->setContextProperty("editarpacienteviewdata", &EditarPacienteViewData::Instance());
+
+    QQmlContext* establishConnectionCtx = engine.rootContext();
+    establishConnectionCtx->setContextProperty("establishconnection", &EstablishConnection::Instance());
+
+
+
+
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     return app.exec();

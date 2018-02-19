@@ -1,10 +1,10 @@
-#ifndef EDITARPACIENTEVIEWMODEL_H
-#define EDITARPACIENTEVIEWMODEL_H
+#ifndef EDITARPACIENTEVIEWDATA_H
+#define EDITARPACIENTEVIEWDATA_H
 
 #include <QObject>
 #include <QVector>
 
-class EditarPacienteViewModel : public QObject
+class EditarPacienteViewData : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString nombre READ nombre WRITE setNombre NOTIFY nombreChanged)
@@ -24,17 +24,11 @@ class EditarPacienteViewModel : public QObject
     Q_PROPERTY(QString saldoAFavor READ saldoAFavor WRITE setSaldoAFavor NOTIFY saldoAFavorChanged)
     Q_PROPERTY(QString sesionesDeGarantia READ sesionesDeGarantia WRITE setSesionesDeGarantia NOTIFY sesionesDeGarantiaChanged)
     Q_PROPERTY(QString currentCelular READ currentCelular WRITE setCurrentCelular NOTIFY currentCelularChanged)
-
-
 public:
-    ~EditarPacienteViewModel()=default;
-    static EditarPacienteViewModel &Instance();
+    ~EditarPacienteViewData()=default;
+    static EditarPacienteViewData &Instance();
 
-    Q_INVOKABLE QString retrieveEntry(QString celular, QString column);
-    Q_INVOKABLE void retrieveAllEntries(QString celular);
-    void splitFecha(QString fecha);
-
-    //Q Properties
+    //Q_PROPERTIES
     QString nombre()const;
     void setNombre(QString nombre);
     QString apellidos();
@@ -70,12 +64,15 @@ public:
     QString currentCelular()const;
     void setCurrentCelular(QString currentCelular);
 
+    //OTHER
+    void splitFecha(QString fecha);
+
 signals:
     void nombreChanged();
     void apellidosChanged();
     void celularChanged();
     void telefonoChanged();
-    void correoChanged();   
+    void correoChanged();
     void fechaDeNacimientoChanged();
     void diaFechaDeNacimientoIndexChanged();
     void mesFechaDeNacimientoIndexChanged();
@@ -89,11 +86,10 @@ signals:
     void sesionesDeGarantiaChanged();
     void currentCelularChanged();
 
-
 private:
-    EditarPacienteViewModel()=default;
-    EditarPacienteViewModel(EditarPacienteViewModel const&)=delete;
-    void operator = (EditarPacienteViewModel const&)=delete;
+    EditarPacienteViewData()=default;
+    EditarPacienteViewData(EditarPacienteViewData const&)=delete;
+    void operator = (EditarPacienteViewData const&)=delete;
 
     QString m_nombre;
     QString m_apellidos;
@@ -112,7 +108,6 @@ private:
     QString m_saldoAFavor;
     QString m_sesionesDeGarantia;
     QString m_currentCelular;
-
 };
 
-#endif // EDITARPACIENTEVIEWMODEL_H
+#endif // EDITARPACIENTEVIEWDATA_H

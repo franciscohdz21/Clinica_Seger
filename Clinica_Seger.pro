@@ -5,12 +5,16 @@ CONFIG += c++11
 QT += sql
 
 SOURCES += main.cpp \
-    conexionabasededatos.cpp \
     cabinaviewmodel.cpp \
     clientesviewmodel.cpp \
-    pacientependienteviewmodel.cpp \
-    editarpacienteviewmodel.cpp \
-    calendarfunctions.cpp
+    establishconnection.cpp \
+    editarpacienteviewdata.cpp \
+    cabinasqlqueries.cpp \
+    clientessqlqueries.cpp \
+    editarpacientesqlqueries.cpp \
+    clinicacore.cpp \
+    datemanipulation.cpp \
+    agendarclienteviewdata.cpp
 
 RESOURCES += qml.qrc
 
@@ -37,9 +41,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    conexionabasededatos.h \
     cabinaviewmodel.h \
     clientesviewmodel.h \
-    pacientependienteviewmodel.h \
-    editarpacienteviewmodel.h \
-    calendarfunctions.h
+    establishconnection.h \
+    editarpacienteviewdata.h \
+    cabinasqlqueries.h \
+    clientessqlqueries.h \
+    editarpacientesqlqueries.h \
+    clinicacore.h \
+    datemanipulation.h \
+    agendarclienteviewdata.h
