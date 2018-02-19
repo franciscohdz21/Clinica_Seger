@@ -96,7 +96,8 @@ Window {
             model: clientesviewmodel
             onClicked: {
                 editarpacienteviewdata.currentCelular = clientesviewmodel.retrieveCelular(buscarPacienteTableView.currentRow)
-                console.log("Current Celular " + editarpacienteviewdata.currentCelular)
+                if (clinicacore.developerMode === true)
+                    console.log("Current Celular " + editarpacienteviewdata.currentCelular)
             }
             TableViewColumn
             {

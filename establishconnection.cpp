@@ -15,7 +15,10 @@ bool EstablishConnection::establecerConexion(const QString IP, const int puerto,
     QSqlDatabase sqlDatabse;
     sqlDatabse = QSqlDatabase::addDatabase("QMYSQL");
     sqlDatabse.setHostName(IP);
-    sqlDatabse.setDatabaseName("Clinica");
+    if (ClinicaCore::Instance().developerMode() == true)
+        sqlDatabse.setDatabaseName("Clinica_test");
+    else
+        sqlDatabse.setDatabaseName("Clinica");
     sqlDatabse.setPort(puerto);
     sqlDatabse.setUserName("root");
     sqlDatabse.setPassword(contrasena);

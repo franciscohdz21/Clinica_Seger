@@ -36,7 +36,12 @@ Window {
             }
             TextField {
                 id: ipTextField
-                text: "127.0.0.1"
+                text: {
+                    if (clinicacore.developerMode === true)
+                        return "127.0.0.1"
+                    else
+                        return ""
+                }
             }
             Text {
                 text: "Puerto:"
@@ -93,6 +98,9 @@ Window {
             errorAlConectarse.close()
             contrasenaTextField.text = ""
         }
-        Component.onCompleted: visible = false
+        Component.onCompleted: {
+            clinicacore.init(true)
+            visible = false
+        }
     }
 }

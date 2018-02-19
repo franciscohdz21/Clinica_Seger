@@ -1,6 +1,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QDebug>
+#include <thread>
 #include "clinicacore.h"
 
 ClinicaCore &ClinicaCore::Instance()
@@ -185,7 +186,20 @@ bool ClinicaCore::developerMode() const
 }
 void ClinicaCore::setDeveloperMode(bool trueOrFalse)
 {
-    m_developerMode = trueOrFalse;
+    if (trueOrFalse != m_developerMode)
+    {
+        m_developerMode = trueOrFalse;
+        emit developerModeChanged();
+    }
+}
+void ClinicaCore::checkConnectionConstantly()
+{
+    //if (ClinicaCore::developerMode() == true)
+    //    qDebug() << "CHECK CONNECTION CONST";
+}
+void ClinicaCore::startCheckConnectionThread()
+{
+    //std::thread t1(checkConnectionConstantly);
 }
 void ClinicaCore::init(bool devMode)
 {

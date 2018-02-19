@@ -63,6 +63,18 @@ void AgendarClienteViewData::setClienteEsNuevo(bool trueOrFalse)
         emit clienteEsNuevoChanged();
     }
 }
+int AgendarClienteViewData::tratamientoCurrentIndex() const
+{
+    return m_tratamientoCurrentIndex;
+}
+void AgendarClienteViewData::setTratamientoCurrentIndex(int index)
+{
+    if (index != m_tratamientoCurrentIndex)
+    {
+        m_tratamientoCurrentIndex = index;
+        emit tratamientoCurrentIndexChanged();
+    }
+}
 void AgendarClienteViewData::clearNombreApellidosCelular()
 {
     setNombre("");

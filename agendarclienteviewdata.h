@@ -10,6 +10,7 @@ class AgendarClienteViewData : public QObject
     Q_PROPERTY(QString apellidos READ apellidos WRITE setApellidos NOTIFY apellidosChanged)
     Q_PROPERTY(QString celular READ celular WRITE setCelular NOTIFY celularChanged)
     Q_PROPERTY(bool clienteEsNuevo READ clienteEsNuevo WRITE setClienteEsNuevo NOTIFY clienteEsNuevoChanged)
+    Q_PROPERTY(int tratamientoCurrentIndex READ tratamientoCurrentIndex WRITE setTratamientoCurrentIndex NOTIFY tratamientoCurrentIndexChanged)
 
 public:
     ~AgendarClienteViewData()=default;
@@ -24,6 +25,9 @@ public:
     void setCelular(const QString nuevoCelular);
     bool clienteEsNuevo()const;
     void setClienteEsNuevo(bool trueOrFalse);
+    int tratamientoCurrentIndex()const;
+    void setTratamientoCurrentIndex(int index);
+
 
     //Other
     Q_INVOKABLE void clearNombreApellidosCelular();
@@ -39,6 +43,7 @@ signals:
     void apellidosChanged();
     void celularChanged();
     void clienteEsNuevoChanged();
+    void tratamientoCurrentIndexChanged();
 
 private:
     AgendarClienteViewData()=default;
@@ -49,8 +54,10 @@ private:
     QString m_apellidos;
     QString m_celular;
     bool m_clienteEsNuevo;
+    int m_tratamientoCurrentIndex;
     QString m_nombreDeTabla;
     QString m_horaInicioForID;
+
 };
 
 #endif // AGENDARCLIENTEVIEWDATA_H

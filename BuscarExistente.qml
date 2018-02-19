@@ -104,7 +104,8 @@ Window {
                         buscarClienteTableView.selection.select (styleData.row)
                         clientesviewmodel.setClientesProperties(styleData.row)
                         buscarClienteTableView.forceActiveFocus()
-                        console.log(styleData.value)
+                        if (clinicacore.developerMode === true)
+                            console.log(styleData.value)
                     }
                 }
             }

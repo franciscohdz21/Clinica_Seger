@@ -49,6 +49,7 @@ Window {
                     seleccionarCabina.hide()
                     //set cabina
                     clinicacore.currentCabina = "e_light"
+                    agendarclienteviewdata.tratamientoCurrentIndex = 0
                     //load view
                     if (clinicacore.getCancelarCita() === true)
                     {
@@ -78,11 +79,12 @@ Window {
                     seleccionarCabina.hide()
                     //set cabina
                     clinicacore.currentCabina = "corporal_y_facial"
+                    agendarclienteviewdata.tratamientoCurrentIndex = 1
                     //load view
                     if (clinicacore.getCancelarCita() === true)
                     {
                         buscarOCancelarCita.show()
-                        cabinasqlqueries.updateQuery(datemanipulation.currentCabina);
+                        cabinasqlqueries.updateQuery(clinicacore.currentCabina);
                         ventanaDeManipulacionSQL.hide()
                         clinicacore.setCancelarCita(false)
                     }

@@ -198,7 +198,7 @@ void CabinaSQLQueries::updateRowInTable(QString nombre, QString apellidos,
 
     QSqlQuery query;
     QString updateString = "UPDATE ";
-    updateString.append("template_cabina_test ");
+    updateString.append(AgendarClienteViewData::Instance().getNombreDeTabla() + " ");
 
     query.prepare(updateString +
                   "SET Nombre = :nombre, "

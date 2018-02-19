@@ -34,14 +34,24 @@ Window {
             }
             TextField {
                 id: usuarioTextField
-                text: "root"
+                text: {
+                    if (clinicacore.developerMode === true)
+                        return "root"
+                    else
+                        return ""
+                }
             }
             Text {
                 text: "Contrasena:"
             }
             TextField {
                 id: contrasena2TextField
-                text: "HEadzx12"
+                text: {
+                    if (clinicacore.developerMode === true)
+                        return "HEadzx12"
+                    else
+                        return ""
+                }
                 echoMode: TextInput.Password
             }
             Rectangle {
@@ -62,7 +72,7 @@ Window {
                                                             contrasena2TextField.text) !== -1)
                         {
                             ventanaDeLogin.close()
-                            clinicacore.init(false)
+                            //clinicacore.startCheckConnectionThread()
                             ventanaDeManipulacionSQL.show()
                         }
                         else {

@@ -108,6 +108,7 @@ Window {
             TableViewColumn {
                 role: "id"
                 title: "ID"
+                visible: clinicacore.developerMode
                 width: 120
             }
             TableViewColumn {

@@ -13,16 +13,10 @@ Window {
     height: 728
     minimumHeight: 728
     maximumHeight: 728
-    title: {
-        if (clinicacore.currentCabina === "e_light")
-            return "Agendar - E-Light"
-        else
-            return "Agendar - Corporal y Facial"
-    }
+    title: "Agendar Cliente"
 
     color: "lightyellow"
     Component.onCompleted: {
-        agendarClienteTratamientoComboBox.currentIndex = -1
         agendarClienteServicioComboBox.currentIndex = -1
         agendarClienteDuracionComboBox.currentIndex = -1
         agendarClienteEstatusComboBox.currentIndex = -1
@@ -51,22 +45,22 @@ Window {
                 //cliente nuevo
                 if (agendarclienteviewdata.clienteEsNuevo === true)
                 {
-                    if ( agendarClienteNombreTextField.text === "" /*||
+                    if ( agendarClienteNombreTextField.text === "" ||
                             agendarClienteApellidosTextField.text === "" ||
                             agendarClienteCelularTextField.text === "" ||
                             agendarClienteZonasTextField.text === "" ||
                             agendarClienteDuracionComboBox.currentIndex === -1 ||
+                            agendarClientePrecioTextField.text === "" ||
+                            agendarClienteImporteCobradoTextField.text === "" ||
                             agendarClienteSesionTextField.text === "" ||
                             agendarClienteSesionesPagadasTextField.text === "" ||
                             agendarClienteTotalPagadoTextField.text === "" ||
-                            agendarClienteEstatusComboBox.currentIndex === -1*/)
+                            agendarClienteEstatusComboBox.currentIndex === -1)
                     {
-                        console.log("False")
                         return false
                     }
                     else
                     {
-                        console.log("true")
                         return true
                     }
                 }
@@ -79,17 +73,16 @@ Window {
                             agendarClienteZonasTextField.text === "" ||
                             agendarClienteDuracionComboBox.currentIndex === -1 ||
                             agendarClientePrecioTextField.text === "" ||
+                            agendarClienteImporteCobradoTextField.text === "" ||
                             agendarClienteSesionTextField.text === "" ||
                             agendarClienteSesionesPagadasTextField.text === "" ||
                             agendarClienteTotalPagadoTextField.text === "" ||
                             agendarClienteEstatusComboBox.currentIndex === -1)
                     {
-                        console.log("False")
                         return false
                     }
                     else
                     {
-                        console.log("true")
                         return true
                     }
                 }
@@ -183,10 +176,12 @@ Window {
             }
             ComboBox {
                 id: agendarClienteTratamientoComboBox
+                enabled: false
                 model: clinicacore.tratamientos
                 implicitWidth: 150
                 onCurrentIndexChanged: clinicacore.buildCurrentServicios(agendarClienteTratamientoComboBox.currentIndex)
                 implicitHeight: 25
+                currentIndex: agendarclienteviewdata.tratamientoCurrentIndex
             }
             Rectangle {
                 color: "grey"
@@ -370,7 +365,8 @@ Window {
                 datemanipulation.getUpperBoundDate()
             }
             onClicked: {
-                console.log(date)
+                if (clinicacore.developerMode === true)
+                    console.log(date)
                 agendarClienteTableView.currentRow = datemanipulation.daysToSelection(date)*22
                 agendarClienteTableView.selection.clear()
                 agendarClienteTableView.selection.select(datemanipulation.daysToSelection(date)*22)
@@ -481,7 +477,8 @@ Window {
                         agendarClienteTableView.selection.select (styleData.row)
                         agendarclienteviewdata.setID(styleData.row)
                         agendarClienteTableView.forceActiveFocus()
-                        console.log(styleData.value)
+                        if (clinicacore.developerMode === true)
+                            console.log(styleData.value)
                     }
                 }
             }
@@ -491,11 +488,13 @@ Window {
                 agendarClienteTableView.selection.select (currentRow)
                 agendarclienteviewdata.setID(currentRow)
                 agendarClienteTableView.forceActiveFocus()
-                console.log("Current Row: " + currentRow)
+                if (clinicacore.developerMode === true)
+                    console.log("Current Row: " + currentRow)
             }
             TableViewColumn {
                 role: "id"
                 title: "ID"
+                visible: clinicacore.developerMode
                 width: 120
             }
             TableViewColumn {
@@ -591,7 +590,6 @@ Window {
                     agendarClienteNombreTextField.text = ""
                     agendarClienteApellidosTextField.text = ""
                     agendarClienteCelularTextField.text = ""
-                    agendarClienteTratamientoComboBox.currentIndex = -1
                     agendarClienteServicioComboBox.currentIndex = -1
                     agendarClienteDuracionComboBox.currentIndex = -1
                     agendarClienteZonasTextField.text = ""
@@ -650,12 +648,14 @@ Window {
                         //fila disponible
                         if (cabinasqlqueries.rowIsEmpty() === true)
                         {
-                            console.log("Nombre is NULL")
+                            if (clinicacore.developerMode === true)
+                                console.log("Nombre is NULL")
                         }
                         //error - fila ocupada
                         else
                         {
-                            console.log("Error - fila ocupada")
+                            if (clinicacore.developerMode === true)
+                                console.log("Error - fila ocupada")
                             cabinasqlqueries.clearRowsDueToBusyRow()
                             errorMessageBusyRow.visible = true
                             break;
@@ -669,7 +669,8 @@ Window {
                         //error - de dia para otro dia
                         if (agendarclienteviewdata.isLastRowOfDay() === true)
                         {
-                            console.log("Last Day")
+                            if (clinicacore.developerMode === true)
+                                console.log("Last Day")
                             lastRowOfDay = true
                         }
                         cabinasqlqueries.updateRowInTable(nombre, apellidos, celular,
@@ -704,7 +705,6 @@ Window {
                     agendarClienteNombreTextField.text = ""
                     agendarClienteApellidosTextField.text = ""
                     agendarClienteCelularTextField.text = ""
-                    agendarClienteTratamientoComboBox.currentIndex = -1
                     agendarClienteServicioComboBox.currentIndex = -1
                     agendarClienteDuracionComboBox.currentIndex = -1
                     agendarClienteZonasTextField.text = ""

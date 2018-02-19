@@ -7,14 +7,15 @@
 class ClinicaCore : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString usuario READ usuario WRITE setUsuario NOTIFY usuarioChanged)//core
-    Q_PROPERTY(int permiso READ permiso WRITE setPermiso NOTIFY permisoChanged)//core
-    Q_PROPERTY(QString ubicacion READ ubicacion WRITE setUbicacion NOTIFY ubicacionChanged)//core
-    Q_PROPERTY(QStringList cabinas READ cabinas WRITE setCabinas NOTIFY cabinasChanged)//core
-    Q_PROPERTY(QStringList tratamientos READ tratamientos WRITE setTratamientos NOTIFY tratamientosChanged)//core
-    Q_PROPERTY(QStringList currentServicios READ currentServicios WRITE setCurrentServicios NOTIFY currentServiciosChanged)//core
-    Q_PROPERTY(bool connectedToServer READ connectedToServer WRITE setConnectedToServer NOTIFY connectedToServerChanged)//core
-    Q_PROPERTY(QString currentCabina READ currentCabina WRITE setCurrentCabina NOTIFY currentCabinaChanged)//core
+    Q_PROPERTY(QString usuario READ usuario WRITE setUsuario NOTIFY usuarioChanged)
+    Q_PROPERTY(int permiso READ permiso WRITE setPermiso NOTIFY permisoChanged)
+    Q_PROPERTY(QString ubicacion READ ubicacion WRITE setUbicacion NOTIFY ubicacionChanged)
+    Q_PROPERTY(QStringList cabinas READ cabinas WRITE setCabinas NOTIFY cabinasChanged)
+    Q_PROPERTY(QStringList tratamientos READ tratamientos WRITE setTratamientos NOTIFY tratamientosChanged)
+    Q_PROPERTY(QStringList currentServicios READ currentServicios WRITE setCurrentServicios NOTIFY currentServiciosChanged)
+    Q_PROPERTY(bool connectedToServer READ connectedToServer WRITE setConnectedToServer NOTIFY connectedToServerChanged)
+    Q_PROPERTY(QString currentCabina READ currentCabina WRITE setCurrentCabina NOTIFY currentCabinaChanged)
+    Q_PROPERTY(bool developerMode READ developerMode WRITE setDeveloperMode NOTIFY developerModeChanged)
 
 public:
     ~ClinicaCore()=default;
@@ -45,8 +46,10 @@ public:
     Q_INVOKABLE void buildCurrentServicios(int tratamientoIndex);
     Q_INVOKABLE bool getCancelarCita()const;
     Q_INVOKABLE void setCancelarCita(bool cancelarCita);
-    Q_INVOKABLE bool developerMode()const;
+    bool developerMode()const;
     void setDeveloperMode(bool trueOrFalse);
+    void checkConnectionConstantly();
+    Q_INVOKABLE void startCheckConnectionThread();
     Q_INVOKABLE void init(bool devMode);
 
 signals:
@@ -58,6 +61,7 @@ signals:
     void currentServiciosChanged();
     void connectedToServerChanged();
     void currentCabinaChanged();
+    void developerModeChanged();
 
 private:
     ClinicaCore()=default;

@@ -11,7 +11,7 @@ Window {
     height: 728
     minimumHeight: 728
     maximumHeight: 728
-    title: "Manipulacion de Base de Datos"
+    title: "Clinica Seger 1.0"
 
     AgendarCliente {
         id: agendarCliente
