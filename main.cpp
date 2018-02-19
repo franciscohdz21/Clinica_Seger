@@ -49,8 +49,7 @@ int main(int argc, char *argv[])
 
     QQmlContext* establishConnectionCtx = engine.rootContext();
     establishConnectionCtx->setContextProperty("establishconnection", &EstablishConnection::Instance());
-
-
+    EstablishConnection::Instance().start();
 
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

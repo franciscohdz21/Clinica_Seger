@@ -12,6 +12,11 @@ Window {
     minimumHeight: 300
     maximumHeight: 300
     title: "Iniciar Sesion"
+    onClosing: {
+        close.accepted = false
+        establishconnection.terminate()
+        Qt.quit()
+    }
 
     VentanaDeManipulacionSQL {
         id: ventanaDeManipulacionSQL
@@ -71,8 +76,8 @@ Window {
                         if (establishconnection.loginAPrograma(usuarioTextField.text,
                                                             contrasena2TextField.text) !== -1)
                         {
-                            ventanaDeLogin.close()
-                            //clinicacore.startCheckConnectionThread()
+                            ventanaDeLogin.hide()
+                            clinicacore.startCheckConnectionThread()
                             ventanaDeManipulacionSQL.show()
                         }
                         else {

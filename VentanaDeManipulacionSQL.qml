@@ -12,6 +12,11 @@ Window {
     minimumHeight: 728
     maximumHeight: 728
     title: "Clinica Seger 1.0"
+    onClosing: {
+        close.accepted = false
+        establishconnection.terminate()
+        Qt.quit()
+    }
 
     AgendarCliente {
         id: agendarCliente
@@ -36,6 +41,18 @@ Window {
     SeleccionarCabina {
         id : seleccionarCabina
         visible: true
+    }
+
+    MessageDialog {
+        id: messageDialog
+        title: "Error fatal"
+        text: "Conexion ha sido interrumpida, reinicie programa."
+        icon: StandardIcon.Critical
+        visible: establishconnection.connectionErrorMessageVisible
+        onAccepted: {
+            Qt.quit()
+        }
+        Component.onCompleted: visible = false
     }
 
     Rectangle {
@@ -91,6 +108,7 @@ Window {
                 source: "Fotos/Agendar_Nuevo.png"
                 MouseArea {
                     anchors.fill: parent
+                    hoverEnabled: true
                     onClicked: {
                         agendarclienteviewdata.clienteEsNuevo = true
                         clinicacore.buildCurrentServicios(0)
@@ -249,6 +267,7 @@ Window {
             Button {
                 text: "Cerrar"
                 onClicked: {
+                    establishconnection.terminate()
                     Qt.quit()
                 }
             }

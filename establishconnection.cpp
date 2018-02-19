@@ -10,19 +10,31 @@ EstablishConnection &EstablishConnection::Instance()
     static EstablishConnection instance; //Guaranteed to be destroyed
     return instance;
 }
+bool EstablishConnection::connectionErrorMessageVisible() const
+{
+    return m_connectionErrorMessageVisible;
+}
+void EstablishConnection::setConnectionErrorMessageVisible(bool trueOrFalse)
+{
+    if (trueOrFalse != m_connectionErrorMessageVisible)
+    {
+        m_connectionErrorMessageVisible = trueOrFalse;
+        emit connectionErrorMessageVisibleChanged();
+    }
+}
 bool EstablishConnection::establecerConexion(const QString IP, const int puerto, const QString contrasena)
 {
-    QSqlDatabase sqlDatabse;
-    sqlDatabse = QSqlDatabase::addDatabase("QMYSQL");
-    sqlDatabse.setHostName(IP);
+    m_sqlDatabse = QSqlDatabase::addDatabase("QMYSQL");
+    m_sqlDatabse.setHostName(IP);
     if (ClinicaCore::Instance().developerMode() == true)
-        sqlDatabse.setDatabaseName("Clinica_test");
+        m_sqlDatabse.setDatabaseName("Clinica_test");
     else
-        sqlDatabse.setDatabaseName("Clinica");
-    sqlDatabse.setPort(puerto);
-    sqlDatabse.setUserName("root");
-    sqlDatabse.setPassword(contrasena);
-    return sqlDatabse.open();
+        m_sqlDatabse.setDatabaseName("Clinica");
+    m_sqlDatabse.setPort(puerto);
+    m_sqlDatabse.setUserName("root");
+    m_sqlDatabse.setPassword(contrasena);
+    m_connected = m_sqlDatabse.open();
+    return m_connected;
 }
 int EstablishConnection::loginAPrograma(const QString usuario, const QString contrasena)
 {
@@ -76,4 +88,34 @@ int EstablishConnection::loginAPrograma(const QString usuario, const QString con
         ClinicaCore::Instance().setServicios();
         return ClinicaCore::Instance().permiso();
     }
+}
+void EstablishConnection::run()
+{
+    unsigned int microseconds;
+    microseconds = 2000000;
+    while (true)
+    {
+        usleep(microseconds);
+        if (m_connected == true)
+        {
+            if (m_sqlDatabse.open() == false)
+            {
+                if (ClinicaCore::Instance().developerMode() == true)
+                    qDebug() << "Connection dropped";
+                setConnectionErrorMessageVisible(true);
+                return;
+            }
+            if (ClinicaCore::Instance().developerMode() == true)
+                //qDebug() << "Sleep 2 seconds...";
+            usleep(microseconds);
+        }
+    }
+}
+void EstablishConnection::terminateThread()
+{
+    this->terminate();
+}
+EstablishConnection::EstablishConnection(): m_connected(false), m_connectionErrorMessageVisible(false)
+{
+
 }

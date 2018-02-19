@@ -14,6 +14,11 @@ Window {
     minimumHeight: 300
     maximumHeight: 300
     title: "Establecer Conexion"
+    onClosing: {
+        close.accepted = false
+        establishconnection.terminate()
+        Qt.quit()
+    }
 
     VentanaDeLogin {
         id: ventanaDeLogin
@@ -77,7 +82,7 @@ Window {
                                                                     puertoTextField.text,
                                                                     contrasenaTextField.text) === true)
                         {
-                            ventanaDeConexion.close()
+                            ventanaDeConexion.hide()
                             ventanaDeLogin.show()
                         }
                         else
