@@ -51,6 +51,7 @@ Window {
         icon: StandardIcon.Critical
         visible: establishconnection.connectionErrorMessageVisible
         onAccepted: {
+            establishconnection.terminate()
             Qt.quit()
         }
         Component.onCompleted: visible = false

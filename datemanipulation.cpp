@@ -7,6 +7,8 @@
 #include "datemanipulation.h"
 #include "clinicacore.h"
 
+#define FIRST_YEAR_OF_DATA 2013
+
 DateManipulation &DateManipulation::Instance()
 {
     static DateManipulation instance; //Guaranteed to be destroyed
@@ -16,6 +18,7 @@ void DateManipulation::init()
 {
     setTodaysDate();
     setUpperBoundDate();
+    buildYearRange();
     if (ClinicaCore::Instance().developerMode() == true)
     {
         qDebug () << "Current date: " << m_todaysDate.toString("yyyy-MM-dd");
@@ -204,4 +207,34 @@ void DateManipulation::clearIDsQueued()
 void DateManipulation::addCurrentIDToIDsQueued()
 {
     m_IDsQueued.push_back(m_currentID);
+}
+QStringList DateManipulation::getYearRange() const
+{
+    return m_yearRange;
+}
+void DateManipulation::buildYearRange()
+{
+    // current date/time based on current system
+    time_t now = time(0);
+
+    // convert now to string form
+    char* dt = ctime(&now);
+    QString currentDateAndTime = dt;
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << "The local date and time is: " << currentDateAndTime;
+    QStringList currentDateAndTimeSplit = currentDateAndTime.split(" ");
+
+    QString year = currentDateAndTimeSplit.at(4);
+    year.chop(1);
+    int yearInt;
+    yearInt = year.toInt();
+    m_yearRange.clear();
+    for (int i = FIRST_YEAR_OF_DATA; i <= yearInt; i++)
+    {
+        m_yearRange.push_back(QString::number(i));
+    }
+}
+DateManipulation::DateManipulation()
+{
+    init();
 }

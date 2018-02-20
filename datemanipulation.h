@@ -30,9 +30,11 @@ public:
     QVector <long long int> getIDsQueued()const;
     Q_INVOKABLE void clearIDsQueued();
     Q_INVOKABLE void addCurrentIDToIDsQueued();
+    Q_INVOKABLE QStringList getYearRange()const;
+    Q_INVOKABLE void buildYearRange();
 
 private:
-    DateManipulation()=default;
+    DateManipulation();
     DateManipulation(DateManipulation const&)=delete;
     void operator = (DateManipulation const&)=delete;
 
@@ -42,6 +44,7 @@ private:
     QDate m_currentDate;
     QString m_currentInitialTime;
     QVector <long long int> m_IDsQueued;
+    QStringList m_yearRange;
 };
 
 #endif // DATEMANIPULATION_H

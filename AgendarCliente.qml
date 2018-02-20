@@ -297,6 +297,15 @@ Window {
                 height: 25
                 width: 2
             }
+//            Text {
+//                text: "Cambiar anho:"
+//            }
+//            QuickControls_2_3.ComboBox {
+//                id: anhoComboBox
+//                model: datemanipulation.getYearRange()
+//                implicitWidth: 150
+//                implicitHeight: 25
+//            }
             Rectangle {
                 color: "transparent"
                 height: 25
@@ -357,11 +366,9 @@ Window {
             anchors.left: agendarClienteGrid.right
             anchors.top: agendarClienteGrid.top
             minimumDate: {
-                datemanipulation.init()
                 datemanipulation.getTodaysDate()
             }
             maximumDate: {
-                datemanipulation.init()
                 datemanipulation.getUpperBoundDate()
             }
             onClicked: {
