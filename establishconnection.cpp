@@ -106,7 +106,7 @@ void EstablishConnection::run()
                 return;
             }
             if (ClinicaCore::Instance().developerMode() == true)
-                qDebug() << "Sleep 4 seconds...";
+                //qDebug() << "Sleep 4 seconds...";
             usleep(microseconds);
         }
     }
