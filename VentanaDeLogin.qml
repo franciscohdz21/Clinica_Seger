@@ -67,6 +67,7 @@ Window {
                 Button {
                     text: "Cancelar"
                     onPressed: {
+                        establishconnection.terminate()
                         Qt.quit()
                     }
                 }
