@@ -2,8 +2,8 @@ import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
-import QtQuick.Controls 1.4
-import QtQuick.Controls 2.1
+import QtQuick.Controls 1.4 as QuickControls_1_4
+import QtQuick.Controls 2.3 as QuickControls_2_3
 
 Window {
     id: agendarCliente
@@ -96,14 +96,14 @@ Window {
                 id: nombreItem
                 height: 20
                 width: 150
-                TextField {
+                QuickControls_2_3.TextField {
                     id: agendarClienteNombreTextField
                     enabled: agendarclienteviewdata.clienteEsNuevo
                     visible: agendarclienteviewdata.clienteEsNuevo
                     implicitWidth: 150
                     implicitHeight: 25
                 }
-                TextField {
+                QuickControls_2_3.TextField {
                     id: agendarClienteExistenteNombreTextField
                     enabled: agendarclienteviewdata.clienteEsNuevo
                     visible: !agendarclienteviewdata.clienteEsNuevo
@@ -124,14 +124,14 @@ Window {
                 id: apellidosItem
                 height: 20
                 width: 150
-                TextField {
+                QuickControls_2_3.TextField {
                     id: agendarClienteApellidosTextField
                     enabled: agendarclienteviewdata.clienteEsNuevo
                     visible: agendarclienteviewdata.clienteEsNuevo
                     implicitWidth: 150
                     implicitHeight: 25
                 }
-                TextField {
+                QuickControls_2_3.TextField {
                     id: agendarClienteExistenteApellidosTextField
                     enabled: agendarclienteviewdata.clienteEsNuevo
                     visible: !agendarclienteviewdata.clienteEsNuevo
@@ -152,7 +152,7 @@ Window {
                 id: celularItem
                 height: 20
                 width: 150
-                TextField {
+                QuickControls_2_3.TextField {
                     id: agendarClienteCelularTextField
                     enabled: agendarclienteviewdata.clienteEsNuevo
                     visible: agendarclienteviewdata.clienteEsNuevo
@@ -160,7 +160,7 @@ Window {
                     implicitHeight: 25
                     maximumLength: 10
                 }
-                TextField {
+                QuickControls_2_3.TextField {
                     id: agendarClienteExistenteCelularTextField
                     enabled: agendarclienteviewdata.clienteEsNuevo
                     visible: !agendarclienteviewdata.clienteEsNuevo
@@ -174,7 +174,7 @@ Window {
             Text {
                 text: "Tratamiento:"
             }
-            ComboBox {
+            QuickControls_2_3.ComboBox {
                 id: agendarClienteTratamientoComboBox
                 enabled: false
                 model: clinicacore.tratamientos
@@ -191,7 +191,7 @@ Window {
             Text {
                 text: "Servicio:"
             }
-            ComboBox {
+            QuickControls_2_3.ComboBox {
                 id: agendarClienteServicioComboBox
                 model: clinicacore.currentServicios
                 implicitWidth: 150
@@ -205,7 +205,7 @@ Window {
             Text {
                 text: "Zonas:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: agendarClienteZonasTextField
                 implicitWidth: 150
                 implicitHeight: 25
@@ -214,7 +214,7 @@ Window {
             Text {
                 text: "Duracion:"
             }
-            ComboBox {
+            QuickControls_2_3.ComboBox {
                 id: agendarClienteDuracionComboBox
                 model:[ "30 min", "1 hora", "1.5 horas", "2 horas", "2.5 horas", "3 horas", "3.5 horas"]
                 implicitWidth: 150
@@ -228,7 +228,7 @@ Window {
             Text {
                 text: "Precio:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: agendarClientePrecioTextField
                 implicitWidth: 150
                 implicitHeight: 25
@@ -241,7 +241,7 @@ Window {
             Text {
                 text: "Importe:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: agendarClienteImporteCobradoTextField
                 implicitWidth: 150
                 implicitHeight: 25
@@ -250,7 +250,7 @@ Window {
             Text {
                 text: "Sesion:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: agendarClienteSesionTextField
                 implicitWidth: 150
                 implicitHeight: 25
@@ -263,7 +263,7 @@ Window {
             Text {
                 text: "Sesiones Pagadas:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: agendarClienteSesionesPagadasTextField
                 implicitWidth: 150
                 implicitHeight: 25
@@ -276,7 +276,7 @@ Window {
             Text {
                 text: "Total Pagado:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: agendarClienteTotalPagadoTextField
                 implicitWidth: 150
                 implicitHeight: 25
@@ -285,7 +285,7 @@ Window {
             Text {
                 text: "Estatus de Cita:"
             }
-            ComboBox {
+            QuickControls_2_3.ComboBox {
                 id: agendarClienteEstatusComboBox
                 model: ["1 - Agendado", "2 - 1 Llamada", "3 - 2 Llamadas", "4 - Whatsapp Enviado",
                 "5 - Sms enviado", "6 - Cita Cambiada", "7 - Cita Cancelada", "8 - Cita Confirmada"]
@@ -336,7 +336,7 @@ Window {
             Text {
                 text: "Observaciones:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: agendarClienteObservacionesTextField
                 implicitWidth: 900
                 implicitHeight: 25
@@ -351,7 +351,7 @@ Window {
                 width: 300
             }
         }
-        Calendar {
+        QuickControls_1_4.Calendar {
             id: calendar
             weekNumbersVisible: true
             anchors.left: agendarClienteGrid.right
@@ -391,9 +391,9 @@ Window {
             anchors.topMargin: 50
             anchors.leftMargin: observacionesGrid.width/5.5
             spacing: 15
-            Button {
+            QuickControls_2_3.Button {
                 text:"Mes anterior"
-                onClicked: {
+                onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
                     agendarClienteTableView.currentRow =  currentRow - (22*31+1)
                     agendarClienteTableView.selection.clear()
@@ -401,9 +401,9 @@ Window {
                     agendarClienteTableView.forceActiveFocus()
                 }
             }
-            Button {
+            QuickControls_2_3.Button {
                 text:"Semana anterior"
-                onClicked: {
+                onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
                     agendarClienteTableView.currentRow =  currentRow - (22*7+1)
                     agendarClienteTableView.selection.clear()
@@ -411,9 +411,9 @@ Window {
                     agendarClienteTableView.forceActiveFocus()
                 }
             }
-            Button {
+            QuickControls_2_3.Button {
                 text:"Dia anterior"
-                onClicked: {
+                onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
                     agendarClienteTableView.currentRow =  currentRow - (22*1+1)
                     agendarClienteTableView.selection.clear()
@@ -421,9 +421,9 @@ Window {
                     agendarClienteTableView.forceActiveFocus()
                 }
             }
-            Button {
+            QuickControls_2_3.Button {
                 text:"Dia siguiente"
-                onClicked: {
+                onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
                     agendarClienteTableView.currentRow =  currentRow + (22*1)
                     agendarClienteTableView.selection.clear()
@@ -431,9 +431,9 @@ Window {
                     agendarClienteTableView.forceActiveFocus()
                 }
             }
-            Button {
+            QuickControls_2_3.Button {
                 text:"Semana siguiente"
-                onClicked: {
+                onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
                     agendarClienteTableView.currentRow =  currentRow + (22*7)
                     agendarClienteTableView.selection.clear()
@@ -441,9 +441,9 @@ Window {
                     agendarClienteTableView.forceActiveFocus()
                 }
             }
-            Button {
+            QuickControls_2_3.Button {
                 text:"Mes siguiente"
-                onClicked: {
+                onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
                     agendarClienteTableView.currentRow =  currentRow + (22*31)
                     agendarClienteTableView.selection.clear()
@@ -453,7 +453,7 @@ Window {
             }
         }
 
-        TableView {
+        QuickControls_1_4.TableView {
             id: agendarClienteTableView
             anchors.top: botonesLayout.bottom
             anchors.topMargin: 20
@@ -491,88 +491,88 @@ Window {
                 if (clinicacore.developerMode === true)
                     console.log("Current Row: " + currentRow)
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "id"
                 title: "ID"
                 visible: clinicacore.developerMode
                 width: 120
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "fecha"
                 title: "Fecha"
                 width: 100
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "horaInicio"
                 title: "Hora Inicio"
                 width: 80
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "horaTermino"
                 title: "Hora Termino"
                 width: 80
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "nombre"
                 title: "Nombre"
                 width: 100
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "apellidos"
                 title: "Apellidos"
                 width: 150
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "celular"
                 title: "Celular"
                 width: 120
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "tratamiento"
                 title: "Tratamiento"
                 width: 120
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "servicio"
                 title: "Servicio"
                 width: 120
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "zonas"
                 title: "Zonas"
                 width: 100
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "precio"
                 title: "Precio"
                 width: 80
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "importeCobrado"
                 title: "Importe Cobrado"
                 width: 80
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "sesion"
                 title: "Sesion"
                 width: 60
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "sesionesPagadas"
                 title: "Sesiones Pagadas"
                 width: 60
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "totalPagado"
                 title: "Total Pagado"
                 width: 60
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "estatusDeCita"
                 title: "Estatus de Cita"
                 width: 60
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "observaciones"
                 title: "Observaciones"
                 width: 200
@@ -583,9 +583,9 @@ Window {
             anchors.left: parent.right
             anchors.topMargin: 10
             anchors.leftMargin: -230
-            Button {
+            QuickControls_2_3.Button {
                 text: "Cancelar"
-                onClicked: {
+                onPressed: {
                     //clear text
                     agendarClienteNombreTextField.text = ""
                     agendarClienteApellidosTextField.text = ""
@@ -606,7 +606,7 @@ Window {
                     agendarCliente.hide()
                 }
             }
-            Button {
+            QuickControls_2_3.Button {
                 id: agendarClienteAceptarButton
                 text: "Aceptar"
                 anchors.leftMargin: 20
@@ -617,7 +617,8 @@ Window {
                     else
                              return true
                 }
-                onClicked: {
+                onPressed: {
+                    console.log("CLICKED")
                     datemanipulation.clearIDsQueued()
                     var i;
                     var lastRowOfDay = false;

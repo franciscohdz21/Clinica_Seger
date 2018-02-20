@@ -2,8 +2,8 @@ import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
-import QtQuick.Controls 1.4
-import QtQuick.Controls 2.1
+import QtQuick.Controls 1.4 as QuickControls_1_4
+import QtQuick.Controls 2.3 as QuickControls_2_3
 
 Window {
     id: editarPaciente
@@ -38,7 +38,7 @@ Window {
             Text {
                 text: "Nombre:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: nombreTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -52,7 +52,7 @@ Window {
             Text {
                 text: "Apellidos:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: apellidosTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -66,7 +66,7 @@ Window {
             Text {
                 text: "Celular:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: celularTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -77,7 +77,7 @@ Window {
             Text {
                 text: "Telefono:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: telefonoTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -91,7 +91,7 @@ Window {
             Text {
                 text: "Correo:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: correoTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -108,7 +108,7 @@ Window {
             RowLayout {
                 id: fechaDeNacimientoLayout
                 spacing: 1
-                ComboBox {
+                QuickControls_2_3.ComboBox {
                     id: diaComboBox
                     width: 50
                     model: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
@@ -118,7 +118,7 @@ Window {
                     implicitWidth: 75
                     implicitHeight: 25
                 }
-                ComboBox {
+                QuickControls_2_3.ComboBox {
                     id: mesComboBox
                     width: 120
                     model: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
@@ -127,7 +127,7 @@ Window {
                     implicitWidth: 85
                     implicitHeight: 25
                 }
-                TextField {
+                QuickControls_2_3.TextField {
                     id: anoTextInput
                     implicitWidth: 40
                     implicitHeight: 25
@@ -138,7 +138,7 @@ Window {
             Text {
                 text: "Calle y Numero:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: calleYNumeroTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -152,7 +152,7 @@ Window {
             Text {
                 text: "Colonia:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: coloniaTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -166,7 +166,7 @@ Window {
             Text {
                 text: "Ciudad:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: ciudadTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -176,7 +176,7 @@ Window {
             Text {
                 text: "Estado:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: estadoTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -190,7 +190,7 @@ Window {
             Text {
                 text: "Sesiones Pagadas:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: sesionesPagadasTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -204,7 +204,7 @@ Window {
             Text {
                 text: "Saldo a Favor:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: saldoAFavorTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -214,7 +214,7 @@ Window {
             Text {
                 text: "Sesiones de Garantia:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: sesionesDeGarantiaTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -256,18 +256,18 @@ Window {
             anchors.left: parent.right
             anchors.topMargin: -10
             anchors.leftMargin: -230
-            Button {
+            QuickControls_2_3.Button {
                 text: "Cancelar"
-                onClicked: {
+                onPressed: {
                     editarPaciente.hide()
                     buscarOEditarPaciente.show()
                 }
             }
-            Button {
+            QuickControls_2_3.Button {
                 id: okButton
                 text: "Aceptar"
                 anchors.leftMargin: 20
-                onClicked: {
+                onPressed: {
                     //update data
                     clientessqlqueries.updatePaciente(nombreTextField.text, apellidosTextField.text,
                                                            celularTextField.text, telefonoTextField.text,

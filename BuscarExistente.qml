@@ -2,8 +2,8 @@ import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
-import QtQuick.Controls 1.4
-import QtQuick.Controls 2.1
+import QtQuick.Controls 1.4 as QuickControls_1_4
+import QtQuick.Controls 2.3 as QuickControls_2_3
 
 
 Window {
@@ -49,7 +49,7 @@ Window {
             Text {
                 text: "Celular:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: buscarExistenteCelular
                 implicitWidth: 200
                 implicitHeight: 25
@@ -65,7 +65,7 @@ Window {
             Text {
                 text: "Apellidos:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: buscarExistenteApellidos
                 implicitWidth: 200
                 implicitHeight: 25
@@ -79,7 +79,7 @@ Window {
             }
         }
 
-        TableView {
+        QuickControls_1_4.TableView {
             id: buscarClienteTableView
             width: parent.width
             height: (parent.height/6) * 4
@@ -109,43 +109,43 @@ Window {
                     }
                 }
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Nombre"
                 role: "nombre"
                 width: 110
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Apellidos"
                 role: "apellidos"
                 width: 150
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Celular"
                 role: "celular"
                 width: 110
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Telefono"
                 role: "telefono"
                 width: 110
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Correo"
                 role: "correo"
                 width: 150
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Fecha de Nacimiento"
                 role: "fechaDeNacimiento"
                 width: 150
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Direccion"
                 role: "direccion"
@@ -157,15 +157,15 @@ Window {
             anchors.left: parent.right
             anchors.topMargin: 20
             anchors.leftMargin: -230
-            Button {
+            QuickControls_2_3.Button {
                 text: "Cancelar"
-                onClicked: {
+                onPressed: {
                     buscarClienteTableView.selection.clear()
                     buscarExistente.hide()
                     ventanaDeManipulacionSQL.show()
                 }
             }
-            Button {
+            QuickControls_2_3.Button {
                 id: okButton
                 text: "Aceptar"
                 anchors.leftMargin: 20
@@ -179,7 +179,7 @@ Window {
                         return false
                     }
                 }
-                onClicked: {
+                onPressed: {
                     buscarClienteTableView.selection.clear()
                     buscarExistente.hide()
                     cabinasqlqueries.updateQuery(clinicacore.currentCabina);

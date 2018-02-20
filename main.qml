@@ -1,8 +1,9 @@
 import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.1
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs 1.3
+import QtQuick.Controls 1.4 as QuickControls_1_4
+import QtQuick.Controls 2.3 as QuickControls_2_3
 
 Window {
     id: ventanaDeConexion
@@ -39,7 +40,7 @@ Window {
             Text {
                 text: "IP:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: ipTextField
                 text: {
                     if (clinicacore.developerMode === true)
@@ -51,7 +52,7 @@ Window {
             Text {
                 text: "Puerto:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: puertoTextField
                 text: "3306"
                 readOnly: false
@@ -59,7 +60,7 @@ Window {
             Text {
                 text: "Contrasena:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: contrasenaTextField
                 text: "REadzx12"
                 echoMode: TextInput.Password
@@ -69,15 +70,16 @@ Window {
                 color: "black"
             }
             RowLayout {
-                Button {
+                QuickControls_2_3.Button {
                     text: "Cancelar"
-                    onClicked: {
+                    onPressed: {
+                        establishconnection.terminate()
                         Qt.quit()
                     }
                 }
-                Button {
+                QuickControls_2_3.Button {
                     text: "Aceptar"
-                    onClicked: {
+                    onPressed: {
                         if (establishconnection.establecerConexion(ipTextField.text,
                                                                     puertoTextField.text,
                                                                     contrasenaTextField.text) === true)

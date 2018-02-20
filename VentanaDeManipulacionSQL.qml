@@ -1,8 +1,9 @@
 import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.1
 import QtQuick.Dialogs 1.2
+import QtQuick.Controls 1.4 as QuickControls_1_4
+import QtQuick.Controls 2.3 as QuickControls_2_3
 
 Window {
     width: 1366
@@ -264,7 +265,7 @@ Window {
                 color: "transparent"
                 width: 100
             }
-            Button {
+            QuickControls_2_3.Button {
                 text: "Cerrar"
                 onClicked: {
                     establishconnection.terminate()

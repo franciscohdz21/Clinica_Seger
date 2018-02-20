@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.1
+import QtQuick.Controls 2.3
 
 Window {
     width: 350
@@ -45,7 +45,7 @@ Window {
             }
             Button {
                 text: "E-Light"
-                onClicked: {
+                onPressed: {
                     seleccionarCabina.hide()
                     //set cabina
                     clinicacore.currentCabina = "e_light"
@@ -75,7 +75,7 @@ Window {
             }
             Button {
                 text: "Corporal y Facial"
-                onClicked: {
+                onPressed: {
                     seleccionarCabina.hide()
                     //set cabina
                     clinicacore.currentCabina = "corporal_y_facial"
@@ -105,7 +105,7 @@ Window {
             }
             Button {
                 text: "Cancelar"
-                onClicked: {
+                onPressed: {
                     seleccionarCabina.hide()
                 }
             }

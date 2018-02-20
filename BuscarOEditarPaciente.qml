@@ -2,8 +2,8 @@ import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
-import QtQuick.Controls 1.4
-import QtQuick.Controls 2.1
+import QtQuick.Controls 1.4 as QuickControls_1_4
+import QtQuick.Controls 2.3 as QuickControls_2_3
 
 Window {
     id: buscarOEditarPaciente
@@ -53,7 +53,7 @@ Window {
             Text {
                 text: "Celular:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: buscarExistenteCelularTextInput
                 implicitWidth: 200
                 implicitHeight: 25
@@ -70,7 +70,7 @@ Window {
             Text {
                 text: "Apellidos:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: buscarExistenteApellidosTextInput
                 implicitWidth: 200
                 implicitHeight: 25
@@ -86,7 +86,7 @@ Window {
         }
 
 
-        TableView {
+        QuickControls_1_4.TableView {
             id: buscarPacienteTableView
             width: parent.width
             height: (parent.height/6) * 4
@@ -99,80 +99,80 @@ Window {
                 if (clinicacore.developerMode === true)
                     console.log("Current Celular " + editarpacienteviewdata.currentCelular)
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Nombre"
                 role: "nombre"
                 width: 60
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Apellidos"
                 role: "apellidos"
                 width: 110
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 id: celularTableViewColumn
                 title: "Celular"
                 role: "celular"
                 width: 80
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Telefono"
                 role: "telefono"
                 width: 80
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Correo"
                 role: "correo"
                 width: 100
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Fecha de Nacimiento"
                 role: "fechaDeNacimiento"
                 width: 100
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Calle Y Numero"
                 role: "calleYNumero"
                 width: 100
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Colonia"
                 role: "colonia"
                 width: 70
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Ciudad"
                 role: "ciudad"
                 width: 70
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Estado"
                 role: "estado"
                 width: 70
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Sesiones Pagadas"
                 role: "sesionesPagadas"
                 width: 85
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Saldo A Favor"
                 role: "saldoAFavor"
                 width: 85
             }
-            TableViewColumn
+            QuickControls_1_4.TableViewColumn
             {
                 title: "Sesiones de Garantia"
                 role: "sesionesDeGarantia"
@@ -184,10 +184,10 @@ Window {
             anchors.left: parent.right
             anchors.topMargin: 20
             anchors.leftMargin: -230
-            Button {
+            QuickControls_2_3.Button {
                 text: "Cancelar"
                 anchors.leftMargin: 20
-                onClicked: {
+                onPressed: {
                     buscarOEditarPaciente.hide()
                     buscarExistenteCelularTextInput.text = ""
                     buscarExistenteApellidosTextInput.text = ""
@@ -195,9 +195,9 @@ Window {
                     ventanaDeManipulacionSQL.show()
                 }
             }
-            Button {
+            QuickControls_2_3.Button {
                 text: "Editar"
-                onClicked: {
+                onPressed: {
                     buscarOEditarPaciente.hide()
                     buscarExistenteCelularTextInput.text = ""
                     buscarExistenteApellidosTextInput.text = ""

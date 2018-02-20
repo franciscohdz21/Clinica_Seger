@@ -92,7 +92,7 @@ int EstablishConnection::loginAPrograma(const QString usuario, const QString con
 void EstablishConnection::run()
 {
     unsigned int microseconds;
-    microseconds = 2000000;
+    microseconds = 4000000;
     while (true)
     {
         usleep(microseconds);
@@ -106,7 +106,7 @@ void EstablishConnection::run()
                 return;
             }
             if (ClinicaCore::Instance().developerMode() == true)
-                //qDebug() << "Sleep 2 seconds...";
+                qDebug() << "Sleep 4 seconds...";
             usleep(microseconds);
         }
     }

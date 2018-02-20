@@ -2,8 +2,8 @@ import QtQuick 2.6
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
-import QtQuick.Controls 1.4
-import QtQuick.Controls 2.1
+import QtQuick.Controls 1.4 as QuickControls_1_4
+import QtQuick.Controls 2.3 as QuickControls_2_3
 
 
 Window {
@@ -51,7 +51,7 @@ Window {
             Text {
                 text: "Celular:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: buscarCitaCelularTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -73,7 +73,7 @@ Window {
             Text {
                 text: "Apellidos:"
             }
-            TextField {
+            QuickControls_2_3.TextField {
                 id: buscarCitaApellidosTextField
                 implicitWidth: 200
                 implicitHeight: 25
@@ -93,7 +93,7 @@ Window {
             }
         }
 
-        TableView {
+        QuickControls_1_4.TableView {
             id: buscarCitaTableView
             model: cabinaviewmodel
             height: (parent.height/6) * 4
@@ -105,88 +105,88 @@ Window {
                 console.log("Clicked")
             }
 
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "id"
                 title: "ID"
                 visible: clinicacore.developerMode
                 width: 120
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "fecha"
                 title: "Fecha"
                 width: 100
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "horaInicio"
                 title: "Hora Inicio"
                 width: 80
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "horaTermino"
                 title: "Hora Termino"
                 width: 80
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "nombre"
                 title: "Nombre"
                 width: 100
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "apellidos"
                 title: "Apellidos"
                 width: 150
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "celular"
                 title: "Celular"
                 width: 120
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "tratamiento"
                 title: "Tratamiento"
                 width: 120
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "servicio"
                 title: "Servicio"
                 width: 120
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "zonas"
                 title: "Zonas"
                 width: 100
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "precio"
                 title: "Precio"
                 width: 80
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "importeCobrado"
                 title: "Importe Cobrado"
                 width: 80
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "sesion"
                 title: "Sesion"
                 width: 60
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "sesionesPagadas"
                 title: "Sesiones Pagadas"
                 width: 60
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "totalPagado"
                 title: "Total Pagado"
                 width: 60
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "estatusDeCita"
                 title: "Estatus de Cita"
                 width: 60
             }
-            TableViewColumn {
+            QuickControls_1_4.TableViewColumn {
                 role: "observaciones"
                 title: "Observaciones"
                 width: 200
@@ -198,17 +198,17 @@ Window {
             anchors.left: parent.right
             anchors.topMargin: 30
             anchors.leftMargin: -230
-            Button {
+            QuickControls_2_3.Button {
                 text: "Cerrar"
                 anchors.leftMargin: 20
-                onClicked: {
+                onPressed: {
                     buscarCitaCelularTextField.text = ""
                     buscarCitaApellidosTextField.text = ""
                     buscarOCancelarCita.hide()
                     ventanaDeManipulacionSQL.show()
                 }
             }
-            Button {
+            QuickControls_2_3.Button {
                 text: "Cancelar Cita"
                 enabled: {
                     if (buscarCitaTableView.currentRow === -1)
@@ -216,7 +216,7 @@ Window {
                     else return true
                 }
 
-                onClicked: {
+                onPressed: {
                     cabinasqlqueries.initCitaDeletion(buscarCitaTableView.currentRow)
                     buscarCitaCelularTextField.text = ""
                     buscarCitaApellidosTextField.text = ""
