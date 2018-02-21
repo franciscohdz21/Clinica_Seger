@@ -10,15 +10,20 @@
 class DateManipulation : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QDate lowerBoundDate READ lowerBoundDate WRITE setLowerBoundDate NOTIFY lowerBoundDateChanged)
+    Q_PROPERTY(QDate upperBoundDate READ upperBoundDate WRITE setUpperBoundDate NOTIFY upperBoundDateChanged)
 public:
     ~DateManipulation()=default;
     static DateManipulation &Instance();
 
-    Q_INVOKABLE void init();
-    Q_INVOKABLE QDate getTodaysDate()const;
-    Q_INVOKABLE void setTodaysDate();
-    Q_INVOKABLE QDate getUpperBoundDate()const;
-    void setUpperBoundDate();
+    void init();
+    QDate lowerBoundDate()const;
+    void setLowerBoundDate(QDate date);
+    void buildLowerBoundDate(int year);
+    QDate upperBoundDate()const;
+    void setUpperBoundDate(QDate date);
+    void buildUpperBoundDate(int year);
+    Q_INVOKABLE void buildDateBounds(int year);
     Q_INVOKABLE int daysToSelection(QDate date);
     Q_INVOKABLE void generateID(QDate date, QString horaInicio);
     Q_INVOKABLE long long int getCurrentID()const;
@@ -33,12 +38,16 @@ public:
     Q_INVOKABLE QStringList getYearRange()const;
     Q_INVOKABLE void buildYearRange();
 
+signals:
+    void lowerBoundDateChanged();
+    void upperBoundDateChanged();
+
 private:
     DateManipulation();
     DateManipulation(DateManipulation const&)=delete;
     void operator = (DateManipulation const&)=delete;
 
-    QDate m_todaysDate;
+    QDate m_lowerBoundDate;
     QDate m_upperBoundDate;
     long long int m_currentID;
     QDate m_currentDate;

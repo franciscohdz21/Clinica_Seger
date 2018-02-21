@@ -43,6 +43,38 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
                                              QString calleYNumero, QString colonia, QString ciudad, QString estado,
                                              QString sesionesPagadas, QString saldoAFavor, QString sesionesDeGarantia, QString currentCelular)
 {
+    //empty string handling
+    if (nombre.compare("", Qt::CaseInsensitive) == 0)
+        nombre = " ";
+    if (celular.compare("", Qt::CaseInsensitive) == 0)
+        celular = " ";
+    if (telefono.compare("", Qt::CaseInsensitive) == 0)
+        telefono = " ";
+    if (correo.compare("", Qt::CaseInsensitive) == 0)
+        correo = " ";
+    if (QString::number(diaFechaDeNacimientoIndex).compare("", Qt::CaseInsensitive) == 0)
+        diaFechaDeNacimientoIndex = 0;
+    if (QString::number(mesFechaDeNacimientoIndex).compare("", Qt::CaseInsensitive) == 0)
+        mesFechaDeNacimientoIndex = 0;
+    if (anoFechaDeNacimiento.compare("", Qt::CaseInsensitive) == 0)
+        anoFechaDeNacimiento = " ";
+    if (calleYNumero.compare("", Qt::CaseInsensitive) == 0)
+        calleYNumero = " ";
+    if (colonia.compare("", Qt::CaseInsensitive) == 0)
+        colonia = " ";
+    if (ciudad.compare("", Qt::CaseInsensitive) == 0)
+        ciudad = " ";
+    if (estado.compare("", Qt::CaseInsensitive) == 0)
+        estado = " ";
+    if (sesionesPagadas.compare("", Qt::CaseInsensitive) == 0)
+        sesionesPagadas = " ";
+    if (saldoAFavor.compare("", Qt::CaseInsensitive) == 0)
+        saldoAFavor = " ";
+    if (sesionesDeGarantia.compare("", Qt::CaseInsensitive) == 0)
+        sesionesDeGarantia = " ";
+    if (currentCelular.compare("", Qt::CaseInsensitive) == 0)
+        currentCelular = " ";
+
 
     //nombre
     QSqlQuery query;

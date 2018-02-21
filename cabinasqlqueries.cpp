@@ -47,8 +47,8 @@ void CabinaSQLQueries::filterQueryByCellphone(QString celular)
     QString query;
     query.append("SELECT * FROM " + AgendarClienteViewData::Instance().getNombreDeTabla() +
                  " WHERE celular LIKE " + celularForQuery +
-                 " AND Fecha >= '" + DateManipulation::Instance().getTodaysDate().toString("yyyy-MM-dd") +
-                 "' AND Fecha <= '" + DateManipulation::Instance().getUpperBoundDate().toString("yyyy-MM-dd") + "'" +
+                 " AND Fecha >= '" + DateManipulation::Instance().lowerBoundDate().toString("yyyy-MM-dd") +
+                 "' AND Fecha <= '" + DateManipulation::Instance().upperBoundDate().toString("yyyy-MM-dd") + "'" +
                  "ORDER BY Fecha ASC");
     CabinaViewModel::Instance().setQuery(query);
     if (ClinicaCore::Instance().developerMode() == true)
@@ -60,8 +60,8 @@ void CabinaSQLQueries::filterQueryByLastName(const QString apellidos)
     QString query;
     query.append("SELECT * FROM " + AgendarClienteViewData::Instance().getNombreDeTabla() +
                  " WHERE apellidos LIKE " + apellidosForQuery +
-                 " AND Fecha >= '" + DateManipulation::Instance().getTodaysDate().toString("yyyy-MM-dd") +
-                 "' AND Fecha <= '" + DateManipulation::Instance().getUpperBoundDate().toString("yyyy-MM-dd") + "'" +
+                 " AND Fecha >= '" + DateManipulation::Instance().lowerBoundDate().toString("yyyy-MM-dd") +
+                 "' AND Fecha <= '" + DateManipulation::Instance().upperBoundDate().toString("yyyy-MM-dd") + "'" +
                  "ORDER BY Fecha ASC");
     CabinaViewModel::Instance().setQuery(query);
     if (ClinicaCore::Instance().developerMode() == true)
@@ -76,8 +76,9 @@ void CabinaSQLQueries::updateQuery(const QString cabina)
         nombreDeTabla.append("template_cabina_test");
         AgendarClienteViewData::Instance().setNombreDeTabla(nombreDeTabla);
         //setup general cabina query (sorted)
-        QString query = "SELECT * FROM " + AgendarClienteViewData::Instance().getNombreDeTabla() + " WHERE Fecha >= '" + DateManipulation::Instance().getTodaysDate().toString("yyyy-MM-dd") +
-                "' AND Fecha <= '" + DateManipulation::Instance().getUpperBoundDate().toString("yyyy-MM-dd") + "'" +
+        QString query = "SELECT * FROM " + AgendarClienteViewData::Instance().getNombreDeTabla() +
+                " WHERE Fecha >= '" + DateManipulation::Instance().lowerBoundDate().toString("yyyy-MM-dd") +
+                "' AND Fecha <= '" + DateManipulation::Instance().upperBoundDate().toString("yyyy-MM-dd") + "'" +
                 "ORDER BY Fecha ASC";
         CabinaViewModel::Instance().setQuery(query);
         if (ClinicaCore::Instance().developerMode() == true)
@@ -105,8 +106,9 @@ void CabinaSQLQueries::updateQuery(const QString cabina)
     nombreDeTabla.append(cabina);
     AgendarClienteViewData::Instance().setNombreDeTabla(nombreDeTabla);
     //setup general cabina query (sorted)
-    QString query = "SELECT * FROM " + AgendarClienteViewData::Instance().getNombreDeTabla() + " WHERE Fecha >= '" + DateManipulation::Instance().getTodaysDate().toString("yyyy-MM-dd") +
-            "' AND Fecha <= '" + DateManipulation::Instance().getUpperBoundDate().toString("yyyy-MM-dd") + "'" +
+    QString query = "SELECT * FROM " + AgendarClienteViewData::Instance().getNombreDeTabla() +
+            " WHERE Fecha >= '" + DateManipulation::Instance().lowerBoundDate().toString("yyyy-MM-dd") +
+            "' AND Fecha <= '" + DateManipulation::Instance().upperBoundDate().toString("yyyy-MM-dd") + "'" +
             "ORDER BY Fecha ASC";
     CabinaViewModel::Instance().setQuery(query);
     if (ClinicaCore::Instance().developerMode() == true)

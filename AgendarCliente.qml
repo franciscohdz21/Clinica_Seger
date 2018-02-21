@@ -14,8 +14,7 @@ Window {
     minimumHeight: 728
     maximumHeight: 728
     title: "Agendar Cliente"
-
-    color: "lightyellow"
+    color: "#DABDDC"
     Component.onCompleted: {
         agendarClienteServicioComboBox.currentIndex = -1
         agendarClienteDuracionComboBox.currentIndex = -1
@@ -24,6 +23,7 @@ Window {
 
     onClosing: {
         close.accepted = false
+        cambiarAno.hide()
         agendarCliente.hide()
         ventanaDeManipulacionSQL.show()
     }
@@ -33,7 +33,7 @@ Window {
         anchors.topMargin: 10
         anchors.leftMargin: 20
         anchors.rightMargin: 20
-        color: "lightyellow"
+        color: "#DABDDC"
 
         GridLayout {
             id: agendarClienteGrid
@@ -297,15 +297,6 @@ Window {
                 height: 25
                 width: 2
             }
-//            Text {
-//                text: "Cambiar anho:"
-//            }
-//            QuickControls_2_3.ComboBox {
-//                id: anhoComboBox
-//                model: datemanipulation.getYearRange()
-//                implicitWidth: 150
-//                implicitHeight: 25
-//            }
             Rectangle {
                 color: "transparent"
                 height: 25
@@ -366,10 +357,10 @@ Window {
             anchors.left: agendarClienteGrid.right
             anchors.top: agendarClienteGrid.top
             minimumDate: {
-                datemanipulation.getTodaysDate()
+                datemanipulation.lowerBoundDate
             }
             maximumDate: {
-                datemanipulation.getUpperBoundDate()
+                datemanipulation.upperBoundDate
             }
             onClicked: {
                 if (clinicacore.developerMode === true)
@@ -401,6 +392,14 @@ Window {
             spacing: 15
             QuickControls_2_3.Button {
                 text:"Mes anterior"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
                     agendarClienteTableView.positionViewAtRow(currentRow - (22*31), ListView.Contain)
@@ -412,6 +411,14 @@ Window {
             }
             QuickControls_2_3.Button {
                 text:"Semana anterior"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
                     agendarClienteTableView.positionViewAtRow(currentRow - (22*7), ListView.Contain)
@@ -423,6 +430,14 @@ Window {
             }
             QuickControls_2_3.Button {
                 text:"Dia anterior"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
                     agendarClienteTableView.positionViewAtRow(currentRow - (22*1), ListView.Contain)
@@ -434,6 +449,14 @@ Window {
             }
             QuickControls_2_3.Button {
                 text:"Dia siguiente"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
                     agendarClienteTableView.positionViewAtRow(currentRow + (22*1), ListView.Contain)
@@ -445,6 +468,14 @@ Window {
             }
             QuickControls_2_3.Button {
                 text:"Semana siguiente"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
                     agendarClienteTableView.positionViewAtRow(currentRow + (22*7), ListView.Contain)
@@ -456,6 +487,14 @@ Window {
             }
             QuickControls_2_3.Button {
                 text:"Mes siguiente"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
                     agendarClienteTableView.positionViewAtRow(currentRow + (22*31), ListView.Contain)
@@ -595,12 +634,45 @@ Window {
         }
         RowLayout {
             anchors.top: agendarClienteTableView.bottom
-            anchors.left: parent.right
+            anchors.left: parent.left
             anchors.topMargin: 10
-            anchors.leftMargin: -230
+            anchors.leftMargin: 950
+            spacing: 15
+            QuickControls_2_3.Button {
+                text: "Cambiar año"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
+                onPressed: {
+                    agendarClienteTableView.selection.clear()
+                    cambiarAno.show()
+                }
+            }
+
+            Rectangle {
+                color: "grey"
+                height: 25
+                width: 2
+            }
+
             QuickControls_2_3.Button {
                 text: "Cancelar"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
+                    agendarClienteTableView.selection.clear()
+                    cambiarAno.hide()
                     //clear text
                     agendarClienteNombreTextField.text = ""
                     agendarClienteApellidosTextField.text = ""
@@ -625,6 +697,14 @@ Window {
                 id: agendarClienteAceptarButton
                 text: "Aceptar"
                 anchors.leftMargin: 20
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 enabled: {
                     if (agendarClienteGrid.acceptEnabled === false ||
                                  agendarClienteTableView.activeFocus === false)
@@ -633,7 +713,6 @@ Window {
                              return true
                 }
                 onPressed: {
-                    console.log("CLICKED")
                     datemanipulation.clearIDsQueued()
                     var i;
                     var lastRowOfDay = false;
@@ -732,6 +811,7 @@ Window {
                     agendarClienteObservacionesTextField.text = ""
                     agendarClienteImporteCobradoTextField.text = ""
 
+                    agendarClienteTableView.selection.clear()
                     agendarClienteNombreTextField.forceActiveFocus()
                 }
             }

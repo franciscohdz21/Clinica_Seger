@@ -43,6 +43,10 @@ Window {
         id : seleccionarCabina
         visible: true
     }
+    CambiarAno {
+        id: cambiarAno
+        visible: false
+    }
 
     MessageDialog {
         id: messageDialog
@@ -268,6 +272,14 @@ Window {
             }
             QuickControls_2_3.Button {
                 text: "Cerrar"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onClicked: {
                     establishconnection.terminate()
                     Qt.quit()

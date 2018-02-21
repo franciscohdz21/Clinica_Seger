@@ -15,7 +15,7 @@ Window {
     minimumHeight: 720
     maximumHeight: 720
     title: "Buscar O Cancelar Cita"
-    color: "lightyellow"
+    color: "#DABDDC"
     onClosing: {
         close.accepted = false
         buscarOCancelarCita.hide()
@@ -27,7 +27,7 @@ Window {
         anchors.topMargin: 10
         anchors.leftMargin: 20
         anchors.rightMargin: 20
-        color: "lightyellow"
+        color: "#DABDDC"
 
         GridLayout {
             id: buscarCitaGrid
@@ -195,12 +195,43 @@ Window {
 
         RowLayout {
             anchors.top: buscarCitaTableView.bottom
-            anchors.left: parent.right
+            anchors.left: parent.left
             anchors.topMargin: 30
-            anchors.leftMargin: -230
+            anchors.leftMargin: 950
+            spacing: 15
+
+            QuickControls_2_3.Button {
+                text: "Cambiar año"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
+                onPressed: {
+                    buscarCitaTableView.selection.clear()
+                    cambiarAno.show()
+                }
+            }
+
+            Rectangle {
+                color: "grey"
+                height: 25
+                width: 2
+            }
             QuickControls_2_3.Button {
                 text: "Cerrar"
                 anchors.leftMargin: 20
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
                     buscarCitaCelularTextField.text = ""
                     buscarCitaApellidosTextField.text = ""
@@ -210,6 +241,14 @@ Window {
             }
             QuickControls_2_3.Button {
                 text: "Cancelar Cita"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 enabled: {
                     if (buscarCitaTableView.currentRow === -1)
                         return false

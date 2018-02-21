@@ -13,7 +13,7 @@ Window {
     height: 720
     minimumHeight: 720
     title: "Buscar Cliente Existente"
-    color: "lightyellow"
+    color: "#DABDDC"
     onClosing: {
         close.accepted = false
         buscarExistente.hide()
@@ -25,7 +25,7 @@ Window {
         anchors.topMargin: 10
         anchors.leftMargin: 20
         anchors.rightMargin: 20
-        color: "lightyellow"
+        color: "#DABDDC"
 
         GridLayout {
             id: buscarClienteGrid
@@ -85,7 +85,6 @@ Window {
             height: (parent.height/6) * 4
             anchors.top: buscarClienteGrid.bottom
             anchors.topMargin: 30
-            selectionMode: SelectionMode.SingleSelection
             model: clientesviewmodel
             itemDelegate: Item {
                 id: itemDelegate
@@ -159,6 +158,14 @@ Window {
             anchors.leftMargin: -230
             QuickControls_2_3.Button {
                 text: "Cancelar"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
                     buscarClienteTableView.selection.clear()
                     buscarExistente.hide()
@@ -169,6 +176,14 @@ Window {
                 id: okButton
                 text: "Aceptar"
                 anchors.leftMargin: 20
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 enabled: {
                     if (buscarClienteTableView.currentRow !== -1)
                     {

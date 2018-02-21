@@ -16,139 +16,183 @@ DateManipulation &DateManipulation::Instance()
 }
 void DateManipulation::init()
 {
-    setTodaysDate();
-    setUpperBoundDate();
     buildYearRange();
+    buildLowerBoundDate(0);
+    buildUpperBoundDate(0);
     if (ClinicaCore::Instance().developerMode() == true)
     {
-        qDebug () << "Current date: " << m_todaysDate.toString("yyyy-MM-dd");
+        qDebug () << "Current date: " << m_lowerBoundDate.toString("yyyy-MM-dd");
         qDebug () << "Upper bound date: " << m_upperBoundDate.toString("yyyy-MM-dd");
     }
 }
-QDate DateManipulation::getTodaysDate() const
+QDate DateManipulation::lowerBoundDate() const
 {
-    return m_todaysDate;
+    return m_lowerBoundDate;
 }
-void DateManipulation::setTodaysDate()
+void DateManipulation::setLowerBoundDate(QDate date)
 {
-    // current date/time based on current system
-    time_t now = time(0);
-
-    // convert now to string form
-    char* dt = ctime(&now);
-    QString currentDateAndTime = dt;
+    if (date != m_lowerBoundDate)
+    {
+        m_lowerBoundDate = date;
+        emit lowerBoundDateChanged();
+    }
     if (ClinicaCore::Instance().developerMode() == true)
-        qDebug () << "The local date and time is: " << currentDateAndTime;
-    QStringList currentDateAndTimeSplit = currentDateAndTime.split(" ");
-    QString day = currentDateAndTimeSplit.at(2);
-    QString month = currentDateAndTimeSplit.at(1);
-    if (month.compare("Jan", Qt::CaseInsensitive) == 0)
-        month = "01";
-    else if (month.compare("Feb", Qt::CaseInsensitive) == 0)
+        qDebug () << "Current date is: " << m_lowerBoundDate;
+}
+void DateManipulation::buildLowerBoundDate(int year)
+{
+    if (year == 0)
+    {
+        //build date
+        // current date/time based on current system
+        time_t now = time(0);
+
+        // convert now to string form
+        char* dt = ctime(&now);
+        QString currentDateAndTime = dt;
+        if (ClinicaCore::Instance().developerMode() == true)
+            qDebug () << "The local date and time is: " << currentDateAndTime;
+        QStringList currentDateAndTimeSplit = currentDateAndTime.split(" ");
+        QString day = currentDateAndTimeSplit.at(2);
+        QString month = currentDateAndTimeSplit.at(1);
+        if (month.compare("Jan", Qt::CaseInsensitive) == 0)
+            month = "01";
+        else if (month.compare("Feb", Qt::CaseInsensitive) == 0)
             month = "02";
-    else if (month.compare("Mar", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Mar", Qt::CaseInsensitive) == 0)
             month = "03";
-    else if (month.compare("Apr", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Apr", Qt::CaseInsensitive) == 0)
             month = "04";
-    else if (month.compare("May", Qt::CaseInsensitive) == 0)
+        else if (month.compare("May", Qt::CaseInsensitive) == 0)
             month = "05";
-    else if (month.compare("Jun", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Jun", Qt::CaseInsensitive) == 0)
             month = "06";
-    else if (month.compare("Jul", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Jul", Qt::CaseInsensitive) == 0)
             month = "07";
-    else if (month.compare("Aug", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Aug", Qt::CaseInsensitive) == 0)
             month = "08";
-    else if (month.compare("Sep", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Sep", Qt::CaseInsensitive) == 0)
             month = "09";
-    else if (month.compare("Oct", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Oct", Qt::CaseInsensitive) == 0)
             month = "10";
-    else if (month.compare("Nov", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Nov", Qt::CaseInsensitive) == 0)
             month = "11";
-    else if (month.compare("Dec", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Dec", Qt::CaseInsensitive) == 0)
             month = "12";
-    QString year = currentDateAndTimeSplit.at(4);
-    year.chop(1);
+        QString year = currentDateAndTimeSplit.at(4);
+        year.chop(1);
 
-    int dayInt, monthInt, yearInt;
-    dayInt = day.toInt();
-    monthInt = month.toInt();
-    yearInt = year.toInt();
+        int dayInt, monthInt, yearInt;
+        dayInt = day.toInt();
+        monthInt = month.toInt();
+        yearInt = year.toInt();
 
-    QDate date(yearInt, monthInt, dayInt);
-    m_todaysDate = date;
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug () << "Current date is: " << m_todaysDate;
+        //set date
+        QDate date;
+        date.setDate(yearInt, monthInt, dayInt);
+        setLowerBoundDate(date);
+    }
+    else
+    {
+        QDate date;
+        date.setDate(year, 01, 01);
+        setLowerBoundDate(date);
+    }
 }
-QDate DateManipulation::getUpperBoundDate() const
+QDate DateManipulation::upperBoundDate() const
 {
     return m_upperBoundDate;
 }
-void DateManipulation::setUpperBoundDate()
+void DateManipulation::setUpperBoundDate(QDate date)
 {
-    // current date/time based on current system
-    time_t now = time(0);
+    if (date != m_upperBoundDate)
+    {
+        m_upperBoundDate = date;
+        emit upperBoundDateChanged();
+    }
+    if (ClinicaCore::Instance().developerMode() == true)
+        qDebug () << "Upper bound date is: " << m_upperBoundDate;
+}
+void DateManipulation::buildUpperBoundDate(int year)
+{
+    if (year == 0)
+    {
+        // current date/time based on current system
+        time_t now = time(0);
 
-    // convert now to string form
-    char* dt = ctime(&now);
-    QString currentDateAndTime = dt;
-    QStringList currentDateAndTimeSplit = currentDateAndTime.split(" ");
-    QString day = currentDateAndTimeSplit.at(2);
-    QString month = currentDateAndTimeSplit.at(1);
+        // convert now to string form
+        char* dt = ctime(&now);
+        QString currentDateAndTime = dt;
+        QStringList currentDateAndTimeSplit = currentDateAndTime.split(" ");
+        QString day = currentDateAndTimeSplit.at(2);
+        QString month = currentDateAndTimeSplit.at(1);
 
-    if (month.compare("Jan", Qt::CaseInsensitive) == 0)
-        month = "01";
-    else if (month.compare("Feb", Qt::CaseInsensitive) == 0)
+        if (month.compare("Jan", Qt::CaseInsensitive) == 0)
+            month = "01";
+        else if (month.compare("Feb", Qt::CaseInsensitive) == 0)
             month = "02";
-    else if (month.compare("Mar", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Mar", Qt::CaseInsensitive) == 0)
             month = "03";
-    else if (month.compare("Apr", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Apr", Qt::CaseInsensitive) == 0)
             month = "04";
-    else if (month.compare("May", Qt::CaseInsensitive) == 0)
+        else if (month.compare("May", Qt::CaseInsensitive) == 0)
             month = "05";
-    else if (month.compare("Jun", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Jun", Qt::CaseInsensitive) == 0)
             month = "06";
-    else if (month.compare("Jul", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Jul", Qt::CaseInsensitive) == 0)
             month = "07";
-    else if (month.compare("Aug", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Aug", Qt::CaseInsensitive) == 0)
             month = "08";
-    else if (month.compare("Sep", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Sep", Qt::CaseInsensitive) == 0)
             month = "09";
-    else if (month.compare("Oct", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Oct", Qt::CaseInsensitive) == 0)
             month = "10";
-    else if (month.compare("Nov", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Nov", Qt::CaseInsensitive) == 0)
             month = "11";
-    else if (month.compare("Dec", Qt::CaseInsensitive) == 0)
+        else if (month.compare("Dec", Qt::CaseInsensitive) == 0)
             month = "12";
 
-    QString year = currentDateAndTimeSplit.at(4);
-    year.chop(1);
+        QString year = currentDateAndTimeSplit.at(4);
+        year.chop(1);
 
-    int tmpMonth = month.toInt();
-    tmpMonth = tmpMonth + MAX_MESES_CITA;
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug () << tmpMonth;
-    if (tmpMonth > 12)
-    {
-        tmpMonth = tmpMonth - 12;
-        month = QString::number(tmpMonth);
-        int tmpYear = year.toInt();
-        tmpYear++;
-        year = QString::number(tmpYear);
+        int tmpMonth = month.toInt();
+        tmpMonth = tmpMonth + MAX_MESES_CITA;
+        if (ClinicaCore::Instance().developerMode() == true)
+            qDebug () << tmpMonth;
+        if (tmpMonth > 12)
+        {
+            tmpMonth = tmpMonth - 12;
+            month = QString::number(tmpMonth);
+            int tmpYear = year.toInt();
+            tmpYear++;
+            year = QString::number(tmpYear);
+        }
+
+        int dayInt, monthInt, yearInt;
+        dayInt = day.toInt();
+        monthInt = tmpMonth;
+        yearInt = year.toInt();
+
+        //set date
+        QDate date;
+        date.setDate(yearInt, monthInt, dayInt);
+        setUpperBoundDate(date);
     }
-
-    int dayInt, monthInt, yearInt;
-    dayInt = day.toInt();
-    monthInt = tmpMonth;
-    yearInt = year.toInt();
-
-    QDate date(yearInt, monthInt, dayInt);
-    m_upperBoundDate = date;
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug () << "Upper bound date is: " << m_todaysDate;
+    else
+    {
+        QDate date;
+        date.setDate(year, 12, 31);
+        setUpperBoundDate(date);
+    }
+}
+void DateManipulation::buildDateBounds(int year)
+{
+    buildLowerBoundDate(year);
+    buildUpperBoundDate(year);
 }
 int DateManipulation::daysToSelection(QDate date)
 {
-    return m_todaysDate.daysTo(date);
+    return m_lowerBoundDate.daysTo(date);
 }
 void DateManipulation::generateID(QDate date, QString horaInicio)
 {
@@ -233,6 +277,7 @@ void DateManipulation::buildYearRange()
     {
         m_yearRange.push_back(QString::number(i));
     }
+    m_yearRange.push_back("Presente");
 }
 DateManipulation::DateManipulation()
 {

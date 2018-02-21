@@ -18,7 +18,7 @@ Window {
 
     Rectangle {
         anchors.fill: parent
-        color: "lightyellow"
+        color: "#DABDDC"
 
         GridLayout {
             anchors.fill: parent
@@ -45,7 +45,16 @@ Window {
             }
             Button {
                 text: "E-Light"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
+                    datemanipulation.buildDateBounds(0)
                     seleccionarCabina.hide()
                     //set cabina
                     clinicacore.currentCabina = "e_light"
@@ -75,7 +84,16 @@ Window {
             }
             Button {
                 text: "Corporal y Facial"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
+                    datemanipulation.buildDateBounds(0)
                     seleccionarCabina.hide()
                     //set cabina
                     clinicacore.currentCabina = "corporal_y_facial"
@@ -105,6 +123,14 @@ Window {
             }
             Button {
                 text: "Cancelar"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
                     seleccionarCabina.hide()
                 }

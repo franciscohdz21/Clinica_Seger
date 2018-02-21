@@ -16,5 +16,6 @@
         <file>Fotos/Fondo.png</file>
         <file>Fotos/Logo.png</file>
         <file>Fotos/Paciente_Pendiente.png</file>
+        <file>CambiarAno.qml</file>
     </qresource>
 </RCC>

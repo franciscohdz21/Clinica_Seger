@@ -25,7 +25,7 @@ Window {
 
     Rectangle {
         anchors.fill: parent
-        color: "lightyellow"
+        color: "#DABDDC"
 
         GridLayout {
             id: conexionGrid
@@ -66,6 +66,14 @@ Window {
             RowLayout {
                 Button {
                     text: "Cancelar"
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 40
+                        color: "#F0A693"
+                        border.color: "black"
+                        border.width: 1
+                        radius: 4
+                    }
                     onPressed: {
                         establishconnection.terminate()
                         Qt.quit()
@@ -73,12 +81,19 @@ Window {
                 }
                 Button {
                     text: "Aceptar"
+                    background: Rectangle {
+                        implicitWidth: 100
+                        implicitHeight: 40
+                        color: "#F0A693"
+                        border.color: "black"
+                        border.width: 1
+                        radius: 4
+                    }
                     onPressed: {
                         if (establishconnection.loginAPrograma(usuarioTextField.text,
                                                             contrasena2TextField.text) !== -1)
                         {
                             ventanaDeLogin.hide()
-                            clinicacore.startCheckConnectionThread()
                             ventanaDeManipulacionSQL.show()
                         }
                         else {

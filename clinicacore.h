@@ -48,8 +48,6 @@ public:
     Q_INVOKABLE void setCancelarCita(bool cancelarCita);
     bool developerMode()const;
     void setDeveloperMode(bool trueOrFalse);
-    void checkConnectionConstantly();
-    Q_INVOKABLE void startCheckConnectionThread();
     Q_INVOKABLE void init(bool devMode);
 
 signals:

@@ -14,7 +14,7 @@ Window {
     minimumHeight: 400
     maximumHeight: 400
     title: "Editar Paciente"
-    color: "lightyellow"
+    color: "#DABDDC"
     onClosing: {
         close.accepted = false
         editarPaciente.hide()
@@ -25,7 +25,7 @@ Window {
         anchors.fill: parent
         anchors.leftMargin: 20
         anchors.rightMargin: 20
-        color: "lightyellow"
+        color: "#DABDDC"
 
         GridLayout {
             id: datosPacienteGridLayout
@@ -258,6 +258,14 @@ Window {
             anchors.leftMargin: -230
             QuickControls_2_3.Button {
                 text: "Cancelar"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
                     editarPaciente.hide()
                     buscarOEditarPaciente.show()
@@ -266,7 +274,23 @@ Window {
             QuickControls_2_3.Button {
                 id: okButton
                 text: "Aceptar"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 anchors.leftMargin: 20
+                enabled: {
+                    if (nombreTextField.text === "" || apellidosTextField.text === "" ||
+                            celularTextField.text === "")
+                        return false
+                    else
+                        return true
+                }
+
                 onPressed: {
                     //update data
                     clientessqlqueries.updatePaciente(nombreTextField.text, apellidosTextField.text,

@@ -12,7 +12,7 @@ Window {
     height: 720
     minimumHeight: 720
     title: "Buscar O Editar Paciente"
-    color: "lightyellow"
+    color: "#DABDDC"
     onClosing: {
         close.accepted = false
         buscarOEditarPaciente.hide()
@@ -29,7 +29,7 @@ Window {
         anchors.topMargin: 10
         anchors.leftMargin: 20
         anchors.rightMargin: 20
-        color: "lightyellow"
+        color: "#DABDDC"
 
         GridLayout {
             id: buscarPacienteGrid
@@ -92,7 +92,6 @@ Window {
             height: (parent.height/6) * 4
             anchors.top: buscarPacienteGrid.bottom
             anchors.topMargin: 30
-            selectionMode: SelectionMode.SingleSelection
             model: clientesviewmodel
             onClicked: {
                 editarpacienteviewdata.currentCelular = clientesviewmodel.retrieveCelular(buscarPacienteTableView.currentRow)
@@ -186,6 +185,14 @@ Window {
             anchors.leftMargin: -230
             QuickControls_2_3.Button {
                 text: "Cancelar"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 anchors.leftMargin: 20
                 onPressed: {
                     buscarOEditarPaciente.hide()
@@ -197,6 +204,14 @@ Window {
             }
             QuickControls_2_3.Button {
                 text: "Editar"
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 40
+                    color: "#F0A693"
+                    border.color: "black"
+                    border.width: 1
+                    radius: 4
+                }
                 onPressed: {
                     buscarOEditarPaciente.hide()
                     buscarExistenteCelularTextInput.text = ""
