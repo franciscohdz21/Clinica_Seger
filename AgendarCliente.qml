@@ -374,6 +374,7 @@ Window {
             onClicked: {
                 if (clinicacore.developerMode === true)
                     console.log(date)
+                agendarClienteTableView.positionViewAtRow(datemanipulation.daysToSelection(date)*22, ListView.Contain)
                 agendarClienteTableView.currentRow = datemanipulation.daysToSelection(date)*22
                 agendarClienteTableView.selection.clear()
                 agendarClienteTableView.selection.select(datemanipulation.daysToSelection(date)*22)
@@ -402,7 +403,8 @@ Window {
                 text:"Mes anterior"
                 onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
-                    agendarClienteTableView.currentRow =  currentRow - (22*31+1)
+                    agendarClienteTableView.positionViewAtRow(currentRow - (22*31), ListView.Contain)
+                    agendarClienteTableView.currentRow =  currentRow - (22*31)
                     agendarClienteTableView.selection.clear()
                     agendarClienteTableView.selection.select(currentRow - (22*31))
                     agendarClienteTableView.forceActiveFocus()
@@ -412,7 +414,8 @@ Window {
                 text:"Semana anterior"
                 onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
-                    agendarClienteTableView.currentRow =  currentRow - (22*7+1)
+                    agendarClienteTableView.positionViewAtRow(currentRow - (22*7), ListView.Contain)
+                    agendarClienteTableView.currentRow =  currentRow - (22*7)
                     agendarClienteTableView.selection.clear()
                     agendarClienteTableView.selection.select(currentRow - (22*7))
                     agendarClienteTableView.forceActiveFocus()
@@ -422,7 +425,8 @@ Window {
                 text:"Dia anterior"
                 onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
-                    agendarClienteTableView.currentRow =  currentRow - (22*1+1)
+                    agendarClienteTableView.positionViewAtRow(currentRow - (22*1), ListView.Contain)
+                    agendarClienteTableView.currentRow =  currentRow - (22*1)
                     agendarClienteTableView.selection.clear()
                     agendarClienteTableView.selection.select(currentRow - (22*1))
                     agendarClienteTableView.forceActiveFocus()
@@ -432,6 +436,7 @@ Window {
                 text:"Dia siguiente"
                 onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
+                    agendarClienteTableView.positionViewAtRow(currentRow + (22*1), ListView.Contain)
                     agendarClienteTableView.currentRow =  currentRow + (22*1)
                     agendarClienteTableView.selection.clear()
                     agendarClienteTableView.selection.select(currentRow + (22*1))
@@ -442,6 +447,7 @@ Window {
                 text:"Semana siguiente"
                 onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
+                    agendarClienteTableView.positionViewAtRow(currentRow + (22*7), ListView.Contain)
                     agendarClienteTableView.currentRow =  currentRow + (22*7)
                     agendarClienteTableView.selection.clear()
                     agendarClienteTableView.selection.select(currentRow + (22*7))
@@ -452,6 +458,7 @@ Window {
                 text:"Mes siguiente"
                 onPressed: {
                     var currentRow = agendarClienteTableView.currentRow
+                    agendarClienteTableView.positionViewAtRow(currentRow + (22*31), ListView.Contain)
                     agendarClienteTableView.currentRow =  currentRow + (22*31)
                     agendarClienteTableView.selection.clear()
                     agendarClienteTableView.selection.select(currentRow + (22*31))
@@ -467,6 +474,7 @@ Window {
             width: parent.width
             height: (parent.height/5)*2.5
             model: cabinaviewmodel
+
             itemDelegate: Item {
                 id: itemDelegate
                 Text {
