@@ -62,7 +62,7 @@ signals:
     void developerModeChanged();
 
 private:
-    ClinicaCore()=default;
+    ClinicaCore();
     ClinicaCore(ClinicaCore const&)=delete;
     void operator = (ClinicaCore const&)=delete;
 

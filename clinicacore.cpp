@@ -197,3 +197,7 @@ void ClinicaCore::init(bool devMode)
 {
     setDeveloperMode(devMode);
 }
+ClinicaCore::ClinicaCore()
+{
+    init(true);
+}

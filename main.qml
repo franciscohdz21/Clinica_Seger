@@ -123,7 +123,6 @@ Window {
             contrasenaTextField.text = ""
         }
         Component.onCompleted: {
-            clinicacore.init(true)
             visible = false
         }
     }
