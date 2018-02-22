@@ -122,7 +122,6 @@ Window {
         icon: StandardIcon.Critical
         onAccepted: {
             errorAlConectarse.close()
-            contrasenaTextField.text = ""
         }
         Component.onCompleted: {
             visible = false
