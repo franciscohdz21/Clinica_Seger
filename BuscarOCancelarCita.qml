@@ -202,6 +202,12 @@ Window {
 
             QuickControls_2_3.Button {
                 text: "Cambiar año"
+                enabled: {
+                    if (clinicacore.permiso === 4)
+                        return true
+                    else
+                        return false
+                }
                 background: Rectangle {
                     implicitWidth: 100
                     implicitHeight: 40

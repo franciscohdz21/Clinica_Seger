@@ -56,6 +56,7 @@ Window {
                 id: puertoTextField
                 text: "3306"
                 readOnly: false
+                enabled: false
             }
             Text {
                 text: "Contrasena:"
@@ -64,6 +65,7 @@ Window {
                 id: contrasenaTextField
                 text: "REadzx12"
                 echoMode: TextInput.Password
+                enabled: false
             }
             Rectangle {
                 width: 20

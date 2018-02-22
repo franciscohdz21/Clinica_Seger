@@ -648,6 +648,12 @@ Window {
                     border.width: 1
                     radius: 4
                 }
+                enabled: {
+                    if (clinicacore.permiso === 4)
+                        return true
+                    else
+                        return false
+                }
                 onPressed: {
                     agendarClienteTableView.selection.clear()
                     cambiarAno.show()
