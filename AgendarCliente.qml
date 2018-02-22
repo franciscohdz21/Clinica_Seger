@@ -7,12 +7,12 @@ import QtQuick.Controls 2.3 as QuickControls_2_3
 
 Window {
     id: agendarCliente
-    width: 1366
-    minimumWidth: 1366
-    maximumWidth: 1366
-    height: 728
-    minimumHeight: 728
-    maximumHeight: 728
+    width: 1360
+    minimumWidth: 1360
+    maximumWidth: 1360
+    height: 700
+    minimumHeight: 700
+    maximumHeight: 700
     title: "Agendar Cliente"
     color: "#DABDDC"
     Component.onCompleted: {
@@ -387,7 +387,7 @@ Window {
             id: botonesLayout
             anchors.top: observacionesGrid.bottom
             anchors.left: observacionesGrid.left
-            anchors.topMargin: 50
+            anchors.topMargin: 45
             anchors.leftMargin: observacionesGrid.width/5.5
             spacing: 15
             QuickControls_2_3.Button {
@@ -509,7 +509,7 @@ Window {
         QuickControls_1_4.TableView {
             id: agendarClienteTableView
             anchors.top: botonesLayout.bottom
-            anchors.topMargin: 20
+            anchors.topMargin: 15
             width: parent.width
             height: (parent.height/5)*2.5
             model: cabinaviewmodel

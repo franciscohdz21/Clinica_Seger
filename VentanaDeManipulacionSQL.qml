@@ -6,12 +6,12 @@ import QtQuick.Controls 1.4 as QuickControls_1_4
 import QtQuick.Controls 2.3 as QuickControls_2_3
 
 Window {
-    width: 1366
-    minimumWidth: 1366
-    maximumWidth: 1366
-    height: 728
-    minimumHeight: 728
-    maximumHeight: 728
+    width: 1360
+    minimumWidth: 1360
+    maximumWidth: 1360
+    height: 700
+    minimumHeight: 700
+    maximumHeight: 700
     title: "Clinica Seger 1.0"
     onClosing: {
         close.accepted = false

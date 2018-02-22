@@ -9,9 +9,11 @@ import QtQuick.Controls 2.3 as QuickControls_2_3
 Window {
     id: buscarExistente
     width: 1150
+    maximumWidth: 1150
     minimumWidth: 1150
-    height: 720
-    minimumHeight: 720
+    height: 700
+    minimumHeight: 700
+    maximumHeight: 700
     title: "Buscar Cliente Existente"
     color: "#DABDDC"
     onClosing: {
