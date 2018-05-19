@@ -8,12 +8,12 @@ import QtQuick.Controls 2.3 as QuickControls_2_3
 
 Window {
     id: buscarOCancelarCita
-    width: 1360
-    minimumWidth: 1360
-    maximumWidth: 1360
-    height: 700
-    minimumHeight: 700
-    maximumHeight: 700
+    width: 1340
+    minimumWidth: 1340
+    maximumWidth: 1340
+    height: 680
+    minimumHeight: 680
+    maximumHeight: 680
     title: "Buscar O Cancelar Cita"
     color: "#DABDDC"
     onClosing: {

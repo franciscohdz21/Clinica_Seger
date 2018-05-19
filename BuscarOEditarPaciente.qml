@@ -10,9 +10,9 @@ Window {
     width: 1150
     minimumWidth: 1150
     maximumWidth: 1150
-    height: 700
-    minimumHeight: 700
-    maximumHeight: 700
+    height: 680
+    minimumHeight: 680
+    maximumHeight: 680
     title: "Buscar O Editar Paciente"
     color: "#DABDDC"
     onClosing: {

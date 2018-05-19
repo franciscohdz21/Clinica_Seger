@@ -208,5 +208,5 @@ void ClinicaCore::consoleOut(QString message)
 }
 ClinicaCore::ClinicaCore()
 {
-    init(true);
+    init(false);
 }
