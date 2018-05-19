@@ -49,6 +49,7 @@ public:
     bool developerMode()const;
     void setDeveloperMode(bool trueOrFalse);
     Q_INVOKABLE void init(bool devMode);
+    void consoleOut(QString message);
 
 signals:
     void usuarioChanged();

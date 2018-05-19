@@ -46,8 +46,9 @@ int EstablishConnection::loginAPrograma(const QString usuario, const QString con
     while (sqlQuery.next()) {
         ClinicaCore::Instance().setPermiso(sqlQuery.value(0).toInt());
     }
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug () << "Permiso: " << ClinicaCore::Instance().permiso();
+
+    ClinicaCore::Instance().consoleOut("EstablishConnection::loginAPrograma - Permiso: " + ClinicaCore::Instance().permiso());
+
     if (ClinicaCore::Instance().permiso() == -1)
         return -1;
     else
@@ -55,6 +56,7 @@ int EstablishConnection::loginAPrograma(const QString usuario, const QString con
         //init calendar/date
         DateManipulation::Instance().init();
         ClinicaCore::Instance().setUsuario(usuario);
+
         //query ubicacion
         query.clear();
         query.append("SELECT Ubicacion FROM personal WHERE Usuario = '" + usuario + "'");
@@ -65,8 +67,8 @@ int EstablishConnection::loginAPrograma(const QString usuario, const QString con
         {
             ClinicaCore::Instance().setUbicacion(sqlQuery.value(0).toString());
         }
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug () << "Ubicacion: " << ClinicaCore::Instance().ubicacion();
+
+        ClinicaCore::Instance().consoleOut("EstablishConnection::loginAPrograma - Ubication: " + ClinicaCore::Instance().ubicacion());
 
         //query cabinas
         query.clear();
@@ -79,8 +81,8 @@ int EstablishConnection::loginAPrograma(const QString usuario, const QString con
         {
             ClinicaCore::Instance().buildCabinas(sqlQuery2.value(0).toString());
         }
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug () << "Cabinas: " << ClinicaCore::Instance().cabinas();
+
+        ClinicaCore::Instance().consoleOut("EstablishConnection::loginAPrograma - Cabinas: " + ClinicaCore::Instance().cabinas());
 
         //set tratamientos and servicios
         QStringList tmp;
@@ -100,13 +102,12 @@ void EstablishConnection::run()
         {
             if (m_sqlDatabse.open() == false)
             {
-                if (ClinicaCore::Instance().developerMode() == true)
-                    qDebug() << "Connection dropped";
+                ClinicaCore::Instance().consoleOut("EstablishConnection::run - Connection dropped");
+
                 setConnectionErrorMessageVisible(true);
                 return;
             }
             if (ClinicaCore::Instance().developerMode() == true)
-                //qDebug() << "Sleep 4 seconds...";
             usleep(microseconds);
         }
     }

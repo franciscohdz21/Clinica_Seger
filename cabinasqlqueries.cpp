@@ -28,16 +28,16 @@ void CabinaSQLQueries::initCitaDeletion(int row)
     if ( (!CabinaViewModel::Instance().record().isGenerated("Fecha")) || (!CabinaViewModel::Instance().record().isGenerated("Celular")) ||
          (!CabinaViewModel::Instance().record().isGenerated("Servicio")) )
     {
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug() << "CabinaSQLQueries::initCitaDeletion - Error setting fecha, celular o servicio";
+        ClinicaCore::Instance().consoleOut("CabinaSQLQueries::initCitaDeletion - Error setting fecha, celular o servicio");
     }
     else
     {
         QString fecha =  CabinaViewModel::Instance().query().value("Fecha").toString();
         QString celular = CabinaViewModel::Instance().query().value("Celular").toString();
         QString servicio = CabinaViewModel::Instance().query().value("Servicio").toString();
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug() << "CabinaSQLQueries::initCitaDeletion - " << fecha << celular << servicio;
+
+        ClinicaCore::Instance().consoleOut("CabinaSQLQueries::initCitaDeletion - " + fecha + celular + servicio);
+
         deleteCita(fecha, celular, servicio);
     }
 }
@@ -51,8 +51,9 @@ void CabinaSQLQueries::filterQueryByCellphone(QString celular)
                  "' AND Fecha <= '" + DateManipulation::Instance().upperBoundDate().toString("yyyy-MM-dd") + "'" +
                  "ORDER BY Fecha ASC");
     CabinaViewModel::Instance().setQuery(query);
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug() << "CabinaSQLQueries::filterQueryByCellphone - Last error: " << CabinaViewModel::Instance().lastError().text();
+
+    ClinicaCore::Instance().consoleOut("CabinaSQLQueries::filterQueryByCellphone - Last error: " +
+                                       CabinaViewModel::Instance().lastError().text());
 }
 void CabinaSQLQueries::filterQueryByLastName(const QString apellidos)
 {
@@ -64,8 +65,9 @@ void CabinaSQLQueries::filterQueryByLastName(const QString apellidos)
                  "' AND Fecha <= '" + DateManipulation::Instance().upperBoundDate().toString("yyyy-MM-dd") + "'" +
                  "ORDER BY Fecha ASC");
     CabinaViewModel::Instance().setQuery(query);
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug() << "CabinaSQLQueries::filterQueryByLastName - Last error: " << CabinaViewModel::Instance().lastError().text();
+
+    ClinicaCore::Instance().consoleOut("CabinaSQLQueries::filterQueryByLastName - Last error: " +
+                                       CabinaViewModel::Instance().lastError().text());
 }
 void CabinaSQLQueries::updateQuery(const QString cabina)
 {
@@ -80,9 +82,11 @@ void CabinaSQLQueries::updateQuery(const QString cabina)
                 " WHERE Fecha >= '" + DateManipulation::Instance().lowerBoundDate().toString("yyyy-MM-dd") +
                 "' AND Fecha <= '" + DateManipulation::Instance().upperBoundDate().toString("yyyy-MM-dd") + "'" +
                 "ORDER BY Fecha ASC";
+
         CabinaViewModel::Instance().setQuery(query);
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug() << "CabinaSQLQueries::updateQuery - Last error: " << CabinaViewModel::Instance().lastError().text();
+
+        ClinicaCore::Instance().consoleOut("CabinaSQLQueries::updateQuery - Last error: " + CabinaViewModel::Instance().lastError().text());
+
         return;
     }
     else if (ClinicaCore::Instance().ubicacion().compare("La Capilla, 5 de Feb", Qt::CaseInsensitive) == 0)
@@ -111,8 +115,8 @@ void CabinaSQLQueries::updateQuery(const QString cabina)
             "' AND Fecha <= '" + DateManipulation::Instance().upperBoundDate().toString("yyyy-MM-dd") + "'" +
             "ORDER BY Fecha ASC";
     CabinaViewModel::Instance().setQuery(query);
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug() << "CabinaSQLQueries::updateQuery - Last error: " << CabinaViewModel::Instance().lastError().text();
+
+    ClinicaCore::Instance().consoleOut("CabinaSQLQueries::updateQuery - Last error: " + CabinaViewModel::Instance().lastError().text());
 }
 void CabinaSQLQueries::updateID()
 {
@@ -134,8 +138,8 @@ void CabinaSQLQueries::updateID()
     query.bindValue(":horaInicio", horaInicio);
 
     query.exec();
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug() << "CabinaSQLQueries::updateID - Last error: " << query.lastError();
+
+    ClinicaCore::Instance().consoleOut("CabinaSQLQueries::updateID - Last error: " + query.lastError().text());
 }
 void CabinaSQLQueries::updateRowInTable(QString nombre, QString apellidos,
                                        QString celular, QString tratamiento, QString servicio,
@@ -198,10 +202,10 @@ void CabinaSQLQueries::updateRowInTable(QString nombre, QString apellidos,
         importeCobrado = " ";
     }
 
+    //update query
     QSqlQuery query;
     QString updateString = "UPDATE ";
     updateString.append(AgendarClienteViewData::Instance().getNombreDeTabla() + " ");
-
     query.prepare(updateString +
                   "SET Nombre = :nombre, "
                   "    Apellidos = :apellidos, "
@@ -234,8 +238,8 @@ void CabinaSQLQueries::updateRowInTable(QString nombre, QString apellidos,
     query.bindValue(":id", QString::number(DateManipulation::Instance().getCurrentID()));
 
     query.exec();
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug() << "CabinaSQLQueries::updateRowInTable - Last error: " << CabinaViewModel::Instance().lastError().text();
+
+    ClinicaCore::Instance().consoleOut("CabinaSQLQueries::updateRowInTable - Last error: " + CabinaViewModel::Instance().lastError().text());
 }
 void CabinaSQLQueries::clearRowsDueToBusyRow()
 {
@@ -276,8 +280,8 @@ void CabinaSQLQueries::clearRowsDueToBusyRow()
         query.bindValue(":id", currentID);
 
         query.exec();
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug() << "CabinaSQLQueries::clearRowsDueToBusyRow - Last error: " << query.lastError();
+
+        ClinicaCore::Instance().consoleOut("CabinaSQLQueries::clearRowsDueToBusyRow - Last error: " + query.lastError().text());
     }
 }
 void CabinaSQLQueries::deleteCita(QString fecha, QString celular, QString servicio)
@@ -301,8 +305,8 @@ void CabinaSQLQueries::deleteCita(QString fecha, QString celular, QString servic
                  "AND   Celular = '" + celular + "'"
                  "AND   Servicio = '" + servicio + "'");
     CabinaViewModel::Instance().setQuery(query);
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug() << "CabinaSQLQueries::deleteCita - Last error: " << CabinaViewModel::Instance().lastError().text();
+
+    ClinicaCore::Instance().consoleOut("CabinaSQLQueries::deleteCita - Last error: " + CabinaViewModel::Instance().lastError().text());
 }
 bool CabinaSQLQueries::rowIsEmpty() const
 {
@@ -319,7 +323,7 @@ bool CabinaSQLQueries::rowIsEmpty() const
         bool nombreEsNull = query.value(0).isNull();
         QString nombre = query.value(0).toString();
         nombre = nombre.simplified();
-        nombre.replace( " ", "" );
+        nombre.replace( " ", "");
         if (nombreEsNull == true || nombre.compare("", Qt::CaseInsensitive) == 0)
             return true;
         else

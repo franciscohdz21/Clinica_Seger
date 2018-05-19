@@ -48,14 +48,14 @@ Window {
         visible: false
     }
 
+    //no backend logic implemented
     MessageDialog {
         id: messageDialog
         title: "Error fatal"
         text: "Conexion ha sido interrumpida, reinicie programa."
         icon: StandardIcon.Critical
-        visible: establishconnection.connectionErrorMessageVisible
+        visible: false
         onAccepted: {
-            establishconnection.terminate()
             Qt.quit()
         }
         Component.onCompleted: visible = false

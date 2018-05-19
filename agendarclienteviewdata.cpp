@@ -110,8 +110,7 @@ void AgendarClienteViewData::setID(int row)
     if ( (!CabinaViewModel::Instance().record().isGenerated("Fecha")) || (!CabinaViewModel::Instance().record().isGenerated("Hora_Inicio")) ||
          (!CabinaViewModel::Instance().record().isGenerated("Hora_Termino")) )
     {
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug() << "AgendarClienteViewData::setID - Error setting fecha, hora inicio o hora termino";
+        ClinicaCore::Instance().consoleOut("AgendarClienteViewData::setID - Error setting fecha, hora inicio o hora termino");
     }
     else
     {
@@ -119,12 +118,11 @@ void AgendarClienteViewData::setID(int row)
         tmpHoraInicio.chop(3);
         tmpHoraInicio.remove(2, 1);
         setHoraInicioForID(tmpHoraInicio);
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug() << "AgendarClienteViewData::setID - Hora for ID: " << m_horaInicioForID;
+        ClinicaCore::Instance().consoleOut("AgendarClienteViewData::setID - Hora for ID: " + m_horaInicioForID);
 
         //Fecha
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug() << "AgendarClienteViewData::setID - Fecha: " << CabinaViewModel::Instance().query().value("Fecha").toString();
+        ClinicaCore::Instance().consoleOut("AgendarClienteViewData::setID - Fecha: " + CabinaViewModel::Instance().query().value("Fecha").toString());
+
         QDate date;
         DateManipulation::Instance().generateID(date.fromString(CabinaViewModel::Instance().query().value("Fecha").toString(), "yyyy-MM-dd"),
                                                  m_horaInicioForID);

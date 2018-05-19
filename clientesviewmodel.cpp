@@ -44,7 +44,6 @@ QVariant ClientesViewModel::data(const QModelIndex &index, int role) const
         //output string validation
         QString output = this->query().value(fieldName).toString();
         return validateOutputString(output, fieldName);
-        //return output;
     }
     return QVariant();
 }
@@ -57,13 +56,13 @@ void ClientesViewModel::setClientesProperties(int row)
     if ( (!this->record().isGenerated("Nombre")) || (!this->record().isGenerated("Apellidos")) ||
          (!this->record().isGenerated("Celular")) )
     {
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug() << "Error setting nombre, apellidos o celular";
+        ClinicaCore::Instance().consoleOut("ClientesViewModel::setClientesProperties - Error setting nombre, apellidos o celular");
     }
     else
     {
         if (!this->query().seek(row))
             return;
+
         AgendarClienteViewData::Instance().setNombre(this->query().value("Nombre").toString());
         AgendarClienteViewData::Instance().setApellidos(this->query().value("Apellidos").toString());
         AgendarClienteViewData::Instance().setCelular(this->query().value("Celular").toString());

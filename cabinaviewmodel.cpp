@@ -41,8 +41,8 @@ QVariant CabinaViewModel::data(const QModelIndex &index, int role) const
     //not generated
     if (!this->record().isGenerated(fieldName))
     {
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug() << "CabinaViewModel::data - Record not generated";
+        ClinicaCore::Instance().consoleOut("CabinaViewModel::data - Record not generated");
+
         return QVariant();
     }
     //generated

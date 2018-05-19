@@ -13,12 +13,12 @@ EditarPacienteSQLQueries &EditarPacienteSQLQueries::Instance()
 QString EditarPacienteSQLQueries::retrieveEntry(QString celular, QString column)
 {
     QSqlQuery query("SELECT " + column + " FROM clientes WHERE celular LIKE " + celular);
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug () << "Last error: " << query.lastError();
+
+    ClinicaCore::Instance().consoleOut("EditarPacienteSQLQueries::retrieveEntry - Last error: " + query.lastError().text());
+
     while (query.next())
     {
         QString queryValue = query.value(0).toString();
-        qDebug () << queryValue;
         return queryValue;
     }
     return "";

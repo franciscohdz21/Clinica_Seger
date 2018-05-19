@@ -19,11 +19,9 @@ void DateManipulation::init()
     buildYearRange();
     buildLowerBoundDate(0);
     buildUpperBoundDate(0);
-    if (ClinicaCore::Instance().developerMode() == true)
-    {
-        qDebug () << "Current date: " << m_lowerBoundDate.toString("yyyy-MM-dd");
-        qDebug () << "Upper bound date: " << m_upperBoundDate.toString("yyyy-MM-dd");
-    }
+
+    ClinicaCore::Instance().consoleOut("DateManipulation::init - Current date: " + m_lowerBoundDate.toString("yyyy-MM-dd"));
+    ClinicaCore::Instance().consoleOut("DateManipulation::init - Upper bound date: " + m_upperBoundDate.toString("yyyy-MM-dd"));
 }
 QDate DateManipulation::lowerBoundDate() const
 {
@@ -36,8 +34,8 @@ void DateManipulation::setLowerBoundDate(QDate date)
         m_lowerBoundDate = date;
         emit lowerBoundDateChanged();
     }
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug () << "Current date is: " << m_lowerBoundDate;
+
+    ClinicaCore::Instance().consoleOut("DateManipulation::setLowerBoundDate - Current date is: " + m_lowerBoundDate.toString("yyyy-MM-dd"));
 }
 void DateManipulation::buildLowerBoundDate(int year)
 {
@@ -50,8 +48,9 @@ void DateManipulation::buildLowerBoundDate(int year)
         // convert now to string form
         char* dt = ctime(&now);
         QString currentDateAndTime = dt;
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug () << "The local date and time is: " << currentDateAndTime;
+
+        ClinicaCore::Instance().consoleOut("DateManipulation::buildLowerBoundDate - The local date and time is: " + currentDateAndTime);
+
         QStringList currentDateAndTimeSplit = currentDateAndTime.split(" ");
         QString day = currentDateAndTimeSplit.at(2);
         QString month = currentDateAndTimeSplit.at(1);
@@ -110,8 +109,8 @@ void DateManipulation::setUpperBoundDate(QDate date)
         m_upperBoundDate = date;
         emit upperBoundDateChanged();
     }
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug () << "Upper bound date is: " << m_upperBoundDate;
+
+    ClinicaCore::Instance().consoleOut("DateManipulation::setUpperBoundDate - Upper bound date is: " + m_upperBoundDate.toString("yyyy-MM-dd"));
 }
 void DateManipulation::buildUpperBoundDate(int year)
 {
@@ -157,8 +156,7 @@ void DateManipulation::buildUpperBoundDate(int year)
 
         int tmpMonth = month.toInt();
         tmpMonth = tmpMonth + MAX_MESES_CITA;
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug () << tmpMonth;
+
         if (tmpMonth > 12)
         {
             tmpMonth = tmpMonth - 12;
@@ -213,8 +211,8 @@ void DateManipulation::generateID(QDate date, QString horaInicio)
     setCurrentID(ID.toLongLong());
     setCurrentDate(date);;
     setCurrentInitialTime(horaInicio);
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug () << "Final ID: " << ID.toLongLong();
+
+    ClinicaCore::Instance().consoleOut("DateManipulation::generateID - Final ID: " + ID.toLongLong());
 }
 long long int DateManipulation::getCurrentID() const
 {
@@ -264,10 +262,10 @@ void DateManipulation::buildYearRange()
     // convert now to string form
     char* dt = ctime(&now);
     QString currentDateAndTime = dt;
-    if (ClinicaCore::Instance().developerMode() == true)
-        qDebug () << "The local date and time is: " << currentDateAndTime;
-    QStringList currentDateAndTimeSplit = currentDateAndTime.split(" ");
 
+    ClinicaCore::Instance().consoleOut("DateManipulation::buildYearRange - The local date and time is: " + currentDateAndTime);
+
+    QStringList currentDateAndTimeSplit = currentDateAndTime.split(" ");
     QString year = currentDateAndTimeSplit.at(4);
     year.chop(1);
     int yearInt;

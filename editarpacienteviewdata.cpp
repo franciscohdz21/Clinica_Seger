@@ -81,8 +81,9 @@ void EditarPacienteViewData::setFechaDeNacimiento(QString fechaDeNacimiento)
         emit fechaDeNacimientoChanged();
         //process date, format: YYYY-MM-DD
         QString fecha = m_fechaDeNacimiento;
-        if (ClinicaCore::Instance().developerMode() == true)
-            qDebug () << "Fecha: " << fecha;
+
+        ClinicaCore::Instance().consoleOut("EditarPacienteViewData::setFechaDeNacimiento - Fecha: " + fecha);
+
         splitFecha(fecha);
     }
 }
@@ -90,7 +91,6 @@ int EditarPacienteViewData::diaFechaDeNacimientoIndex() const
 {
     return m_diaFechaDeNacimientoIndex;
 }
-
 void EditarPacienteViewData::setDiaFechaDeNacimientoIndex(int fechaDeNacimientoIndex)
 {
     if (fechaDeNacimientoIndex != m_diaFechaDeNacimientoIndex)
@@ -224,15 +224,14 @@ void EditarPacienteViewData::splitFecha(QString fecha)
     //ano
     QString tmp = fecha.left(4);
     setAnoFechaDeNacimiento(tmp);
-//    qDebug () << "1: " << tmp;
     fecha.remove(0, 5);
+
     //mes
     tmp = fecha.left(2);
     setMesFechaDeNacimientoIndex(tmp.toInt()-1);
-//    qDebug () << "2: " << tmp.toInt();
     fecha.remove(0, 3);
+
     //dia
     tmp = fecha;
-//    qDebug () << "3: " << tmp.toInt();
     setDiaFechaDeNacimientoIndex(tmp.toInt()-1);
 }
