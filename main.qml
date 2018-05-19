@@ -15,11 +15,6 @@ Window {
     minimumHeight: 300
     maximumHeight: 300
     title: "Establecer Conexion"
-    onClosing: {
-        close.accepted = false
-        establishconnection.terminate()
-        Qt.quit()
-    }
 
     VentanaDeLogin {
         id: ventanaDeLogin
@@ -84,7 +79,6 @@ Window {
                     }
 
                     onPressed: {
-                        establishconnection.terminate()
                         Qt.quit()
                     }
                 }

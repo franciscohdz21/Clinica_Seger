@@ -2,10 +2,9 @@
 #define ESTABLISHCONNECTION_H
 
 #include <QObject>
-#include <QThread>
 #include <QSqlDatabase>
 
-class EstablishConnection : public QThread
+class EstablishConnection : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool connectionErrorMessageVisible READ connectionErrorMessageVisible WRITE setConnectionErrorMessageVisible NOTIFY connectionErrorMessageVisibleChanged)
@@ -20,8 +19,6 @@ public:
     //Other
     Q_INVOKABLE bool establecerConexion(const QString IP, const int puerto, const QString contrasena);
     Q_INVOKABLE int loginAPrograma(const QString usuario, const QString contrasena);
-    void run();
-    Q_INVOKABLE void terminateThread();
 
 signals:
     void connectionErrorMessageVisibleChanged();

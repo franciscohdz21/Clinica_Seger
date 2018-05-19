@@ -12,11 +12,6 @@ Window {
     minimumHeight: 300
     maximumHeight: 300
     title: "Iniciar Sesion"
-    onClosing: {
-        close.accepted = false
-        establishconnection.terminate()
-        Qt.quit()
-    }
 
     VentanaDeManipulacionSQL {
         id: ventanaDeManipulacionSQL
@@ -75,7 +70,6 @@ Window {
                         radius: 4
                     }
                     onPressed: {
-                        establishconnection.terminate()
                         Qt.quit()
                     }
                 }

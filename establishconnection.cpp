@@ -91,31 +91,6 @@ int EstablishConnection::loginAPrograma(const QString usuario, const QString con
         return ClinicaCore::Instance().permiso();
     }
 }
-void EstablishConnection::run()
-{
-    unsigned int microseconds;
-    microseconds = 4000000;
-    while (true)
-    {
-        usleep(microseconds);
-        if (m_connected == true)
-        {
-            if (m_sqlDatabse.open() == false)
-            {
-                ClinicaCore::Instance().consoleOut("EstablishConnection::run - Connection dropped");
-
-                setConnectionErrorMessageVisible(true);
-                return;
-            }
-            if (ClinicaCore::Instance().developerMode() == true)
-            usleep(microseconds);
-        }
-    }
-}
-void EstablishConnection::terminateThread()
-{
-    this->terminate();
-}
 EstablishConnection::EstablishConnection(): m_connected(false), m_connectionErrorMessageVisible(false)
 {
 

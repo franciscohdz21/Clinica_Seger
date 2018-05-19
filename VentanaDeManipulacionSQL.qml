@@ -13,11 +13,6 @@ Window {
     minimumHeight: 680
     maximumHeight: 680
     title: "Clinica Seger 1.0"
-    onClosing: {
-        close.accepted = false
-        establishconnection.terminate()
-        Qt.quit()
-    }
 
     AgendarCliente {
         id: agendarCliente
@@ -281,7 +276,6 @@ Window {
                     radius: 4
                 }
                 onClicked: {
-                    establishconnection.terminate()
                     Qt.quit()
                 }
             }

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_EstablishConnection_t {
-    QByteArrayData data[11];
-    char stringdata0[167];
+    QByteArrayData data[10];
+    char stringdata0[151];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,14 +40,13 @@ QT_MOC_LITERAL(5, 80, 6), // "puerto"
 QT_MOC_LITERAL(6, 87, 10), // "contrasena"
 QT_MOC_LITERAL(7, 98, 14), // "loginAPrograma"
 QT_MOC_LITERAL(8, 113, 7), // "usuario"
-QT_MOC_LITERAL(9, 121, 15), // "terminateThread"
-QT_MOC_LITERAL(10, 137, 29) // "connectionErrorMessageVisible"
+QT_MOC_LITERAL(9, 121, 29) // "connectionErrorMessageVisible"
 
     },
     "EstablishConnection\0"
     "connectionErrorMessageVisibleChanged\0"
     "\0establecerConexion\0IP\0puerto\0contrasena\0"
-    "loginAPrograma\0usuario\0terminateThread\0"
+    "loginAPrograma\0usuario\0"
     "connectionErrorMessageVisible"
 };
 #undef QT_MOC_LITERAL
@@ -58,20 +57,19 @@ static const uint qt_meta_data_EstablishConnection[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
-       1,   48, // properties
+       3,   14, // methods
+       1,   42, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   34,    2, 0x06 /* Public */,
+       1,    0,   29,    2, 0x06 /* Public */,
 
  // methods: name, argc, parameters, tag, flags
-       3,    3,   35,    2, 0x02 /* Public */,
-       7,    2,   42,    2, 0x02 /* Public */,
-       9,    0,   47,    2, 0x02 /* Public */,
+       3,    3,   30,    2, 0x02 /* Public */,
+       7,    2,   37,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -79,10 +77,9 @@ static const uint qt_meta_data_EstablishConnection[] = {
  // methods: parameters
     QMetaType::Bool, QMetaType::QString, QMetaType::Int, QMetaType::QString,    4,    5,    6,
     QMetaType::Int, QMetaType::QString, QMetaType::QString,    8,    6,
-    QMetaType::Void,
 
  // properties: name, type, flags
-      10, QMetaType::Bool, 0x00495103,
+       9, QMetaType::Bool, 0x00495103,
 
  // properties: notify_signal_id
        0,
@@ -101,7 +98,6 @@ void EstablishConnection::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         case 2: { int _r = _t->loginAPrograma((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
-        case 3: _t->terminateThread(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -137,7 +133,7 @@ void EstablishConnection::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
 }
 
 const QMetaObject EstablishConnection::staticMetaObject = {
-    { &QThread::staticMetaObject, qt_meta_stringdata_EstablishConnection.data,
+    { &QObject::staticMetaObject, qt_meta_stringdata_EstablishConnection.data,
       qt_meta_data_EstablishConnection,  qt_static_metacall, nullptr, nullptr}
 };
 
@@ -152,22 +148,22 @@ void *EstablishConnection::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_EstablishConnection.stringdata0))
         return static_cast<void*>(this);
-    return QThread::qt_metacast(_clname);
+    return QObject::qt_metacast(_clname);
 }
 
 int EstablishConnection::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QThread::qt_metacall(_c, _id, _a);
+    _id = QObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 4;
+        _id -= 3;
     }
 #ifndef QT_NO_PROPERTIES
    else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
