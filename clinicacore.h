@@ -50,6 +50,7 @@ public:
     void setDeveloperMode(bool trueOrFalse);
     Q_INVOKABLE void init(bool devMode);
     void consoleOut(QString message);
+    void consoleOut(QString message, QStringList message2);
 
 signals:
     void usuarioChanged();

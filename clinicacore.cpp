@@ -206,6 +206,15 @@ void ClinicaCore::consoleOut(QString message)
         qDebug () << message;
     }
 }
+void ClinicaCore::consoleOut(QString message, QStringList message2)
+{
+    if (m_developerMode == false)
+        return;
+    else
+    {
+        qDebug () << message << message2;
+    }
+}
 ClinicaCore::ClinicaCore()
 {
     init(false);

@@ -82,7 +82,7 @@ int EstablishConnection::loginAPrograma(const QString usuario, const QString con
             ClinicaCore::Instance().buildCabinas(sqlQuery2.value(0).toString());
         }
 
-        //ClinicaCore::Instance().consoleOut("EstablishConnection::loginAPrograma - Cabinas: " + ClinicaCore::Instance().cabinas());
+        ClinicaCore::Instance().consoleOut("EstablishConnection::loginAPrograma - Cabinas: ", ClinicaCore::Instance().cabinas());
 
         //set tratamientos and servicios
         QStringList tmp;
