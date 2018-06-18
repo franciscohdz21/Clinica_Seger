@@ -14,16 +14,15 @@ ClientesSQLQueries &ClientesSQLQueries::Instance()
 }
 void ClientesSQLQueries::updateQuery()
 {
-    QString query = "SELECT * FROM clientes";
+    QString query = "SELECT * FROM " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion());
     ClientesViewModel::Instance().setQuery(query);
 
-    ClinicaCore::Instance().consoleOut("ClientesSQLQueries::updateQuery - Last error: " +
-                                       ClientesViewModel::Instance().lastError().text());
+    ClinicaCore::Instance().consoleOut("ClientesSQLQueries::updateQuery - Last error: " + ClientesViewModel::Instance().lastError().text());
 }
 void ClientesSQLQueries::filterQueryByCellphone(QString celular)
 {
     QString celularForQuery = "'%" + celular + "%'";
-    QString query = "SELECT * FROM clientes WHERE celular LIKE ";
+    QString query = "SELECT * FROM " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " WHERE celular LIKE ";
     query.append(celularForQuery);
     ClientesViewModel::Instance().setQuery(query);
 
@@ -33,7 +32,7 @@ void ClientesSQLQueries::filterQueryByCellphone(QString celular)
 void ClientesSQLQueries::filterQueryByLastName(const QString apellidos)
 {
     QString lastNameForQuery = "'%" + apellidos + "%'";
-    QString query = "SELECT * FROM clientes WHERE apellidos LIKE ";
+    QString query = "SELECT * FROM " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " WHERE apellidos LIKE ";
     query.append(lastNameForQuery);
     ClientesViewModel::Instance().setQuery(query);
 
@@ -80,7 +79,7 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
 
     //nombre
     QSqlQuery query;
-    query.prepare("UPDATE clientes "
+    query.prepare("UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Nombre = :nombre, "
                       "Apellidos = :apellidos, "
                       "Celular = :celular "
@@ -94,44 +93,44 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     ClinicaCore::Instance().consoleOut("ClientesSQLQueries::updatePaciente - Last error: " + query.lastError().text());
 
     //apellidos
-    QSqlQuery query2;
-    query2.clear();
-    query2.prepare("UPDATE clientes "
+    query.clear();
+    query.prepare("UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Apellidos = :apellidos "
                   "WHERE Celular = :celular");
 
-    query2.bindValue(":apellidos", apellidos);
-    query2.bindValue(":celular", celular);
-    query2.exec();
+    query.bindValue(":apellidos", apellidos);
+    query.bindValue(":celular", celular);
+    query.exec();
 
-    ClinicaCore::Instance().consoleOut("ClientesSQLQueries::updatePaciente - Last error: " + query2.lastError().text());
+    ClinicaCore::Instance().consoleOut("ClientesSQLQueries::updatePaciente - Last error: " + query.lastError().text());
 
     //celular
-    QSqlQuery query3;
-    QString queryStr = "UPDATE clientes "
+    query.clear();
+    QString queryStr = "UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                        "SET Celular = :celular "
                        "WHERE Celular = ";
     queryStr.append(currentCelular);
-    query3.prepare(queryStr);
-    query3.bindValue(":celular", celular);
-    query3.exec();
+    query.prepare(queryStr);
+    query.bindValue(":celular", celular);
+    query.exec();
 
-    ClinicaCore::Instance().consoleOut("ClientesSQLQueries::updatePaciente - Last error: " + query3.lastError().text());
+    ClinicaCore::Instance().consoleOut("ClientesSQLQueries::updatePaciente - Last error: " + query.lastError().text());
 
     //telefono
     query.clear();
-    query.prepare("UPDATE clientes "
+    query.prepare("UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Telefono = :telefono "
                   "WHERE Celular = :celular");
 
     query.bindValue(":telefono", telefono);
     query.bindValue(":celular", celular);
+    query.exec();
 
     ClinicaCore::Instance().consoleOut("ClientesSQLQueries::updatePaciente - Last error: " + query.lastError().text());
 
     //correo
     query.clear();
-    query.prepare("UPDATE clientes "
+    query.prepare("UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Correo = :correo "
                   "WHERE Celular = :celular");
 
@@ -160,7 +159,7 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
     ClinicaCore::Instance().consoleOut("ClientesSQLQueries::updatePaciente - Fecha to update: " + fecha);
 
     query.clear();
-    query.prepare("UPDATE clientes "
+    query.prepare("UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Fecha_De_Nacimiento = :fechaDeNacimiento "
                   "WHERE Celular = :celular");
 
@@ -172,7 +171,7 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
 
     //calle y numero
     query.clear();
-    query.prepare("UPDATE clientes "
+    query.prepare("UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Calle_Y_Numero = :calleYNumero "
                   "WHERE Celular = :celular");
     query.bindValue(":calleYNumero", calleYNumero);
@@ -183,7 +182,7 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
 
     //colonia
     query.clear();
-    query.prepare("UPDATE clientes "
+    query.prepare("UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Colonia = :colonia "
                   "WHERE Celular = :celular");
     query.bindValue(":colonia", colonia);
@@ -194,7 +193,7 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
 
     //ciudad
     query.clear();
-    query.prepare("UPDATE clientes "
+    query.prepare("UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Ciudad = :ciudad "
                   "WHERE Celular = :celular");
     query.bindValue(":ciudad", ciudad);
@@ -205,7 +204,7 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
 
     //estado
     query.clear();
-    query.prepare("UPDATE clientes "
+    query.prepare("UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Estado = :estado "
                   "WHERE Celular = :celular");
     query.bindValue(":estado", estado);
@@ -216,7 +215,7 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
 
     //sesiones pagadas
     query.clear();
-    query.prepare("UPDATE clientes "
+    query.prepare("UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Sesiones_Pagadas = :sesionesPagadas "
                   "WHERE Celular = :celular");
 
@@ -228,7 +227,7 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
 
     //saldo a favor
     query.clear();
-    query.prepare("UPDATE clientes "
+    query.prepare("UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Saldo_A_Favor = :saldoAFavor "
                   "WHERE Celular = :celular");
     query.bindValue(":saldoAFavor", saldoAFavor);
@@ -239,7 +238,7 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
 
     //sesiones de garantia
     query.clear();
-    query.prepare("UPDATE clientes "
+    query.prepare("UPDATE " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Sesiones_De_Garantia = :sesionesDeGarantia "
                   "WHERE Celular = :celular");
     query.bindValue(":sesionesDeGarantia", sesionesDeGarantia);
@@ -253,7 +252,7 @@ void ClientesSQLQueries::updatePaciente(QString nombre, QString apellidos, QStri
 void ClientesSQLQueries::addPaciente(QString nombre, QString apellidos, QString celular)
 {
     QSqlQuery query;
-    query.prepare("INSERT INTO Clientes "
+    query.prepare("INSERT INTO " + getUbicacionForTableText(ClinicaCore::Instance().ubicacion()) + " "
                   "SET Nombre = :nombre, "
                   "    Apellidos = :apellidos, "
                   "    Celular = :celular;");
@@ -263,4 +262,18 @@ void ClientesSQLQueries::addPaciente(QString nombre, QString apellidos, QString 
     query.exec();
 
     ClinicaCore::Instance().consoleOut("ClientesSQLQueries::updatePaciente - Last error: " + query.lastError().text());
+}
+QString ClientesSQLQueries::getUbicacionForTableText(QString ubicacionFromLogin)
+{
+    if (ubicacionFromLogin.compare("Test", Qt::CaseInsensitive) == 0)
+        return "clientes_test";
+    else if (ubicacionFromLogin.compare("La Capilla, 5 de Feb", Qt::CaseInsensitive) == 0)
+        return "clientes_capilla";
+    else if (ubicacionFromLogin.compare("Colinas del Cimatario", Qt::CaseInsensitive) == 0)
+        return "clientes_colinas";
+    else if (ubicacionFromLogin.compare("San Juan del Rio", Qt::CaseInsensitive) == 0)
+        return "clientes_san_juan";
+    else if (ubicacionFromLogin.compare("Global", Qt::CaseInsensitive) == 0)
+        return "clientes_global";
+    return "";
 }

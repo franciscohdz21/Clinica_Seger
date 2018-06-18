@@ -63,7 +63,6 @@ int EstablishConnection::loginAPrograma(const QString usuario, const QString con
         query.append("SELECT Ubicacion FROM personal WHERE Usuario = '" + usuario + "'");
         query.append(" AND Contrasena = '"+ contrasena + "'");
         QSqlQuery sqlQuery(query);
-        ClinicaCore::Instance().setUbicacion(""); // NEEDED?
         while (sqlQuery.next())
         {
             ClinicaCore::Instance().setUbicacion(sqlQuery.value(0).toString());

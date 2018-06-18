@@ -37,12 +37,8 @@ Window {
             }
             QuickControls_2_3.TextField {
                 id: ipTextField
-                text: {
-                    if (clinicacore.developerMode === true)
-                        return "127.0.0.1"
-                    else
-                        return ""
-                }
+                enabled: false
+                text: "127.0.0.1"
             }
             Text {
                 text: "Puerto:"
@@ -50,7 +46,6 @@ Window {
             QuickControls_2_3.TextField {
                 id: puertoTextField
                 text: "3306"
-                readOnly: false
                 enabled: false
             }
             Text {

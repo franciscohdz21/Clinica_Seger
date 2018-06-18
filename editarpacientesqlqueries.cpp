@@ -3,6 +3,7 @@
 #include <QSqlError>
 #include "editarpacientesqlqueries.h"
 #include "editarpacienteviewdata.h"
+#include "clientessqlqueries.h"
 #include "clinicacore.h"
 
 EditarPacienteSQLQueries &EditarPacienteSQLQueries::Instance()
@@ -12,7 +13,8 @@ EditarPacienteSQLQueries &EditarPacienteSQLQueries::Instance()
 }
 QString EditarPacienteSQLQueries::retrieveEntry(QString celular, QString column)
 {
-    QSqlQuery query("SELECT " + column + " FROM clientes WHERE celular LIKE " + celular);
+    QSqlQuery query("SELECT " + column + " FROM " + ClientesSQLQueries::Instance().getUbicacionForTableText(ClinicaCore::Instance().ubicacion())
+                    + " WHERE celular LIKE " + celular);
 
     ClinicaCore::Instance().consoleOut("EditarPacienteSQLQueries::retrieveEntry - Last error: " + query.lastError().text());
 

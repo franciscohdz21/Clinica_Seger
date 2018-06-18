@@ -88,6 +88,7 @@ Window {
                                                             contrasena2TextField.text) !== -1)
                         {
                             ventanaDeLogin.hide()
+
                             ventanaDeManipulacionSQL.show()
                         }
                         else {

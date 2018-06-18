@@ -1483,6 +1483,7 @@ release/editarpacientesqlqueries.o: editarpacientesqlqueries.cpp C:/Qt/5.10.0/mi
 		C:/Qt/5.10.0/mingw53_32/include/QtCore/QObject \
 		editarpacienteviewdata.h \
 		C:/Qt/5.10.0/mingw53_32/include/QtCore/QVector \
+		clientessqlqueries.h \
 		clinicacore.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\editarpacientesqlqueries.o editarpacientesqlqueries.cpp
 

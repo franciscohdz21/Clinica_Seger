@@ -21,6 +21,9 @@ public:
                                    QString sesionesDeGarantia, QString currentCelular);
     Q_INVOKABLE void addPaciente(QString nombre, QString apellidos, QString celular);
 
+    //helper
+    QString getUbicacionForTableText(QString ubicacionFromLogin);
+
 private:
     ClientesSQLQueries()=default;
     ClientesSQLQueries(ClientesSQLQueries const&)=delete;

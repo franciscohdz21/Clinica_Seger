@@ -802,6 +802,8 @@ Window {
                                                       agendarClienteCelularTextField.text)
                     }
 
+                    agendarclienteviewdata.clienteEsNuevo = true
+
                     //clear text
                     agendarClienteNombreTextField.text = ""
                     agendarClienteApellidosTextField.text = ""

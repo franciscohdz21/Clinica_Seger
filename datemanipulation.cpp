@@ -212,7 +212,7 @@ void DateManipulation::generateID(QDate date, QString horaInicio)
     setCurrentDate(date);;
     setCurrentInitialTime(horaInicio);
 
-    ClinicaCore::Instance().consoleOut("DateManipulation::generateID - Final ID: " + ID.toLongLong());
+    ClinicaCore::Instance().consoleOut("DateManipulation::generateID - Final ID: " + ID);
 }
 long long int DateManipulation::getCurrentID() const
 {
